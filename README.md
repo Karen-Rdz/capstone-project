@@ -35,6 +35,7 @@ _Driver:_ a user who needs to plan a route
 - As a driver, I want to know how many stops I have to make depending on the the time of the trip, so that I could plan my trip according of the result.
 
 ## Endpoints
+
 | **HTTP Verb** | **Name** | **Description**                             |
 |---------------|----------|---------------------------------------------|
 | POST          | user     | Create a new user account                   |
@@ -42,3 +43,14 @@ _Driver:_ a user who needs to plan a route
 | DELETE        | stops/id | Delete a stop of the user's trip            |
 | GET           | map      | Get the map with the route and the services |
 | POST          | trip     | Save trip to the user's account             |
+
+## Data Model
+
+### stop
+| **column name** | **type** | **description**              |
+|-----------------|----------|------------------------------|
+| id              | integer  | primary key                  |
+| latitude        | float    | location of the stop         |
+| longitude       | float    | location of the stop         |
+| type            | string   | Type of service              |
+| service_id      | integer  | foreign key to service table |
