@@ -22,6 +22,7 @@ _Driver:_ a user who needs to plan a route
 
 ## User Stories
 
+- As a driver, I want to create or login to my account on Trip Planner
 - As a driver, I want to visualize my route, so that I know where to go during my trip.
 - As a driver, I want to know the gas stations on my route, so that I could see which ones are close to me.
 - As a driver, I want to know the gas stations and restaurants on my route, so that I could see which ones are close to me.
