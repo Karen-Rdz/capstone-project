@@ -33,3 +33,12 @@ _Driver:_ a user who needs to plan a route
 - As a driver, I want to know how many stops I have to make depending on the distance of the route, so that I could plan my trip according of the result.
 - As a driver, I want to know how many stops I have to make depending on the the gas tank of my car, so that I could plan my trip according of the result.
 - As a driver, I want to know how many stops I have to make depending on the the time of the trip, so that I could plan my trip according of the result.
+
+## Endpoints
+| **HTTP Verb** | **Name** | **Description**                             |
+|---------------|----------|---------------------------------------------|
+| POST          | user     | Create a new user account                   |
+| POST          | stops    | Add a stop to the user's trip               |
+| DELETE        | stops/id | Delete a stop of the user's trip            |
+| GET           | map      | Get the map with the route and the services |
+| POST          | trip     | Save trip to the user's account             |
