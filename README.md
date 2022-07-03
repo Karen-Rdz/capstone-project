@@ -46,6 +46,14 @@ _Driver:_ a user who needs to plan a route
 
 ## Data Model
 
+### trip
+| **column name** | **type**          | **description**                                  |
+|-----------------|-------------------|--------------------------------------------------|
+| id              | integer           | primary key                                      |
+| origin          | string            | where the trip begins                            |
+| destination     | string            | where the trip stops                             |
+| stops           | array of integers | foreign key that indicates the stops in the trip |
+
 ### stop
 | **column name** | **type** | **description**              |
 |-----------------|----------|------------------------------|
@@ -54,3 +62,9 @@ _Driver:_ a user who needs to plan a route
 | longitude       | float    | location of the stop         |
 | type            | string   | Type of service              |
 | service_id      | integer  | foreign key to service table |
+
+### service
+| **column name** | **type** | **description**      |
+|-----------------|----------|----------------------|
+| id              | integer  | primary key          |
+| name            | string   | name of the service  |
