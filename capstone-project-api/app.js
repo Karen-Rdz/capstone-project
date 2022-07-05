@@ -1,7 +1,7 @@
 const express = require('express')
 
-// const storeRoutes = require('./routes/Store.js')
-// const products = require('./data/db.json')
+const plannerRoutes = require('./routes-planner')
+const data = require('./db.json')
 
 const app = express()
 
@@ -13,6 +13,7 @@ app.use(function(req, res, next) {
   next();
 });
 
+app.post('/user', plannerRoutes)
 
 app.get('/', (req, res) => {
     res.status(200).send({"ping": "pong"})

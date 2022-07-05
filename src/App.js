@@ -6,6 +6,8 @@ import Header from "./components/Header/Header";
 import Login from './components/Login/Login';
 import NumberStops from "./components/NumberStops/NumberStops";
 import Planner from "./components/Planner/Planner";
+import Summary from "./components/Summary/Summary";
+import Trips from "./components/Trips/Trips";
 
 function App() {
   return (
@@ -19,12 +21,20 @@ function App() {
             element={ <Login /> }
           />
           <Route
-            path="/trip"
+            path="/route"
             element={ <NumberStops /> }
           />
           <Route
-            path="/stops"
+            path="/planner"
             element={ <Planner /> }
+          />
+          <Route
+            path="/summary"
+            element={ <Summary /> }
+          />
+          <Route
+            path="/trips"
+            element={ <Trips /> }
           />
           <Route
             path="/finish"

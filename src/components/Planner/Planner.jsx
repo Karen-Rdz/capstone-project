@@ -12,10 +12,10 @@ export default function Planner() {
           <p>Destination</p>
           <button>Add Stop</button>
           <button>Remove Stop</button>
-          <button>See Summary</button>
-          {/* Add Link to sumary page */}
+          <button>
+            <Link to={`/summary`}>Summary</Link>
+          </button>
           <button>Save Trip</button>
-          {/* Add Link to save page */}
         </div>
         <div className="services">
           <input type="radio" /> Gas Stations

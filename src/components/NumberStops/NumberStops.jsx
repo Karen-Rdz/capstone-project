@@ -20,7 +20,7 @@ export default function NumberStops() {
           <h4>Number of Stops recommended: </h4>
         </div>
         <button>
-          <Link to={`/stops`}>Next</Link>
+          <Link to={`/planner`}>Next</Link>
         </button>
       </div>
     </>
