@@ -1,0 +1,21 @@
+.login{
+    text-align: center;
+    margin-top: 15%;
+    margin-left: 35%;
+    height: 200px;
+    width: 400px;
+}
+
+.input-texts{
+    align-items: center;
+    justify-content: space-between; 
+    margin-bottom: 10px;
+}
+
+button{
+    margin: 2px;
+}
+
+input{
+    margin: 2px;
+}
