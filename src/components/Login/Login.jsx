@@ -11,30 +11,32 @@ export default function Login() {
     axios
       .post("http://localhost:3001/user", {
         user: {
-          name: name,
+          username: name,
           password: password,
         },
       })
       .then((response) => {
-        if (response.data == "Found") {
+        if (response.data === "error") {
           alert("User already in the system. Please login");
         }
       });
   };
 
   let navigate = useNavigate();
-  async function handleCheckUser(name, password) {
-    let data = await axios.get(`http://localhost:3001/users`);
-    let userExist = data.data.users.users.find(
-      (actualUser) => actualUser.name == name && actualUser.password == password
-    );
-    if (userExist != undefined) {
+  async function handleLogin() {
+    try {
+      const res = await axios.post("http://localhost:3001/login", {
+        user: {
+          username: name,
+          password: password,
+        },
+      });
       navigate("../route");
-    } else {
+    } catch (err) {
       alert("User not in the system. Please create an account");
+      console.log(err);
     }
   }
-
   return (
     <>
       <div className="login">
@@ -53,9 +55,7 @@ export default function Login() {
           />
         </div>
         <div className="buttons">
-          <button onClick={(event) => handleCheckUser(name, password)}>
-            Login
-          </button>
+          <button onClick={handleLogin}>Login</button>
           <button onClick={handleCreateUser}>Create Account</button>
         </div>
       </div>
