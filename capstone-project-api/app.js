@@ -14,6 +14,7 @@ app.use(function(req, res, next) {
 });
 
 app.post('/user', plannerRoutes)
+app.get('/users', plannerRoutes)
 
 app.get('/', (req, res) => {
     res.status(200).send({"ping": "pong"})

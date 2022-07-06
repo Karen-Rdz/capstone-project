@@ -9,4 +9,9 @@ router.post('/user', function (req, res) {
     res.send(newUser)
 })
 
+router.get('/users', function (req, res) {
+    const users = Planner.getUsers()
+    res.send({users});
+})
+
 module.exports = router

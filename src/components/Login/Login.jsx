@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
 
@@ -8,13 +8,32 @@ export default function Login() {
   const [password, setPassword] = React.useState("");
 
   const handleCreateUser = () => {
-    axios.post("http://localhost:3001/user", {
-      user: {
-        name: name,
-        password: password,
-      },
-    });
+    axios
+      .post("http://localhost:3001/user", {
+        user: {
+          name: name,
+          password: password,
+        },
+      })
+      .then((response) => {
+        if (response.data == "Found") {
+          alert("User already in the system. Please login");
+        }
+      });
   };
+
+  let navigate = useNavigate();
+  async function handleCheckUser(name, password) {
+    let data = await axios.get(`http://localhost:3001/users`);
+    let userExist = data.data.users.users.find(
+      (actualUser) => actualUser.name == name && actualUser.password == password
+    );
+    if (userExist != undefined) {
+      navigate("../route");
+    } else {
+      alert("User not in the system. Please create an account");
+    }
+  }
 
   return (
     <>
@@ -34,8 +53,8 @@ export default function Login() {
           />
         </div>
         <div className="buttons">
-          <button>
-            <Link to={`/route`}>Login</Link>
+          <button onClick={(event) => handleCheckUser(name, password)}>
+            Login
           </button>
           <button onClick={handleCreateUser}>Create Account</button>
         </div>
