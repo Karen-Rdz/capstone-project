@@ -29,10 +29,6 @@ function App() {
             element={ <Login /> }
           />
           <Route
-            path="/map"
-            element={ <Map location={location} zoomLevel={17}/> }
-          />
-          <Route
             path="/route"
             element={ <NumberStops /> }
           />
