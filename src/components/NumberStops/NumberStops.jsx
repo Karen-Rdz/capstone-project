@@ -1,6 +1,10 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import "./NumberStops.css";
+<script
+  async
+  src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc&libraries=places&callback=initMap"
+></script>;
 
 export default function NumberStops() {
   return (

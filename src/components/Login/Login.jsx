@@ -40,23 +40,27 @@ export default function Login() {
   return (
     <>
       <div className="login">
-        <h1>Trip Planner</h1>
-        <h2>Welcome!</h2>
-        <div className="input-texts">
-          <input
-            type="text"
-            placeholder="Username"
-            onChange={(event) => setName(event.target.value)}
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            onChange={(event) => setPassword(event.target.value)}
-          />
+        <div className="welcome">
+          <h1>Welcome!</h1>
         </div>
-        <div className="buttons">
-          <button onClick={handleLogin}>Login</button>
-          <button onClick={handleCreateUser}>Create Account</button>
+        <div className="user">
+          <div className="input-texts">
+            <h2>Your Account</h2>
+            <input
+              type="text"
+              placeholder="Username"
+              onChange={(event) => setName(event.target.value)}
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              onChange={(event) => setPassword(event.target.value)}
+            />
+          </div>
+          <div className="buttons">
+            <button onClick={handleLogin}>Login</button>
+            <button onClick={handleCreateUser}>Create Account</button>
+          </div>
         </div>
       </div>
     </>

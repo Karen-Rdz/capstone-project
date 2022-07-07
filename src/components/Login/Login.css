@@ -1,15 +1,46 @@
 .login{
     text-align: center;
-    margin-top: 15%;
-    margin-left: 35%;
-    height: 200px;
-    width: 400px;
+    margin-top: 8%;
+    margin-left: 5%;
+    height: 250px;
+    width: 90%;
+    background-color: rgb(249, 140, 44);
+    border-radius: 15px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.welcome{
+    padding: 20%;
+    display: flex;
+    flex-direction: column;
+}
+
+.user{
+    margin-right: 20%;
+    display: flex;
+    flex-direction: column;
 }
 
 .input-texts{
     align-items: center;
     justify-content: space-between; 
     margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+}
+
+.buttons{
+    align-items: center;
+    /* justify-content: space-between;  */
+    margin-left: 22px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: row;
+    width: 200px;
 }
 
 button{
