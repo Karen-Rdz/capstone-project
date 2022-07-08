@@ -18,6 +18,8 @@ export default function Login() {
       .then((response) => {
         if (response.data === "error") {
           alert("User already in the system. Please login");
+        } else {
+          alert("User created successfully. Please login");
         }
       });
   };
@@ -47,21 +49,50 @@ export default function Login() {
           <div className="input-texts">
             <h2>Your Account</h2>
             <input
+              className="loginInput"
               type="text"
               placeholder="Username"
               onChange={(event) => setName(event.target.value)}
             />
             <input
+              className="loginInput"
               type="password"
               placeholder="Password"
               onChange={(event) => setPassword(event.target.value)}
             />
           </div>
           <div className="buttons">
-            <button onClick={handleLogin}>Login</button>
-            <button onClick={handleCreateUser}>Create Account</button>
+            <button className="loginButton" onClick={handleLogin}>
+              Login
+            </button>
+            <button className="loginButton" onClick={handleCreateUser}>
+              Create Account
+            </button>
           </div>
         </div>
+      </div>
+      <div className="titleInstruccions">
+        <h2> Instruccions</h2>
+      </div>
+      <div className="instruccions">
+        <div className="step1">
+          <h3>Step 1</h3>
+          <p>Create your trip</p>
+        </div>
+        <div className="step2">
+          <h3>Step 2</h3>
+          <p>Add your stops</p>
+        </div>
+        <div className="step3">
+          <h3>Step 3</h3>
+          <p>Save your trip</p>
+        </div>
+      </div>
+      <div className="titleInformation">
+        <h2>Information</h2>
+      </div>
+      <div className="information">
+        <p>Con esta pagina puedes planear tu ruta</p>
       </div>
     </>
   );

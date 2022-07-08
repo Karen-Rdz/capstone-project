@@ -30,23 +30,78 @@
     margin-bottom: 10px;
     display: flex;
     flex-direction: column;
-    width: 200px;
+    width: 250px;
 }
 
 .buttons{
     align-items: center;
-    /* justify-content: space-between;  */
-    margin-left: 22px;
+    margin-left: 45px;
     margin-bottom: 10px;
     display: flex;
     flex-direction: row;
     width: 200px;
 }
 
-button{
+.loginButton{
     margin: 2px;
+    background-color: #363636;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    justify-content: center;
+    padding-bottom: calc(.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(.5em - 1px);
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 5px;
 }
 
-input{
+.loginInput{
     margin: 2px;
+    padding-bottom: calc(.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(.5em - 1px);
+    border-radius: 5px;
+    width: 250px;
+}
+
+.titleInstruccions{
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.instruccions{
+    text-align: center;
+    margin-left: 5%;
+    height: 250px;
+    width: 76%;
+    display: flex;
+    flex-direction: row;
+    padding-left: 90px;
+    padding-right: 90px;
+    padding-top: 50px;
+    justify-content: space-between;
+    box-shadow: 0 3px 6px rgb(25 32 36 / 16%), 0 -1px 4px rgb(25 32 36 / 4%);
+}
+
+.titleInformation{
+    margin-left: 5%;
+    margin-top: 5%;
+}
+
+.information{
+    text-align: center;
+    margin-left: 5%;
+    height: 250px;
+    width: 76%;
+    display: flex;
+    flex-direction: row;
+    padding-left: 90px;
+    padding-right: 90px;
+    padding-top: 50px;
+    justify-content: space-between;
+    box-shadow: 0 3px 6px rgb(25 32 36 / 16%), 0 -1px 4px rgb(25 32 36 / 4%);
 }
