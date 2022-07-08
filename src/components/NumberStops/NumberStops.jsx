@@ -7,18 +7,19 @@ import { LoadScript } from "@react-google-maps/api";
 import Map2 from "../Map2/Map2";
 import InitMap from "../Map3/Map3";
 import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
+import Distance from "../Distance/Distance";
+import Time from "../Time/Time";
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc&libraries=geometry"></script>;
 const lib = ["places", "geometry"];
 
 export default function NumberStops() {
-  "use strict";
   const [originInput, setOriginInput] = React.useState("");
   const [destinationInput, setDestinationInput] = React.useState("");
   const [origin, setOrigin] = React.useState();
   const [destination, setDestination] = React.useState();
-  const [originName, setOriginName] = React.useState("Origin");
-  const [destinationName, setDestinationName] = React.useState("Destination");
+  const [distance, setDistance] = React.useState();
+  const [time, setTime] = React.useState();
 
   const location = {
     address: "1 Hacker Way, Menlo Park, CA 94025.",
@@ -43,12 +44,10 @@ export default function NumberStops() {
 
     axios(configOrigin)
       .then(function (responseOrigin) {
-        setOriginName(responseOrigin.data.candidates[0].name);
         setOrigin(responseOrigin.data.candidates[0]);
-        console.log(
-          // JSON.stringify(responseOrigin.data.candidates[0].geometry.location)
-          origin
-        );
+        // console.log(
+        //   JSON.stringify(responseOrigin.data.candidates[0].geometry.location)
+        // );
       })
       .catch(function (error) {
         console.log(error);
@@ -56,43 +55,38 @@ export default function NumberStops() {
 
     axios(configDestination)
       .then(function (responseDestination) {
-        setDestinationName(responseDestination.data.candidates[0].name);
         setDestination(responseDestination.data.candidates[0]);
-        console.log(
-          destination
-          // JSON.stringify(
-          //   responseDestination.data.candidates[0].geometry.location
-          // )
-        );
+        // console.log(
+        //   // JSON.stringify(
+        //   //   responseDestination.data.candidates[0].geometry.location
+        //   // )
+        // );
       })
       .catch(function (error) {
         console.log(error);
       });
   }
 
-  function calculateDistance() {
-    // console.log(origin);
-    let destinationLatLng = new window.google.maps.LatLng(
-      destination.geometry.location.lat,
-      destination.geometry.location.log
-    );
-    let originLatLng = new window.google.maps.LatLng(
-      origin.geometry.location.lat,
-      origin.geometry.location.long
-    );
+  // TODO: Error message when status is not okay
+  function calculateDistance(value) {
     let service = new window.google.maps.DistanceMatrixService();
-    console.log(originLatLng);
     service.getDistanceMatrix(
       {
-        origins: [originName],
-        destinations: [destinationName],
+        origins: [origin.name],
+        destinations: [destination.name],
         travelMode: "DRIVING",
       },
       callback
     );
     function callback(response, status) {
       // console.log(response)
-      console.log(response.rows[0].elements[0]);
+      // console.log(response.rows[0].elements[0]);
+      if (value === "distance") {
+        setDistance(response.rows[0].elements[0].distance);
+      } else if (value === "time") {
+        console.log(response.rows[0].elements[0].duratio);
+        setTime(response.rows[0].elements[0].duration);
+      }
     }
   }
 
@@ -117,18 +111,40 @@ export default function NumberStops() {
         </div>
         <LoadScript googleMapsApiKey={key} libraries={lib}>
           <div className="category">
-            <input type="radio" /> Time
-            <input type="radio" onClick={calculateDistance} /> Distance
+            <input type="radio" onClick={() => calculateDistance("time")} />{" "}
+            Time
+            <input
+              type="radio"
+              onClick={() => calculateDistance("distance")}
+            />{" "}
+            Distance
             <input type="radio" /> Fuel
           </div>
         </LoadScript>
+        {origin ? (
+          <p>
+            {origin.name} , {destination.name}
+          </p>
+        ) : (
+          <p></p>
+        )}
+        {time ? (
+          <>
+            <p> Time: {time.text}</p>
+            <Time time={time} />
+          </>
+        ) : (
+          <p></p>
+        )}
+        {distance ? (
+          <>
+            <p> Distance: {distance.text}</p>
+            <Distance distance={distance} />
+          </>
+        ) : (
+          <p></p>
+        )}
 
-        <p>
-          {originName} , {destinationName}
-        </p>
-        <div className="stops">
-          <h4>Number of Stops recommended: </h4>
-        </div>
         <button>
           <Link to={`/planner`}>Next</Link>
         </button>
