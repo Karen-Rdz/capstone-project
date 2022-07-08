@@ -4,6 +4,10 @@
 
 Web app that help you plan your trip and all the neccesary stops. You can visualize your route and different services (such as gas stations, restaurants and hotels) on the same map, so you can know which one is closer to you. You can select where you want to stop, and will save the information of it. You can save the route and all your stops, in case you want to make the trip again in the future.
 
+## Demo
+
+![](gifTrip.gif)
+
 ## Wireframes
 
 ![Wireframe 1](/Wireframes/WF1.PNG)
@@ -37,7 +41,7 @@ _Driver:_ a user who needs to plan a route
 ## Endpoints
 
 | **HTTP Verb** | **Name** | **Description**                             |
-|---------------|----------|---------------------------------------------|
+| ------------- | -------- | ------------------------------------------- |
 | POST          | user     | Create a new user account                   |
 | POST          | stops    | Add a stop to the user's trip               |
 | DELETE        | stops/id | Delete a stop of the user's trip            |
@@ -47,16 +51,18 @@ _Driver:_ a user who needs to plan a route
 ## Data Model
 
 ### trip
+
 | **column name** | **type**          | **description**                                  |
-|-----------------|-------------------|--------------------------------------------------|
+| --------------- | ----------------- | ------------------------------------------------ |
 | id              | integer           | primary key                                      |
 | origin          | string            | where the trip begins                            |
 | destination     | string            | where the trip stops                             |
 | stops           | array of integers | foreign key that indicates the stops in the trip |
 
 ### stop
+
 | **column name** | **type** | **description**              |
-|-----------------|----------|------------------------------|
+| --------------- | -------- | ---------------------------- |
 | id              | integer  | primary key                  |
 | latitude        | float    | location of the stop         |
 | longitude       | float    | location of the stop         |
@@ -64,7 +70,8 @@ _Driver:_ a user who needs to plan a route
 | service_id      | integer  | foreign key to service table |
 
 ### service
-| **column name** | **type** | **description**      |
-|-----------------|----------|----------------------|
-| id              | integer  | primary key          |
-| name            | string   | name of the service  |
+
+| **column name** | **type** | **description**     |
+| --------------- | -------- | ------------------- |
+| id              | integer  | primary key         |
+| name            | string   | name of the service |
