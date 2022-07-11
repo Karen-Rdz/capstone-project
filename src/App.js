@@ -11,12 +11,6 @@ import Summary from "./components/Summary/Summary";
 import Trips from "./components/Trips/Trips";
 const API_KEY = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc"
 
-const location = {
-  address: "1 Hacker Way, Menlo Park, CA 94025.",
-  lat: 37.48525176224396,
-  lng: -122.14830386019975,
-};
-
 function App() {
   return (
     <div className='app'>

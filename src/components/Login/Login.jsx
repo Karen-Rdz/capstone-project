@@ -2,6 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
+import { Icon } from "@iconify/react";
 
 export default function Login() {
   const [name, setName] = React.useState("");
@@ -27,7 +28,7 @@ export default function Login() {
   let navigate = useNavigate();
   async function handleLogin() {
     try {
-      const res = await axios.post("http://localhost:3001/login", {
+      await axios.post("http://localhost:3001/login", {
         user: {
           username: name,
           password: password,
@@ -78,21 +79,41 @@ export default function Login() {
         <div className="step1">
           <h3>Step 1</h3>
           <p>Create your trip</p>
+          <Icon className="routeIcon" icon="fa-solid:route" />
         </div>
+        <Icon className="arrowIcon" icon="akar-icons:arrow-right" />
         <div className="step2">
           <h3>Step 2</h3>
           <p>Add your stops</p>
+          <Icon className="stopIcon" icon="fontisto:map-marker-alt" />
         </div>
+        <Icon className="arrowIcon" icon="akar-icons:arrow-right" />
         <div className="step3">
           <h3>Step 3</h3>
           <p>Save your trip</p>
+          <Icon className="saveIcon" icon="bx:save" />
         </div>
       </div>
       <div className="titleInformation">
         <h2>Information</h2>
       </div>
       <div className="information">
-        <p>Con esta pagina puedes planear tu ruta</p>
+        <p>
+          This page will help you plan the necessary stops on your road trip.
+          When creating a trip, we recommend the number of stops needed
+          depending on the distance or time you decide to be driving. With this
+          in mind, an interactive map will appear where you can visualize your
+          route and add different establishments such as gas stations or
+          restaurants, which will help you add stops at the places you choose.
+          At the end, you can save your route for future reference.
+        </p>
+      </div>
+      <div className="contact">
+        <p></p>
+        <p> Address: 1 Hacker Way, Menlo Park, CA, USA</p>
+        <p> Email: karenrdz@fb.com</p>
+        <p> Phone number: +1 (650) 519-5858</p>
+        <p></p>
       </div>
     </>
   );
