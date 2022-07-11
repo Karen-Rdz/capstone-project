@@ -110,9 +110,18 @@ export default function Login() {
       </div>
       <div className="contact">
         <p></p>
-        <p> Address: 1 Hacker Way, Menlo Park, CA, USA</p>
-        <p> Email: karenrdz@fb.com</p>
-        <p> Phone number: +1 (650) 519-5858</p>
+        <p>
+          {" "}
+          <b>Address:</b> 1 Hacker Way, Menlo Park, CA, USA
+        </p>
+        <p>
+          {" "}
+          <b>Email: </b>karenrdz@fb.com
+        </p>
+        <p>
+          {" "}
+          <b>Phone number: </b>+1 (650) 519-5858
+        </p>
         <p></p>
       </div>
     </>

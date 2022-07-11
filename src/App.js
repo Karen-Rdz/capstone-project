@@ -12,6 +12,9 @@ import Trips from "./components/Trips/Trips";
 const API_KEY = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc"
 
 function App() {
+  const [origin, setOrigin] = React.useState();
+  const [destination, setDestination] = React.useState();
+
   return (
     <div className='app'>
       <BrowserRouter>
@@ -24,11 +27,11 @@ function App() {
           />
           <Route
             path="/route"
-            element={ <NumberStops /> }
+            element={ <NumberStops origin={origin} setOrigin={setOrigin} destination={destination} setDestination={setDestination}/> }
           />
           <Route
             path="/planner"
-            element={ <Planner /> }
+            element={ <Planner origin={origin} destination={destination}/> }
           />
           <Route
             path="/summary"

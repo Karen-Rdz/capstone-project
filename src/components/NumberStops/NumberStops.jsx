@@ -4,20 +4,21 @@ import axios from "axios";
 import Map from "../Map/Map";
 import "./NumberStops.css";
 import { LoadScript } from "@react-google-maps/api";
-import Map2 from "../Map2/Map2";
-import InitMap from "../Map3/Map3";
 import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import Distance from "../Distance/Distance";
 import Time from "../Time/Time";
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc&libraries=geometry"></script>;
-const lib = ["places", "geometry"];
+const lib = ["places", "geometry", "drawing"];
 
-export default function NumberStops() {
+export default function NumberStops({
+  origin,
+  setOrigin,
+  destination,
+  setDestination,
+}) {
   const [originInput, setOriginInput] = React.useState("");
   const [destinationInput, setDestinationInput] = React.useState("");
-  const [origin, setOrigin] = React.useState();
-  const [destination, setDestination] = React.useState();
   const [distance, setDistance] = React.useState();
   const [time, setTime] = React.useState();
 
@@ -89,7 +90,6 @@ export default function NumberStops() {
       }
     }
   }
-
   return (
     <>
       <div className="numberStops">
