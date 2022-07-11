@@ -10,14 +10,14 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 
 ## Core Features
 
-[x] User can create an account and login
-[x] User can create a trip, giving the origin and destination
-[x] User can know the recommended number of stops depending on the time or distance the person wants to be driving
-[x] User can visualize the route in a map
-[ ] User can add different establishments on the same map
-[ ] User can add and remove a stop
-[ ] User can visualize a summary of the trip
-[ ] User can save the trip for future reference
+- [x] User can create an account and login
+- [x] User can create a trip, giving the origin and destination
+- [x] User can know the recommended number of stops depending on the time or distance the person wants to be driving
+- [x] User can visualize the route in a map
+- [ ] User can add different establishments on the same map
+- [ ] User can add and remove a stop
+- [ ] User can visualize a summary of the trip
+- [ ] User can save the trip for future reference
 
 ## Wireframes
 
