@@ -8,14 +8,15 @@ import {
   DirectionsRenderer,
   StandaloneSearchBox,
 } from "@react-google-maps/api";
+import Markers from "../Markers/Markers";
 
 function Map({ origin, destination }) {
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
   const lib = ["places", "geometry", "drawing"];
   const [response, setResponse] = React.useState();
   const [query, setQuery] = React.useState();
-  const [locations, setLocations] = React.useState([]);
-  //   let locations = [];
+  const [location, setLocation] = React.useState([]);
+  let locations = [];
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -32,33 +33,34 @@ function Map({ origin, destination }) {
 
   const onLoad = (ref) => setQuery(ref);
 
-  const onLoadMarker = (ref) => console.log(ref);
-
   const onPlacesChanged = () => {
     let places = query.getPlaces();
     console.log(places);
-    let position = places[0].formatted_address;
-    var configMarker = {
-      method: "get",
-      url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${position}&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=${key}`,
-      headers: {},
-    };
 
-    axios(configMarker)
-      .then(function (responseOrigin) {
-        // console.log(responseOrigin.data.candidates);
-        setLocations(
-          ...locations,
-          responseOrigin.data.candidates[0].geometry.location
-        );
-        // locations.push(location);
-        console.log(locations);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    places.map((item) => {
+      let position = item.formatted_address;
+      var configMarker = {
+        method: "get",
+        url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${position}&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=${key}`,
+        headers: {},
+      };
+
+      axios(configMarker)
+        .then(function (responseOrigin) {
+          if (responseOrigin.data.candidates[0] !== undefined) {
+            locations.push({
+              lat: responseOrigin.data.candidates[0].geometry.location.lat,
+              lng: responseOrigin.data.candidates[0].geometry.location.lng,
+            });
+          }
+          setLocation(locations);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    });
   };
-
+  console.log(location);
   return (
     <LoadScript googleMapsApiKey={key} libraries={lib}>
       <GoogleMap
@@ -107,7 +109,10 @@ function Map({ origin, destination }) {
             }}
           />
         </StandaloneSearchBox>
-        <Marker position={locations[0]} />
+        {/* <Markers markers={location} /> */}
+        {location.map((item) => (
+          <Marker position={item} />
+        ))}
       </GoogleMap>
     </LoadScript>
   );
