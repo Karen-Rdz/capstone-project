@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import {
   GoogleMap,
   LoadScript,
@@ -12,6 +13,9 @@ function Map({ origin, destination }) {
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
   const lib = ["places", "geometry", "drawing"];
   const [response, setResponse] = React.useState();
+  const [query, setQuery] = React.useState();
+  const [locations, setLocations] = React.useState([]);
+  //   let locations = [];
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -26,9 +30,34 @@ function Map({ origin, destination }) {
     }
   };
 
-  const onLoad = (ref) => (this.searchBox = ref);
+  const onLoad = (ref) => setQuery(ref);
 
-  const onPlacesChanged = () => console.log(this.searchBox.getPlaces());
+  const onLoadMarker = (ref) => console.log(ref);
+
+  const onPlacesChanged = () => {
+    let places = query.getPlaces();
+    console.log(places);
+    let position = places[0].formatted_address;
+    var configMarker = {
+      method: "get",
+      url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${position}&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=${key}`,
+      headers: {},
+    };
+
+    axios(configMarker)
+      .then(function (responseOrigin) {
+        // console.log(responseOrigin.data.candidates);
+        setLocations(
+          ...locations,
+          responseOrigin.data.candidates[0].geometry.location
+        );
+        // locations.push(location);
+        console.log(locations);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <LoadScript googleMapsApiKey={key} libraries={lib}>
@@ -39,10 +68,6 @@ function Map({ origin, destination }) {
           width: "800px",
         }}
         zoom={10}
-        // center={{
-        //   lat: origin.geometry.location.lat,
-        //   lng: origin.geometry.location.lng,
-        // }}
       >
         {destination !== "" && origin !== "" && (
           <DirectionsService
@@ -61,7 +86,7 @@ function Map({ origin, destination }) {
             }}
           />
         )}
-        {/* <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
+        <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
           <input
             type="text"
             placeholder="Customized your placeholder"
@@ -81,7 +106,8 @@ function Map({ origin, destination }) {
               marginLeft: "-120px",
             }}
           />
-        </StandaloneSearchBox> */}
+        </StandaloneSearchBox>
+        <Marker position={locations[0]} />
       </GoogleMap>
     </LoadScript>
   );

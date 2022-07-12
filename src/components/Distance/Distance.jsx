@@ -11,7 +11,7 @@ export default function Distance({ distance }) {
 
   return (
     <>
-      <div className="distance">
+      <div className="distanceInput">
         <input
           type="text"
           placeholder="Distance"

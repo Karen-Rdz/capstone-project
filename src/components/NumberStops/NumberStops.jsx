@@ -45,6 +45,7 @@ export default function NumberStops({
 
     axios(configOrigin)
       .then(function (responseOrigin) {
+        console.log(responseOrigin.data.candidates);
         setOrigin(responseOrigin.data.candidates[0]);
         // console.log(
         //   JSON.stringify(responseOrigin.data.candidates[0].geometry.location)
@@ -93,54 +94,71 @@ export default function NumberStops({
   return (
     <>
       <div className="numberStops">
-        <h1>Create a trip</h1>
+        <h1>Create your trip</h1>
         <div className="trip">
           <input
+            className="inputLocation"
             type="text"
             placeholder="Origin"
             onChange={(event) => setOriginInput(event.target.value)}
           />
           <input
+            className="inputLocation"
             type="text"
             placeholder="Destination"
             onChange={(event) => setDestinationInput(event.target.value)}
           />
-          <button type="Submit" onClick={handleTrip}>
+          <button className="buttonLocation" type="Submit" onClick={handleTrip}>
             Submit
           </button>
         </div>
         <LoadScript googleMapsApiKey={key} libraries={lib}>
           <div className="category">
-            <input type="radio" onClick={() => calculateDistance("time")} />{" "}
-            Time
-            <input
-              type="radio"
-              onClick={() => calculateDistance("distance")}
-            />{" "}
-            Distance
-            <input type="radio" /> Fuel
+            <div className="time">
+              <input
+                className="inputRadio"
+                type="radio"
+                onClick={() => calculateDistance("time")}
+              />{" "}
+              Time
+              <div className="infoStops">
+                {time ? (
+                  <>
+                    <p> Time: {time.text}</p>
+                    <Time time={time} />
+                  </>
+                ) : (
+                  <p></p>
+                )}
+              </div>
+            </div>
+            <div className="distance">
+              <input
+                className="inputRadio"
+                type="radio"
+                onClick={() => calculateDistance("distance")}
+              />{" "}
+              Distance
+              <div className="infoStops">
+                {distance ? (
+                  <>
+                    <p> Distance: {distance.text}</p>
+                    <Distance distance={distance} />
+                  </>
+                ) : (
+                  <p></p>
+                )}
+              </div>
+            </div>
+            <div className="fuel">
+              <input className="inputRadio" type="radio" /> Fuel
+            </div>
           </div>
         </LoadScript>
         {origin ? (
           <p>
             {origin.name} , {destination.name}
           </p>
-        ) : (
-          <p></p>
-        )}
-        {time ? (
-          <>
-            <p> Time: {time.text}</p>
-            <Time time={time} />
-          </>
-        ) : (
-          <p></p>
-        )}
-        {distance ? (
-          <>
-            <p> Distance: {distance.text}</p>
-            <Distance distance={distance} />
-          </>
         ) : (
           <p></p>
         )}

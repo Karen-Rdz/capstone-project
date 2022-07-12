@@ -11,7 +11,7 @@ export default function Time({ time }) {
 
   return (
     <>
-      <div className="time">
+      <div className="timeInput">
         <input
           type="text"
           placeholder="Time"

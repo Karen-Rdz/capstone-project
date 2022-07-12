@@ -7,6 +7,7 @@ import { LoadScript } from "@react-google-maps/api";
 export default function Planner({ origin, destination }) {
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
   const lib = ["places", "geometry", "drawing"];
+  const [query, setQuery] = React.useState();
 
   return (
     <>
@@ -30,7 +31,7 @@ export default function Planner({ origin, destination }) {
         </div>
         <div className="map">
           <h3>Map</h3>
-          <Map origin={origin} destination={destination} />
+          <Map origin={origin} destination={destination} query={query} />
         </div>
         <button>
           <Link to={`/finish`}>Next</Link>
