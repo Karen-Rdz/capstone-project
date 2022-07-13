@@ -26,3 +26,12 @@
     border-radius: 5px;
     height: 35px;
 }
+
+.submitTime:hover {
+    background-color: #575757;
+}
+
+.submitTime:active {
+    background-color: #575757;
+    transform: translateY(1px);
+}

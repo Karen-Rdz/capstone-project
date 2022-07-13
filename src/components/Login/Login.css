@@ -58,6 +58,15 @@
     border-radius: 5px;
 }
 
+.loginButton:hover {
+    background-color: #575757;
+}
+
+.loginButton:active {
+    background-color: #575757;
+    transform: translateY(1px);
+}
+
 .loginInput{
     margin: 2px;
     padding-bottom: calc(.5em - 1px);

@@ -35,6 +35,15 @@
     height: 35px;
 }
 
+.buttonLocation:hover {
+    background-color: #575757;
+}
+
+.buttonLocation:active {
+    background-color: #575757;
+    transform: translateY(1px);
+  }
+
 .trip{
     text-align: center;
     height: 70px;
@@ -127,6 +136,15 @@
     white-space: nowrap;
     border-radius: 5px;
     height: 35px;
+}
+
+.nextButton:hover {
+    background-color: #575757;
+}
+
+.nextButton:active {
+    background-color: #575757;
+    transform: translateY(1px);
 }
 
 .linkPlanner{
