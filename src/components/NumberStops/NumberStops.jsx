@@ -1,15 +1,10 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import Map from "../Map/Map";
 import "./NumberStops.css";
 import { LoadScript } from "@react-google-maps/api";
-import { GoogleMap, Marker, InfoWindow } from "@react-google-maps/api";
 import Distance from "../Distance/Distance";
 import Time from "../Time/Time";
-
-<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc&libraries=geometry"></script>;
-const lib = ["places", "geometry", "drawing"];
 
 export default function NumberStops({
   origin,
@@ -22,13 +17,8 @@ export default function NumberStops({
   const [distance, setDistance] = React.useState();
   const [time, setTime] = React.useState();
 
-  const location = {
-    address: "1 Hacker Way, Menlo Park, CA 94025.",
-    lat: 37.48525176224396,
-    lng: -122.14830386019975,
-  };
-
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
+  const lib = ["places", "geometry", "drawing"];
 
   function handleTrip() {
     var configOrigin = {
@@ -45,7 +35,6 @@ export default function NumberStops({
 
     axios(configOrigin)
       .then(function (responseOrigin) {
-        console.log(responseOrigin.data.candidates);
         setOrigin(responseOrigin.data.candidates[0]);
         // console.log(
         //   JSON.stringify(responseOrigin.data.candidates[0].geometry.location)
@@ -81,12 +70,9 @@ export default function NumberStops({
       callback
     );
     function callback(response, status) {
-      // console.log(response)
-      // console.log(response.rows[0].elements[0]);
       if (value === "distance") {
         setDistance(response.rows[0].elements[0].distance);
       } else if (value === "time") {
-        console.log(response.rows[0].elements[0].duratio);
         setTime(response.rows[0].elements[0].duration);
       }
     }
@@ -183,11 +169,6 @@ export default function NumberStops({
             Next
           </Link>
         </button>
-        {/* <Map location={location} zoomLevel={17} /> */}
-        {/* <LoadScript googleMapsApiKey={key} libraries={lib}> */}
-        {/* <Map2 name={origin} /> */}
-        {/* <InitMap /> */}
-        {/* </LoadScript> */}
       </div>
     </>
   );
