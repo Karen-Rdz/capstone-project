@@ -13,13 +13,18 @@ export default function Distance({ distance }) {
     <>
       <div className="distanceInput">
         <input
+          className="distanceText"
           type="text"
           placeholder="Distance"
           onChange={(event) => setDistanceInput(event.target.value)}
         />
         {"  "}
         Km
-        <button type="submit" onClick={calculateStops}>
+        <button
+          className="submitDistance"
+          type="submit"
+          onClick={calculateStops}
+        >
           Submit
         </button>
         {stops > 0 ? <h4>Number of Stops recommended: {stops} </h4> : <p></p>}

@@ -8,15 +8,13 @@ import {
   DirectionsRenderer,
   StandaloneSearchBox,
 } from "@react-google-maps/api";
-import Markers from "../Markers/Markers";
 
 function Map({ origin, destination }) {
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
   const lib = ["places", "geometry", "drawing"];
   const [response, setResponse] = React.useState();
   const [query, setQuery] = React.useState();
-  const [location, setLocation] = React.useState([]);
-  let locations = [];
+  const [locations, setLocations] = React.useState([]);
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -35,86 +33,78 @@ function Map({ origin, destination }) {
 
   const onPlacesChanged = () => {
     let places = query.getPlaces();
-    console.log(places);
 
-    places.map((item) => {
-      let position = item.formatted_address;
-      var configMarker = {
-        method: "get",
-        url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${position}&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=${key}`,
-        headers: {},
-      };
-
-      axios(configMarker)
-        .then(function (responseOrigin) {
-          if (responseOrigin.data.candidates[0] !== undefined) {
-            locations.push({
-              lat: responseOrigin.data.candidates[0].geometry.location.lat,
-              lng: responseOrigin.data.candidates[0].geometry.location.lng,
-            });
-          }
-          setLocation(locations);
-        })
-        .catch(function (error) {
-          console.log(error);
-        });
-    });
+    for (let i = 0; i < places.length; i++) {
+      let lat = places[i].geometry.location.lat;
+      let lng = places[i].geometry.location.lng;
+      let position = { lat: lat(), lng: lng() };
+      setLocations((locations) => [...locations, position]);
+    }
   };
-  console.log(location);
+  // console.log(locations);
+
   return (
-    <LoadScript googleMapsApiKey={key} libraries={lib}>
-      <GoogleMap
-        id="direction-example"
-        mapContainerStyle={{
-          height: "400px",
-          width: "800px",
-        }}
-        zoom={10}
-      >
-        {destination !== "" && origin !== "" && (
-          <DirectionsService
-            options={{
-              destination: destination.name,
-              origin: origin.name,
-              travelMode: "DRIVING",
-            }}
-            callback={(e) => directionsCallback(e)}
-          />
-        )}
-        {response !== null && (
-          <DirectionsRenderer
-            options={{
-              directions: response,
-            }}
-          />
-        )}
-        <StandaloneSearchBox onLoad={onLoad} onPlacesChanged={onPlacesChanged}>
-          <input
-            type="text"
-            placeholder="Customized your placeholder"
-            style={{
-              boxSizing: `border-box`,
-              border: `1px solid transparent`,
-              width: `240px`,
-              height: `32px`,
-              padding: `0 12px`,
-              borderRadius: `3px`,
-              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-              fontSize: `14px`,
-              outline: `none`,
-              textOverflow: `ellipses`,
-              position: "absolute",
-              left: "50%",
-              marginLeft: "-120px",
-            }}
-          />
-        </StandaloneSearchBox>
-        {/* <Markers markers={location} /> */}
-        {location.map((item, index) => (
-          <Marker position={item} key={index} />
-        ))}
-      </GoogleMap>
-    </LoadScript>
+    console.log(locations),
+    (
+      <LoadScript googleMapsApiKey={key} libraries={lib}>
+        <GoogleMap
+          id="direction-example"
+          mapContainerStyle={{
+            height: "400px",
+            width: "800px",
+          }}
+          zoom={10}
+        >
+          {destination !== "" && origin !== "" && (
+            <DirectionsService
+              options={{
+                destination: destination.name,
+                origin: origin.name,
+                travelMode: "DRIVING",
+              }}
+              callback={(e) => directionsCallback(e)}
+            />
+          )}
+          {response !== null && (
+            <DirectionsRenderer
+              options={{
+                directions: response,
+              }}
+            />
+          )}
+          <StandaloneSearchBox
+            onLoad={onLoad}
+            onPlacesChanged={onPlacesChanged}
+          >
+            <input
+              type="text"
+              placeholder="Customized your placeholder"
+              style={{
+                boxSizing: `border-box`,
+                border: `1px solid transparent`,
+                width: `240px`,
+                height: `32px`,
+                padding: `0 12px`,
+                borderRadius: `3px`,
+                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                fontSize: `14px`,
+                outline: `none`,
+                textOverflow: `ellipses`,
+                position: "absolute",
+                left: "50%",
+                marginLeft: "-120px",
+              }}
+            />
+          </StandaloneSearchBox>
+          {/* <Marker position={locations[0]} /> */}
+          {locations.map(
+            (item, index) => (
+              console.log(item), (<Marker position={item} key={index} />)
+            )
+          )}
+        </GoogleMap>
+      </LoadScript>
+    )
   );
 }
 export default Map;

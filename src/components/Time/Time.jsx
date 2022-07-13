@@ -13,13 +13,14 @@ export default function Time({ time }) {
     <>
       <div className="timeInput">
         <input
+          className="timeText"
           type="text"
           placeholder="Time"
           onChange={(event) => setTimeInput(event.target.value)}
         />
         {"  "}
         Minutes
-        <button type="submit" onClick={calculateStops}>
+        <button className="submitTime" type="submit" onClick={calculateStops}>
           Submit
         </button>
         {stops > 0 ? <h4>Number of Stops recommended: {stops} </h4> : <p></p>}

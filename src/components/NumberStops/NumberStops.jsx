@@ -172,9 +172,10 @@ export default function NumberStops({
                 )}
               </div>
             </div>
-            <div className="fuel">
+            {/* TODO: Depending on Fuel */}
+            {/* <div className="fuel">
               <input className="inputRadio" type="radio" /> Fuel
-            </div>
+            </div> */}
           </div>
         </LoadScript>
         <button className="nextButton">
