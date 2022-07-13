@@ -120,7 +120,7 @@
 .information{
     text-align: center;
     margin-left: 5%;
-    height: 150px;
+    height: 230px;
     width: 76%;
     display: flex;
     flex-direction: row;
@@ -129,6 +129,17 @@
     padding-top: 10px;
     justify-content: space-between;
     box-shadow: 0 3px 6px rgb(25 32 36 / 16%), 0 -1px 4px rgb(25 32 36 / 4%);
+}
+
+.about{
+    margin-top: 50px;
+    margin-right: 70px;
+}
+
+.road-img{
+    margin-top: 10px;
+    height: 200px;
+    width: auto;
 }
 
 .contact{

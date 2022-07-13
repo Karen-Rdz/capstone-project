@@ -110,8 +110,8 @@ function Map({ origin, destination }) {
           />
         </StandaloneSearchBox>
         {/* <Markers markers={location} /> */}
-        {location.map((item) => (
-          <Marker position={item} />
+        {location.map((item, index) => (
+          <Marker position={item} key={index} />
         ))}
       </GoogleMap>
     </LoadScript>

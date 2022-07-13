@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "./Login.css";
 import { Icon } from "@iconify/react";
+import road from "./road.jpg";
 
 export default function Login() {
   const [name, setName] = React.useState("");
@@ -98,7 +99,7 @@ export default function Login() {
         <h2>Information</h2>
       </div>
       <div className="information">
-        <p>
+        <p className="about">
           This page will help you plan the necessary stops on your road trip.
           When creating a trip, we recommend the number of stops needed
           depending on the distance or time you decide to be driving. With this
@@ -107,6 +108,7 @@ export default function Login() {
           restaurants, which will help you add stops at the places you choose.
           At the end, you can save your route for future reference.
         </p>
+        <img className="road-img" src={road} alt="road" />
       </div>
       <div className="contact">
         <p></p>

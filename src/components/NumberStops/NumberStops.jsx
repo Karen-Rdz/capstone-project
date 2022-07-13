@@ -96,21 +96,43 @@ export default function NumberStops({
       <div className="numberStops">
         <h1>Create your trip</h1>
         <div className="trip">
-          <input
-            className="inputLocation"
-            type="text"
-            placeholder="Origin"
-            onChange={(event) => setOriginInput(event.target.value)}
-          />
-          <input
-            className="inputLocation"
-            type="text"
-            placeholder="Destination"
-            onChange={(event) => setDestinationInput(event.target.value)}
-          />
-          <button className="buttonLocation" type="Submit" onClick={handleTrip}>
-            Submit
-          </button>
+          <div className="origin">
+            <b>Origin:</b>
+            <input
+              className="inputLocation"
+              type="text"
+              placeholder="Origin"
+              onChange={(event) => setOriginInput(event.target.value)}
+            />
+          </div>
+          <div className="destination">
+            <b>Destination:</b>
+            <input
+              className="inputLocation"
+              type="text"
+              placeholder="Destination"
+              onChange={(event) => setDestinationInput(event.target.value)}
+            />
+          </div>
+          <div className="submit">
+            <p></p>
+            <button
+              className="buttonLocation"
+              type="Submit"
+              onClick={handleTrip}
+            >
+              Submit
+            </button>
+          </div>
+          <div className="originDestination">
+            {origin ? (
+              <p>
+                From: {origin.name}, To: {destination.name}
+              </p>
+            ) : (
+              <p></p>
+            )}
+          </div>
         </div>
         <LoadScript googleMapsApiKey={key} libraries={lib}>
           <div className="category">
@@ -155,16 +177,10 @@ export default function NumberStops({
             </div>
           </div>
         </LoadScript>
-        {origin ? (
-          <p>
-            {origin.name} , {destination.name}
-          </p>
-        ) : (
-          <p></p>
-        )}
-
-        <button>
-          <Link to={`/planner`}>Next</Link>
+        <button className="nextButton">
+          <Link className="linkPlanner" to={`/planner`}>
+            Next
+          </Link>
         </button>
         {/* <Map location={location} zoomLevel={17} /> */}
         {/* <LoadScript googleMapsApiKey={key} libraries={lib}> */}
