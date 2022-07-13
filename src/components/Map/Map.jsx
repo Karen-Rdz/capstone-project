@@ -7,6 +7,7 @@ import {
   DirectionsRenderer,
   StandaloneSearchBox,
 } from "@react-google-maps/api";
+import Information from "../Information/Information";
 
 function Map({ origin, destination }) {
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
@@ -14,7 +15,7 @@ function Map({ origin, destination }) {
   const [response, setResponse] = React.useState();
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
-  const [place, setPlace] = React.useState("");
+  const [map, setMap] = React.useState();
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -33,27 +34,34 @@ function Map({ origin, destination }) {
 
   const onPlacesChanged = () => {
     let places = query.getPlaces();
-    console.log(places);
     let color;
-    // console.log(query);
 
     for (let i = 0; i < places.length; i++) {
       let lat = places[i].geometry.location.lat;
       let lng = places[i].geometry.location.lng;
-      console.log(places[i].types[0]);
-      if (places[i].types[0] === "gas_station") {
+      let type = places[i].types[0];
+      if (type === "gas_station") {
         color = "red";
-      } else if (places[i].types[0] === "lodging") {
+      } else if (type === "lodging") {
         color = "blue";
-      } else if (places[i].types[0] === "restaurant") {
+      } else if (
+        type === "restaurant" ||
+        type === "bar" ||
+        type === "cafe" ||
+        type === "meal_delivery"
+      ) {
         color = "green";
+      } else {
+        color = "yellow";
       }
+
       let position = { lat: lat(), lng: lng(), color: color };
       setLocations((locations) => [...locations, position]);
     }
-  };
 
-  // const bounds = new window.google.maps.LatLngBounds();
+    // const boundsMap = new window.google.maps.LatLngBounds();
+    // console.log(boundsMap);
+  };
 
   const bounds = {
     north: origin.geometry.location.lat,
@@ -62,15 +70,34 @@ function Map({ origin, destination }) {
     west: destination.geometry.location.lng,
   };
 
+  // const onLoadMap = React.useCallback((map) => setMap(map), []);
+
   return (
     <LoadScript googleMapsApiKey={key} libraries={lib}>
       <GoogleMap
-        id="direction-example"
+        ref={(map) => {
+          setMap(map);
+        }}
+        // onIdle={() => {
+        //   let lat = map.state.map.center.lat;
+        //   let lng = map.state.map.center.lng;
+        //   console.log(lat(), lng());
+        //   console.log(map.state.map.__gm.pixelBounds.Aa);
+        //   const bounds = new window.google.maps.LatLngBounds();
+        //   console.log(bounds);
+        //   map.fitBounds(bounds);
+        // }}
+        id="planner-map"
         mapContainerStyle={{
           height: "400px",
           width: "800px",
         }}
         zoom={10}
+        // onLoad={(map) => {
+        //   const bounds = new window.google.maps.LatLngBounds();
+        //   console.log(bounds);
+        //   map.fitBounds(bounds);
+        // }}
       >
         {destination !== "" && origin !== "" && (
           <DirectionsService
@@ -97,7 +124,6 @@ function Map({ origin, destination }) {
           <input
             type="text"
             placeholder="Search"
-            onChange={(event) => setPlace(event.target.value)}
             style={{
               boxSizing: `border-box`,
               border: `1px solid transparent`,
@@ -122,12 +148,9 @@ function Map({ origin, destination }) {
             icon={{
               url: `http://maps.google.com/mapfiles/ms/icons/${item.color}-dot.png`,
             }}
-            // icon={{
-            //   // url: "http://maps.google.com/mapfiles/kml/shapes/gas_stations.png",
-            //   // url: "https://api.iconify.design/mdi/gas-station.svg",
-            //   strokeColor: "red",
-            //   scale: 10,
-            // }}
+            onClick={() => (
+              <Information position={{ lat: item.lat, lng: item.lng }} />
+            )}
           />
         ))}
       </GoogleMap>

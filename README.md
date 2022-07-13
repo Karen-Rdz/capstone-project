@@ -19,6 +19,13 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 - [ ] User can visualize a summary of the trip
 - [ ] User can save the trip for future reference
 
+### TODO
+
+- [ ] Stay login
+- [ ] Add autocomplete on create trip page
+- [ ] Fix origin.name error on create trip page
+- [ ] Update bounds on searchbox on planner page
+
 ## Wireframes
 
 ![Wireframe 1](/Wireframes/WF1.PNG)
