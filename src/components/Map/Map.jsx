@@ -8,6 +8,7 @@ import {
   StandaloneSearchBox,
 } from "@react-google-maps/api";
 import Information from "../Information/Information";
+import MarkerInfo from "../MarkerInfo/MarkerInfo";
 
 function Map({ origin, destination }) {
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
@@ -16,6 +17,7 @@ function Map({ origin, destination }) {
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
+  const [open, setOpen] = React.useState();
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -55,7 +57,13 @@ function Map({ origin, destination }) {
         color = "yellow";
       }
 
-      let position = { lat: lat(), lng: lng(), color: color };
+      let position = {
+        lat: lat(),
+        lng: lng(),
+        color: color,
+        name: places[i].name,
+        address: places[i].formatted_address,
+      };
       setLocations((locations) => [...locations, position]);
     }
 
@@ -142,16 +150,7 @@ function Map({ origin, destination }) {
           />
         </StandaloneSearchBox>
         {locations.map((item, index) => (
-          <Marker
-            position={{ lat: item.lat, lng: item.lng }}
-            key={index}
-            icon={{
-              url: `http://maps.google.com/mapfiles/ms/icons/${item.color}-dot.png`,
-            }}
-            onClick={() => (
-              <Information position={{ lat: item.lat, lng: item.lng }} />
-            )}
-          />
+          <MarkerInfo position={item} />
         ))}
       </GoogleMap>
     </LoadScript>
