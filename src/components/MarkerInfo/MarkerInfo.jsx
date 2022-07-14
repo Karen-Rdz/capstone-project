@@ -1,7 +1,7 @@
 import React from "react";
 import { Marker, InfoBox } from "@react-google-maps/api";
 
-export default function MarkerInfo({ position }) {
+export default function MarkerInfo({ position, stops, setStops }) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleToggleOpen = () => {
@@ -11,6 +11,12 @@ export default function MarkerInfo({ position }) {
   const handleCloseCall = () => {
     setIsOpen(false);
   };
+
+  const addStop = () => {
+    setStops((stops) => [...stops, position]);
+  };
+
+  console.log("markerInfo");
   return (
     <Marker
       position={{ lat: position.lat, lng: position.lng }}
@@ -40,6 +46,9 @@ export default function MarkerInfo({ position }) {
                 onClick={handleCloseCall}
               >
                 Close
+              </button>
+              <button type="button" onClick={addStop}>
+                Add Stop
               </button>
             </div>
           </div>

@@ -8,6 +8,7 @@ import {
   StandaloneSearchBox,
 } from "@react-google-maps/api";
 import MarkerInfo from "../MarkerInfo/MarkerInfo";
+import Summary from "../Summary/Summary";
 
 function Map({ origin, destination }) {
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
@@ -16,7 +17,7 @@ function Map({ origin, destination }) {
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
-  const [open, setOpen] = React.useState();
+  const [stops, setStops] = React.useState([]);
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -36,6 +37,7 @@ function Map({ origin, destination }) {
   const onPlacesChanged = () => {
     let places = query.getPlaces();
     let color;
+    console.log(places);
 
     for (let i = 0; i < places.length; i++) {
       let lat = places[i].geometry.location.lat;
@@ -80,79 +82,79 @@ function Map({ origin, destination }) {
   // const onLoadMap = React.useCallback((map) => setMap(map), []);
 
   return (
-    <LoadScript googleMapsApiKey={key} libraries={lib}>
-      <GoogleMap
-        ref={(map) => {
-          setMap(map);
-        }}
-        // onIdle={() => {
-        //   let lat = map.state.map.center.lat;
-        //   let lng = map.state.map.center.lng;
-        //   console.log(lat(), lng());
-        //   console.log(map.state.map.__gm.pixelBounds.Aa);
-        //   const bounds = new window.google.maps.LatLngBounds();
-        //   console.log(bounds);
-        //   map.fitBounds(bounds);
-        // }}
-        id="planner-map"
-        mapContainerStyle={{
-          height: "400px",
-          width: "800px",
-        }}
-        zoom={10}
-        // onLoad={(map) => {
-        //   const bounds = new window.google.maps.LatLngBounds();
-        //   console.log(bounds);
-        //   map.fitBounds(bounds);
-        // }}
-      >
-        {destination !== "" && origin !== "" && (
-          <DirectionsService
-            options={{
-              destination: destination.name,
-              origin: origin.name,
-              travelMode: "DRIVING",
-            }}
-            callback={(e) => directionsCallback(e)}
-          />
-        )}
-        {response !== null && (
-          <DirectionsRenderer
-            options={{
-              directions: response,
-            }}
-          />
-        )}
-        <StandaloneSearchBox
-          onLoad={onLoad}
-          onPlacesChanged={onPlacesChanged}
-          bounds={bounds}
+    <>
+      <LoadScript googleMapsApiKey={key} libraries={lib}>
+        <GoogleMap
+          ref={(map) => {
+            setMap(map);
+          }}
+          // onIdle={() => {
+          //   let lat = map.state.map.center.lat;
+          //   let lng = map.state.map.center.lng;
+          //   console.log(lat(), lng());
+          //   console.log(map.state.map.__gm.pixelBounds.Aa);
+          //   const bounds = new window.google.maps.LatLngBounds();
+          //   console.log(bounds);
+          //   map.fitBounds(bounds);
+          // }}
+          id="planner-map"
+          mapContainerStyle={{
+            height: "400px",
+            width: "800px",
+          }}
+          zoom={10}
         >
-          <input
-            type="text"
-            placeholder="Search"
-            style={{
-              boxSizing: `border-box`,
-              border: `1px solid transparent`,
-              width: `240px`,
-              height: `32px`,
-              padding: `0 12px`,
-              borderRadius: `3px`,
-              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-              fontSize: `14px`,
-              outline: `none`,
-              textOverflow: `ellipses`,
-              position: "absolute",
-              left: "50%",
-              marginLeft: "-120px",
-            }}
-          />
-        </StandaloneSearchBox>
-        {locations.map((item, index) => (
-          <MarkerInfo position={item} />
-        ))}
-      </GoogleMap>
-    </LoadScript>
+          {destination !== "" && origin !== "" && (
+            <DirectionsService
+              options={{
+                destination: destination.name,
+                origin: origin.name,
+                travelMode: "DRIVING",
+              }}
+              callback={(e) => directionsCallback(e)}
+            />
+          )}
+          {response !== null && (
+            <DirectionsRenderer
+              options={{
+                directions: response,
+              }}
+            />
+          )}
+          <StandaloneSearchBox
+            onLoad={onLoad}
+            onPlacesChanged={onPlacesChanged}
+            bounds={bounds}
+          >
+            <input
+              type="text"
+              placeholder="Search"
+              style={{
+                boxSizing: `border-box`,
+                border: `1px solid transparent`,
+                width: `240px`,
+                height: `32px`,
+                padding: `0 12px`,
+                borderRadius: `3px`,
+                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                fontSize: `14px`,
+                outline: `none`,
+                textOverflow: `ellipses`,
+                position: "absolute",
+                left: "50%",
+                marginLeft: "-120px",
+              }}
+            />
+          </StandaloneSearchBox>
+          {locations.map((item) => (
+            <MarkerInfo position={item} stops={stops} setStops={setStops} />
+          ))}
+        </GoogleMap>
+      </LoadScript>
+      <div>
+        <Summary stops={stops} />
+      </div>
+    </>
   );
 }
 export default Map;
