@@ -31,4 +31,16 @@ router.post('/login', async function (req, res) {
       }
 })
 
+router.post('/trip', async function (req, res) {
+    try {
+        const trip = new Parse.Object("Trips", req.body)
+        await trip.save();
+        res.status(201);
+        res.send({ "trip": trip });
+      } catch (error) {
+        res.status(400)
+        res.send({"error" : error })
+      }
+})
+
 module.exports = router

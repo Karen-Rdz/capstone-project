@@ -14,6 +14,8 @@ const API_KEY = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc"
 function App() {
   const [origin, setOrigin] = React.useState();
   const [destination, setDestination] = React.useState();
+  const [user, setUser] = React.useState({});
+  const [stops, setStops] = React.useState([]);
 
   return (
     <div className='app'>
@@ -23,7 +25,7 @@ function App() {
         <Routes>
           <Route
             path="/"
-            element={ <Login /> }
+            element={ <Login setUser={setUser}/> }
           />
           <Route
             path="/route"
@@ -31,7 +33,7 @@ function App() {
           />
           <Route
             path="/planner"
-            element={ <Planner origin={origin} destination={destination}/> }
+            element={ <Planner origin={origin} destination={destination} user={user} stops={stops} setStops={setStops}/> }
           />
           <Route
             path="/summary"

@@ -3,11 +3,34 @@ import { Link } from "react-router-dom";
 import "./Planner.css";
 import Map from "../Map/Map";
 import { LoadScript } from "@react-google-maps/api";
+import axios from "axios";
 
-export default function Planner({ origin, destination }) {
+export default function Planner({
+  origin,
+  destination,
+  user,
+  stops,
+  setStops,
+}) {
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
   const lib = ["places", "geometry", "drawing"];
-  const [query, setQuery] = React.useState();
+
+  async function saveTrip() {
+    console.log(origin, destination, user, stops);
+    try {
+      await axios.post("http://localhost:3001/trip", {
+        trip: {
+          user: user,
+          origin: origin,
+          destination: destination,
+          stops: stops,
+        },
+      });
+    } catch (err) {
+      alert("Error saving trip");
+      console.log(err);
+    }
+  }
 
   return (
     <>
@@ -21,7 +44,7 @@ export default function Planner({ origin, destination }) {
           <button>
             <Link to={`/summary`}>Summary</Link>
           </button>
-          <button>Save Trip</button>
+          <button onClick={saveTrip}>Save Trip</button>
         </div>
         <div className="services">
           <input type="radio" /> Gas Stations
@@ -31,7 +54,12 @@ export default function Planner({ origin, destination }) {
         </div>
         <div className="map">
           <h3>Map</h3>
-          <Map origin={origin} destination={destination} query={query} />
+          <Map
+            origin={origin}
+            destination={destination}
+            stops={stops}
+            setStops={setStops}
+          />
         </div>
         <button>
           <Link to={`/finish`}>Next</Link>

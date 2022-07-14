@@ -5,7 +5,7 @@ import "./Login.css";
 import { Icon } from "@iconify/react";
 import road from "./road.jpg";
 
-export default function Login() {
+export default function Login({ setUser }) {
   const [name, setName] = React.useState("");
   const [password, setPassword] = React.useState("");
 
@@ -34,6 +34,10 @@ export default function Login() {
           username: name,
           password: password,
         },
+      });
+      setUser({
+        username: name,
+        password: password,
       });
       navigate("../route");
     } catch (err) {

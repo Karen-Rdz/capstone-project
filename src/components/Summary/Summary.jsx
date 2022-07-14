@@ -2,13 +2,9 @@ import * as React from "react";
 import "./Summary.css";
 
 export default function Summary({ stops, setStops }) {
-  // console.log(stops.length);
-  // console.log(stops.stops.length);
   const removeStop = (index, stops) => {
     let handleStops = [...stops];
-    console.log(handleStops);
     handleStops.splice(index, 1);
-    console.log(handleStops);
     setStops(handleStops);
   };
   return (

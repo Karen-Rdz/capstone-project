@@ -2,7 +2,6 @@ import React from "react";
 import {
   GoogleMap,
   LoadScript,
-  Marker,
   DirectionsService,
   DirectionsRenderer,
   StandaloneSearchBox,
@@ -10,14 +9,14 @@ import {
 import MarkerInfo from "../MarkerInfo/MarkerInfo";
 import Summary from "../Summary/Summary";
 
-function Map({ origin, destination }) {
+function Map({ origin, destination, stops, setStops }) {
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
   const lib = ["places", "geometry", "drawing"];
   const [response, setResponse] = React.useState();
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
-  const [stops, setStops] = React.useState([]);
+  // const [stops, setStops] = React.useState([]);
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -99,8 +98,8 @@ function Map({ origin, destination }) {
           // }}
           id="planner-map"
           mapContainerStyle={{
-            height: "400px",
-            width: "800px",
+            height: "450px",
+            width: "1000px",
           }}
           zoom={10}
         >
