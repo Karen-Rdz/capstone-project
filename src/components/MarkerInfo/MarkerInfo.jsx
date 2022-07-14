@@ -5,15 +5,12 @@ export default function MarkerInfo({ position }) {
   const [isOpen, setIsOpen] = React.useState(false);
 
   const handleToggleOpen = () => {
-    console.log("open");
     setIsOpen(true);
   };
 
   const handleCloseCall = () => {
-    console.log("close");
     setIsOpen(false);
   };
-  console.log("markerInfo");
   return (
     <Marker
       position={{ lat: position.lat, lng: position.lng }}
@@ -24,7 +21,7 @@ export default function MarkerInfo({ position }) {
     >
       {isOpen && (
         <InfoBox
-          onCloseClick={handleCloseCall}
+          options={{ closeBoxURL: "", enableEventPropagation: true }}
           position={{ lat: position.lat, lng: position.lng }}
         >
           <div style={{ backgroundColor: "white", opacity: 0.75, padding: 5 }}>
@@ -37,6 +34,13 @@ export default function MarkerInfo({ position }) {
                 <b>Lat: </b>
                 {position.lat}, <b> Lng: </b> {position.lng}
               </p>
+              <button
+                type="button"
+                className="infoBoxCloseButton"
+                onClick={handleCloseCall}
+              >
+                Close
+              </button>
             </div>
           </div>
         </InfoBox>

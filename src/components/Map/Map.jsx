@@ -7,7 +7,6 @@ import {
   DirectionsRenderer,
   StandaloneSearchBox,
 } from "@react-google-maps/api";
-import Information from "../Information/Information";
 import MarkerInfo from "../MarkerInfo/MarkerInfo";
 
 function Map({ origin, destination }) {
