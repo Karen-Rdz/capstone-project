@@ -152,7 +152,7 @@ function Map({ origin, destination }) {
         </GoogleMap>
       </LoadScript>
       <div>
-        <Summary stops={stops} />
+        <Summary stops={stops} setStops={setStops} />
       </div>
     </>
   );
