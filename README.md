@@ -17,7 +17,8 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 - [x] User can add different establishments on the same map
 - [x] User can add and remove a stop
 - [x] User can visualize a summary of the trip
-- [ ] User can save the trip for future reference
+- [x] User can save the trip for future reference
+- [ ] User can visualize all the saved trips
 
 ### TODO
 
@@ -26,6 +27,7 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 - Fix origin.name error on create trip page
 - Update bounds on searchbox on planner page
 - Highlight clicked marker
+- Better formatting of trip on database
 
 ## Wireframes
 
