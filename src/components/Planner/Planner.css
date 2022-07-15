@@ -12,3 +12,61 @@
     justify-content: center;
     align-items: center;
 }
+
+.saveTripButton{
+    margin-top: 1.5%;
+    margin-bottom: 2%;
+    background-color: #363636;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    justify-content: center;
+    padding-bottom: calc(.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(.5em - 1px);
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.saveTripButton:hover {
+    background-color: #575757;
+}
+
+.saveTripButton:active {
+    background-color: #575757;
+    transform: translateY(1px);
+}
+
+.nextFinishButton{
+    margin-top: 1.5%;
+    margin-bottom: 2%;
+    background-color: #363636;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    justify-content: center;
+    padding-bottom: calc(.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(.5em - 1px);
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.nextFinishButton:hover {
+    background-color: #575757;
+}
+
+.nextFinishButton:active {
+    background-color: #575757;
+    transform: translateY(1px);
+}
+
+.linkFinish{
+    color: #fff;
+}

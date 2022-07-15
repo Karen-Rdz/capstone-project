@@ -11,6 +11,10 @@ export default function NumberStops({
   setOrigin,
   destination,
   setDestination,
+  stopsTime,
+  setStopsTime,
+  stopsDist,
+  setStopsDist,
 }) {
   const [originInput, setOriginInput] = React.useState("");
   const [destinationInput, setDestinationInput] = React.useState("");
@@ -133,7 +137,11 @@ export default function NumberStops({
                 {time ? (
                   <>
                     <p> Time: {time.text}</p>
-                    <Time time={time} />
+                    <Time
+                      time={time}
+                      stopsTime={stopsTime}
+                      setStopsTime={setStopsTime}
+                    />
                   </>
                 ) : (
                   <p></p>
@@ -151,7 +159,11 @@ export default function NumberStops({
                 {distance ? (
                   <>
                     <p> Distance: {distance.text}</p>
-                    <Distance distance={distance} />
+                    <Distance
+                      distance={distance}
+                      stopsDist={stopsDist}
+                      setStopsDist={setStopsDist}
+                    />
                   </>
                 ) : (
                   <p></p>

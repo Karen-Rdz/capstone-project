@@ -1,12 +1,11 @@
 import * as React from "react";
 import "./Time.css";
 
-export default function Time({ time }) {
+export default function Time({ time, stopsTime, setStopsTime }) {
   const [timeInput, setTimeInput] = React.useState();
-  const [stops, setStops] = React.useState(0);
 
   function calculateStops() {
-    setStops(Math.round(time.value / 60 / timeInput));
+    setStopsTime(Math.round(time.value / 60 / timeInput));
   }
 
   return (
@@ -23,7 +22,11 @@ export default function Time({ time }) {
         <button className="submitTime" type="submit" onClick={calculateStops}>
           Submit
         </button>
-        {stops > 0 ? <h4>Number of Stops recommended: {stops} </h4> : <p></p>}
+        {stopsTime > 0 ? (
+          <h4>Number of Stops recommended: {stopsTime} </h4>
+        ) : (
+          <p></p>
+        )}
       </div>
     </>
   );

@@ -16,6 +16,8 @@ function App() {
   const [destination, setDestination] = React.useState();
   const [user, setUser] = React.useState({});
   const [stops, setStops] = React.useState([]);
+  const [stopsDist, setStopsDist] = React.useState(0);
+  const [stopsTime, setStopsTime] = React.useState(0);
 
   return (
     <div className='app'>
@@ -29,11 +31,11 @@ function App() {
           />
           <Route
             path="/route"
-            element={ <NumberStops origin={origin} setOrigin={setOrigin} destination={destination} setDestination={setDestination}/> }
+            element={ <NumberStops origin={origin} setOrigin={setOrigin} destination={destination} setDestination={setDestination} stopsTime={stopsTime} setStopsTime={setStopsTime} stopsDist={stopsDist} setStopsDist={setStopsDist}/> }
           />
           <Route
             path="/planner"
-            element={ <Planner origin={origin} destination={destination} user={user} stops={stops} setStops={setStops}/> }
+            element={ <Planner origin={origin} destination={destination} user={user} stopsTime={stopsTime} stopsDist={stopsDist} stops={stops} setStops={setStops}/> }
           />
           <Route
             path="/summary"

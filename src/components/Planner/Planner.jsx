@@ -9,6 +9,8 @@ export default function Planner({
   origin,
   destination,
   user,
+  stopsTime,
+  stopsDist,
   stops,
   setStops,
 }) {
@@ -37,14 +39,24 @@ export default function Planner({
       <div className="planner">
         <h1>Create your stops</h1>
         <div className="accions">
-          <p>Origin: {origin.name} </p>
+          <p> Origin: {origin.name} </p>
           <p> Destination: {destination.name} </p>
-          <button>Add Stop</button>
-          <button>Remove Stop</button>
-          <button>
-            <Link to={`/summary`}>Summary</Link>
+          {stopsTime > 0 ? (
+            <>
+              <br />
+              <p> Number of Stops recommended depending on time: {stopsTime}</p>
+            </>
+          ) : (
+            <p></p>
+          )}
+          {stopsDist > 0 ? (
+            <p> Number of Stops recommended depending on time: {stopsDist}</p>
+          ) : (
+            <p></p>
+          )}
+          <button className="saveTripButton" onClick={saveTrip}>
+            Save Trip
           </button>
-          <button onClick={saveTrip}>Save Trip</button>
         </div>
         <div className="services">
           <input type="radio" /> Gas Stations
@@ -61,8 +73,10 @@ export default function Planner({
             setStops={setStops}
           />
         </div>
-        <button>
-          <Link to={`/finish`}>Next</Link>
+        <button className="nextFinishButton">
+          <Link className="linkFinish" to={`/finish`}>
+            Next
+          </Link>
         </button>
       </div>
     </>

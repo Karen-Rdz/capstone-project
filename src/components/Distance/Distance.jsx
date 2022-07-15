@@ -1,12 +1,11 @@
 import * as React from "react";
 import "./Distance.css";
 
-export default function Distance({ distance }) {
+export default function Distance({ distance, stopsDist, setStopsDist }) {
   const [distanceInput, setDistanceInput] = React.useState();
-  const [stops, setStops] = React.useState(0);
 
   function calculateStops() {
-    setStops(Math.round(distance.value / 1000 / distanceInput));
+    setStopsDist(Math.round(distance.value / 1000 / distanceInput));
   }
 
   return (
@@ -27,7 +26,11 @@ export default function Distance({ distance }) {
         >
           Submit
         </button>
-        {stops > 0 ? <h4>Number of Stops recommended: {stops} </h4> : <p></p>}
+        {stopsDist > 0 ? (
+          <h4>Number of Stops recommended: {stopsDist} </h4>
+        ) : (
+          <p></p>
+        )}
       </div>
     </>
   );
