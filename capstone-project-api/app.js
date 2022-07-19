@@ -16,6 +16,9 @@ app.use(function(req, res, next) {
 app.post('/user', plannerRoutes)
 app.post('/login', plannerRoutes)
 app.post('/trip', plannerRoutes)
+app.get('/trips', plannerRoutes)
+app.post('/session', plannerRoutes)
+app.get('/sessions', plannerRoutes)
 
 app.get('/', (req, res) => {
     res.status(200).send({"ping": "pong"})

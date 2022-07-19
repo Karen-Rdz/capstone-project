@@ -39,9 +39,20 @@ export default function Login({ setUser }) {
         username: name,
         password: password,
       });
-      navigate("../route");
+      // navigate(`../route`);
     } catch (err) {
       alert("User not in the system. Please create an account");
+      console.log(err);
+    }
+    try {
+      await axios.post("http://localhost:3001/session", {
+        user: {
+          username: name,
+          password: password,
+        },
+      });
+      navigate(`../route`);
+    } catch (err) {
       console.log(err);
     }
   }

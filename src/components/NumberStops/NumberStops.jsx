@@ -40,9 +40,6 @@ export default function NumberStops({
     axios(configOrigin)
       .then(function (responseOrigin) {
         setOrigin(responseOrigin.data.candidates[0]);
-        // console.log(
-        //   JSON.stringify(responseOrigin.data.candidates[0].geometry.location)
-        // );
       })
       .catch(function (error) {
         console.log(error);
@@ -51,11 +48,6 @@ export default function NumberStops({
     axios(configDestination)
       .then(function (responseDestination) {
         setDestination(responseDestination.data.candidates[0]);
-        // console.log(
-        //   // JSON.stringify(
-        //   //   responseDestination.data.candidates[0].geometry.location
-        //   // )
-        // );
       })
       .catch(function (error) {
         console.log(error);

@@ -43,4 +43,41 @@ router.post('/trip', async function (req, res) {
       }
 })
 
+router.get('/trips', async (req, res) => {
+  try {
+    const query = new Parse.Query("Trips")
+    query.descending("createdAt")
+    trips = await query.find()
+    res.send({"trips" : trips})
+  } catch (error) {
+    res.status(400)
+    res.send({"error" : "Trips query failed: " + error })
+  }
+})
+
+router.post('/session', async function (req, res) {
+  try {
+      const session = new Parse.Object("Sessions", req.body)
+      await session.save();
+      res.status(201);
+      res.send({ "session": session });
+    } catch (error) {
+      res.status(400)
+      res.send({"error" : error })
+    }
+})
+
+router.get('/sessions', async (req, res) => {
+  try {
+    const query = new Parse.Query("Sessions")
+    query.descending("createdAt")
+    query.include("user")
+    sessions = await query.find()
+    res.send({"sessions" : sessions})
+  } catch (error) {
+    res.status(400)
+    res.send({"error" : "Sessions query failed: " + error })
+  }
+})
+
 module.exports = router

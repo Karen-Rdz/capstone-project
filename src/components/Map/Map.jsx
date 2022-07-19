@@ -16,7 +16,6 @@ function Map({ origin, destination, stops, setStops }) {
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
-  // const [stops, setStops] = React.useState([]);
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {

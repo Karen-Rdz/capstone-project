@@ -4,12 +4,10 @@ import './App.css';
 import Finish from "./components/Finish/Finish";
 import Header from "./components/Header/Header";
 import Login from './components/Login/Login';
-import Map from "./components/Map/Map";
 import NumberStops from "./components/NumberStops/NumberStops";
 import Planner from "./components/Planner/Planner";
 import Summary from "./components/Summary/Summary";
 import Trips from "./components/Trips/Trips";
-const API_KEY = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc"
 
 function App() {
   const [origin, setOrigin] = React.useState();
@@ -18,7 +16,6 @@ function App() {
   const [stops, setStops] = React.useState([]);
   const [stopsDist, setStopsDist] = React.useState(0);
   const [stopsTime, setStopsTime] = React.useState(0);
-
   return (
     <div className='app'>
       <BrowserRouter>
@@ -42,8 +39,8 @@ function App() {
             element={ <Summary /> }
           />
           <Route
-            path="/trips"
-            element={ <Trips /> }
+            path='/trips'
+            element={ <Trips user={user}/> }
           />
           <Route
             path="/finish"
