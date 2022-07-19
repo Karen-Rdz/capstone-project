@@ -25,7 +25,6 @@ function Map({ origin, destination, stops, setStops }) {
         setResponse(res);
       } else {
         count.current = 0;
-        console.log("res: ", res);
       }
     }
   };
@@ -35,7 +34,6 @@ function Map({ origin, destination, stops, setStops }) {
   const onPlacesChanged = () => {
     let places = query.getPlaces();
     let color;
-    console.log(places);
 
     for (let i = 0; i < places.length; i++) {
       let lat = places[i].geometry.location.lat;

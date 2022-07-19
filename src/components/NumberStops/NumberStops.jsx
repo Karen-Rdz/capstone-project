@@ -1,8 +1,7 @@
 import * as React from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
 import "./NumberStops.css";
-import { LoadScript } from "@react-google-maps/api";
+import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import Distance from "../Distance/Distance";
 import Time from "../Time/Time";
 
@@ -24,34 +23,32 @@ export default function NumberStops({
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
   const lib = ["places", "geometry", "drawing"];
 
-  function handleTrip() {
-    var configOrigin = {
-      method: "get",
-      url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${originInput}&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=${key}`,
-      headers: {},
-    };
+  function onLoadOrigin(autocompleteOrigin) {
+    setOriginInput(autocompleteOrigin);
+    console.log("autocomplete: ", autocompleteOrigin);
+  }
 
-    var configDestination = {
-      method: "get",
-      url: `https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=${destinationInput}&inputtype=textquery&fields=formatted_address%2Cname%2Crating%2Copening_hours%2Cgeometry&key=${key}`,
-      headers: {},
-    };
+  function onLoadDestination(autocompleteDestination) {
+    setDestinationInput(autocompleteDestination);
+    console.log("autocomplete: ", autocompleteDestination);
+  }
 
-    axios(configOrigin)
-      .then(function (responseOrigin) {
-        setOrigin(responseOrigin.data.candidates[0]);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  function onOriginChange() {
+    if (originInput !== null) {
+      console.log(originInput.getPlace());
+      setOrigin(originInput.getPlace());
+    } else {
+      console.log("Autocomplete is not loaded yet!");
+    }
+  }
 
-    axios(configDestination)
-      .then(function (responseDestination) {
-        setDestination(responseDestination.data.candidates[0]);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+  function onDestinationChange() {
+    if (destinationInput !== null) {
+      console.log(destinationInput.getPlace());
+      setDestination(destinationInput.getPlace());
+    } else {
+      console.log("Autocomplete is not loaded yet!");
+    }
   }
 
   // TODO: Error message when status is not okay
@@ -73,47 +70,43 @@ export default function NumberStops({
       }
     }
   }
+
   return (
     <>
       <div className="numberStops">
         <h1>Create your trip</h1>
         <div className="trip">
-          <div className="origin">
-            <b>Origin:</b>
-            <input
-              className="inputLocation"
-              type="text"
-              placeholder="Origin"
-              onChange={(event) => setOriginInput(event.target.value)}
-            />
-          </div>
-          <div className="destination">
-            <b>Destination:</b>
-            <input
-              className="inputLocation"
-              type="text"
-              placeholder="Destination"
-              onChange={(event) => setDestinationInput(event.target.value)}
-            />
-          </div>
-          <div className="submit">
-            <p></p>
-            <button
-              className="buttonLocation"
-              type="Submit"
-              onClick={handleTrip}
-            >
-              Submit
-            </button>
-          </div>
+          <LoadScript googleMapsApiKey={key} libraries={lib}>
+            <div className="origin">
+              <b>Origin:</b>
+              <Autocomplete
+                onLoad={onLoadOrigin}
+                onPlaceChanged={() => onOriginChange()}
+              >
+                <input
+                  className="inputLocation"
+                  type="text"
+                  placeholder="Origin"
+                />
+              </Autocomplete>
+            </div>
+            <div className="destination">
+              <b>Destination:</b>
+              <Autocomplete
+                onLoad={onLoadDestination}
+                onPlaceChanged={() => onDestinationChange("destination")}
+              >
+                <input
+                  className="inputLocation"
+                  type="text"
+                  placeholder="Destination"
+                />
+              </Autocomplete>
+            </div>
+          </LoadScript>
           <div className="originDestination">
-            {origin ? (
-              <p>
-                From: {origin.name}, To: {destination.name}
-              </p>
-            ) : (
-              <p></p>
-            )}
+            {origin ? <p>From: {origin.name}</p> : <p></p>}
+            {destination ? <p>To: {destination.name}</p> : <p></p>}
           </div>
         </div>
         <LoadScript googleMapsApiKey={key} libraries={lib}>

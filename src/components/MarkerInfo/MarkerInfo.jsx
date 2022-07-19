@@ -16,7 +16,6 @@ export default function MarkerInfo({ position, stops, setStops }) {
     setStops((stops) => [...stops, position]);
   };
 
-  console.log("markerInfo");
   return (
     <Marker
       position={{ lat: position.lat, lng: position.lng }}

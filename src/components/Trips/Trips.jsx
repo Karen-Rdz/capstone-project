@@ -5,6 +5,7 @@ import axios from "axios";
 export default function Trips() {
   const [trips, setTrips] = React.useState([]);
   const [currentUsers, setCurrentUsers] = React.useState([]);
+  let count = 0;
 
   React.useEffect(() => {
     async function fetchTrips() {
@@ -39,25 +40,29 @@ export default function Trips() {
         <h1>Trips</h1>
         {trips.map((trip, index) => (
           <>
-            {trip.trip.user.username === currentUsers[0].username ? (
-              <>
-                <h3>Trip #{index + 1}</h3>
-                <p>
-                  {" "}
-                  <b>Origin: </b> {trip.trip.origin.name} <b>Destination: </b>{" "}
-                  {trip.trip.destination.name}
-                </p>
-                {trip.trip.stops.map((stop) => (
+            {trip.trip.user.username === currentUsers[0].username &&
+            trip.trip.user.password === currentUsers[0].password ? (
+              ((count += 1),
+              (
+                <>
+                  <h3>Trip #{count}</h3>
                   <p>
-                    <b>Name: </b>
-                    {stop.name} <br />
-                    <b>Address: </b>
-                    {stop.address} <br />
-                    <b>Lat: </b>
-                    {stop.lat}, <b> Lng: </b> {stop.lng}
+                    {" "}
+                    <b>Origin: </b> {trip.trip.origin.name} <b>Destination: </b>{" "}
+                    {trip.trip.destination.name}
                   </p>
-                ))}
-              </>
+                  {trip.trip.stops.map((stop) => (
+                    <p>
+                      <b>Name: </b>
+                      {stop.name} <br />
+                      <b>Address: </b>
+                      {stop.address} <br />
+                      <b>Lat: </b>
+                      {stop.lat}, <b> Lng: </b> {stop.lng}
+                    </p>
+                  ))}
+                </>
+              ))
             ) : (
               <p></p>
             )}

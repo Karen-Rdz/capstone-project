@@ -14,7 +14,6 @@ export default function Planner({
   setStops,
 }) {
   async function saveTrip() {
-    console.log(origin, destination, user, stops);
     try {
       await axios.post("http://localhost:3001/trip", {
         trip: {
@@ -24,6 +23,7 @@ export default function Planner({
           stops: stops,
         },
       });
+      alert("Trip saved successfully");
     } catch (err) {
       alert("Error saving trip");
       console.log(err);
