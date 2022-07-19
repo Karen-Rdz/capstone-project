@@ -22,10 +22,7 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 
 ### TODO
 
-- Stay login
 - Update bounds on searchbox on planner page
-- Highlight clicked marker
-- Better formatting of trip on database
 
 ## Wireframes
 

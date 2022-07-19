@@ -69,10 +69,10 @@ function Map({ origin, destination, stops, setStops }) {
   };
 
   const bounds = {
-    north: origin.geometry.location.lat,
-    south: destination.geometry.location.lat,
-    east: origin.geometry.location.lng,
-    west: destination.geometry.location.lng,
+    north: origin.geometry.location.lat(),
+    south: destination.geometry.location.lat(),
+    east: origin.geometry.location.lng(),
+    west: destination.geometry.location.lng(),
   };
 
   // const onLoadMap = React.useCallback((map) => setMap(map), []);

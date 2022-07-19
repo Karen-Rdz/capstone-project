@@ -51,7 +51,6 @@ export default function NumberStops({
     }
   }
 
-  // TODO: Error message when status is not okay
   function calculateDistance(value) {
     let service = new window.google.maps.DistanceMatrixService();
     service.getDistanceMatrix(
@@ -106,7 +105,7 @@ export default function NumberStops({
           </LoadScript>
           <div className="originDestination">
             {origin ? <p>From: {origin.name}</p> : <p></p>}
-            {destination ? <p>To: {destination.name}</p> : <p></p>}
+            {destination ? <p>, To: {destination.name}</p> : <p></p>}
           </div>
         </div>
         <LoadScript googleMapsApiKey={key} libraries={lib}>

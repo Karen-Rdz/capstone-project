@@ -3,13 +3,16 @@ import { Marker, InfoBox } from "@react-google-maps/api";
 
 export default function MarkerInfo({ position, stops, setStops }) {
   const [isOpen, setIsOpen] = React.useState(false);
+  const [animation, setAnimation] = React.useState(2);
 
   const handleToggleOpen = () => {
     setIsOpen(true);
+    setAnimation(1);
   };
 
   const handleCloseCall = () => {
     setIsOpen(false);
+    setAnimation(null);
   };
 
   const addStop = () => {
@@ -23,6 +26,7 @@ export default function MarkerInfo({ position, stops, setStops }) {
         url: `http://maps.google.com/mapfiles/ms/icons/${position.color}-dot.png`,
       }}
       onClick={handleToggleOpen}
+      animation={animation}
     >
       {isOpen && (
         <InfoBox

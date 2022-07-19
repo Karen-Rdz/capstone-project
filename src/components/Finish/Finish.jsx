@@ -15,7 +15,7 @@ export default function Finish() {
         </button>
         <p>If you want to create another trip. Click on the button below</p>
         <button>
-          <Link to={`/`}>Home Page</Link>
+          <Link to={`/route`}>Create Trip</Link>
         </button>
       </div>
     </>
