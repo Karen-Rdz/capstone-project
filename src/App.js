@@ -16,6 +16,7 @@ function App() {
   const [stops, setStops] = React.useState([]);
   const [stopsDist, setStopsDist] = React.useState(0);
   const [stopsTime, setStopsTime] = React.useState(0);
+  const [stopsFuel, setStopsFuel] = React.useState(0);
   return (
     <div className='app'>
       <BrowserRouter>
@@ -28,7 +29,7 @@ function App() {
           />
           <Route
             path="/route"
-            element={ <NumberStops origin={origin} setOrigin={setOrigin} destination={destination} setDestination={setDestination} stopsTime={stopsTime} setStopsTime={setStopsTime} stopsDist={stopsDist} setStopsDist={setStopsDist}/> }
+            element={ <NumberStops origin={origin} setOrigin={setOrigin} destination={destination} setDestination={setDestination} stopsTime={stopsTime} setStopsTime={setStopsTime} stopsDist={stopsDist} setStopsDist={setStopsDist} stopsFuel={stopsFuel} setStopsFuel={setStopsFuel}/>}
           />
           <Route
             path="/planner"

@@ -35,24 +35,25 @@ export default function Planner({
       <div className="planner">
         <h1>Create your stops</h1>
         <div className="accions">
-          <p className="info">
-            {" "}
-            <b> Origin:</b> {origin.name}{" "}
-          </p>
-          <p className="info">
-            {" "}
-            <b> Destination: </b> {destination.name}{" "}
-          </p>
-          <p className="info">
-            <b> Stops recommended depending on time: </b> {stopsTime}
-          </p>
-          <p className="info">
-            <b> Stops recommended depending on distance: </b>
-            {stopsDist}
-          </p>
-          <button className="saveTripButton" onClick={saveTrip}>
-            Save Trip
-          </button>
+          <div className="infoOriginDestination">
+            <p className="info">
+              {" "}
+              <b> Origin:</b> {origin.name}{" "}
+            </p>
+            <p className="info">
+              {" "}
+              <b> Destination: </b> {destination.name}{" "}
+            </p>
+          </div>
+          <div className="infoStopsTimeDistance">
+            <p className="info">
+              <b> Stops recommended depending on time: </b> {stopsTime}
+            </p>
+            <p className="info">
+              <b> Stops recommended depending on distance: </b>
+              {stopsDist}
+            </p>
+          </div>
         </div>
         <div className="services">
           <img
@@ -84,11 +85,16 @@ export default function Planner({
             setStops={setStops}
           />
         </div>
-        <button className="nextFinishButton">
-          <Link className="linkFinish" to={`/finish`}>
-            Next
-          </Link>
-        </button>
+        <div className="accionButtons">
+          <button className="saveTripButton" onClick={saveTrip}>
+            Save Trip
+          </button>
+          <button className="nextFinishButton">
+            <Link className="linkFinish" to={`/finish`}>
+              Next
+            </Link>
+          </button>
+        </div>
       </div>
     </>
   );

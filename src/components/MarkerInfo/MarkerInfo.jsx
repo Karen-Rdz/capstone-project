@@ -1,5 +1,7 @@
 import React from "react";
 import { Marker, InfoBox } from "@react-google-maps/api";
+import { Icon } from "@iconify/react";
+import "./MarkerInfo.css";
 
 export default function MarkerInfo({ position, stops, setStops }) {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -33,8 +35,8 @@ export default function MarkerInfo({ position, stops, setStops }) {
           options={{ closeBoxURL: "", enableEventPropagation: true }}
           position={{ lat: position.lat, lng: position.lng }}
         >
-          <div style={{ backgroundColor: "white", opacity: 0.75, padding: 5 }}>
-            <div style={{ fontSize: 10, fontColor: `#08233B` }}>
+          <div style={{ backgroundColor: "white", opacity: 0.8, padding: 5 }}>
+            <div style={{ fontSize: 12, fontColor: `#08233B` }}>
               <p>
                 <b>Name: </b>
                 {position.name} <br />
@@ -43,14 +45,17 @@ export default function MarkerInfo({ position, stops, setStops }) {
                 <b>Lat: </b>
                 {position.lat}, <b> Lng: </b> {position.lng}
               </p>
-              <button
-                type="button"
+              <Icon
                 className="infoBoxCloseButton"
+                icon="ep:circle-close"
                 onClick={handleCloseCall}
-              >
-                Close
-              </button>
-              <button type="button" onClick={addStop}>
+              />
+              <button className="addStopButton">
+                <Icon
+                  className="infoBoxAddStop"
+                  icon="ant-design:plus-square-outlined"
+                  onClick={addStop}
+                />{" "}
                 Add Stop
               </button>
             </div>

@@ -4,6 +4,7 @@ import "./NumberStops.css";
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import Distance from "../Distance/Distance";
 import Time from "../Time/Time";
+import Fuel from "../Fuel/Fuel";
 
 export default function NumberStops({
   origin,
@@ -14,28 +15,28 @@ export default function NumberStops({
   setStopsTime,
   stopsDist,
   setStopsDist,
+  stopsFuel,
+  setStopsFuel,
 }) {
   const [originInput, setOriginInput] = React.useState("");
   const [destinationInput, setDestinationInput] = React.useState("");
   const [distance, setDistance] = React.useState();
   const [time, setTime] = React.useState();
+  const [fuelActivated, setFuelActivated] = React.useState(false);
 
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
   const lib = ["places", "geometry", "drawing"];
 
   function onLoadOrigin(autocompleteOrigin) {
     setOriginInput(autocompleteOrigin);
-    console.log("autocomplete: ", autocompleteOrigin);
   }
 
   function onLoadDestination(autocompleteDestination) {
     setDestinationInput(autocompleteDestination);
-    console.log("autocomplete: ", autocompleteDestination);
   }
 
   function onOriginChange() {
     if (originInput !== null) {
-      console.log(originInput.getPlace());
       setOrigin(originInput.getPlace());
     } else {
       console.log("Autocomplete is not loaded yet!");
@@ -44,7 +45,6 @@ export default function NumberStops({
 
   function onDestinationChange() {
     if (destinationInput !== null) {
-      console.log(destinationInput.getPlace());
       setDestination(destinationInput.getPlace());
     } else {
       console.log("Autocomplete is not loaded yet!");
@@ -154,10 +154,25 @@ export default function NumberStops({
                 )}
               </div>
             </div>
-            {/* TODO: Depending on Fuel */}
-            {/* <div className="fuel">
-              <input className="inputRadio" type="radio" /> Fuel
-            </div> */}
+            <div className="fuel">
+              <input
+                className="inputRadio"
+                type="radio"
+                onClick={() => setFuelActivated(true)}
+              />{" "}
+              Fuel
+              <div className="infoStops">
+                {fuelActivated ? (
+                  <Fuel
+                    distance={distance}
+                    stopsFuel={stopsFuel}
+                    setStopsFuel={setStopsFuel}
+                  />
+                ) : (
+                  <p></p>
+                )}
+              </div>
+            </div>
           </div>
         </LoadScript>
         <button className="nextButton">
