@@ -10,6 +10,7 @@ export default function Planner({
   user,
   stopsTime,
   stopsDist,
+  stopsFuel,
   stops,
   setStops,
 }) {
@@ -52,6 +53,10 @@ export default function Planner({
             <p className="info">
               <b> Stops recommended depending on distance: </b>
               {stopsDist}
+            </p>
+            <p className="info">
+              <b> Stops recommended depending on fuel: </b>
+              {stopsFuel}
             </p>
           </div>
         </div>

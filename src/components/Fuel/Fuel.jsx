@@ -13,6 +13,7 @@ export default function Fuel({ distance, stopsFuel, setStopsFuel }) {
   const [fuelInformation, setFuelInformation] = React.useState({
     totalMiles: 0,
     galonsNeeded: 0,
+    stops: 0,
   });
 
   async function getFuel() {
@@ -30,14 +31,14 @@ export default function Fuel({ distance, stopsFuel, setStopsFuel }) {
       } else {
         setMpg(res.data[0].city_mpg);
         let totalMiles = ((distance.value / 1000) * 0.6214).toFixed(2);
-        let galonsNeeded = (((distance.value / 1000) * 0.6214) / mpg).toFixed(
-          2
-        );
+        let galonsNeeded = (totalMiles / res.data[0].city_mpg).toFixed(2);
+        let stops = Math.round(galonsNeeded / fuelCapacity);
         setFuelInformation({
           totalMiles: totalMiles,
           galonsNeeded: galonsNeeded,
+          stops: stops,
         });
-        setStopsFuel(Math.round(fuelInformation.galonsNeeded / fuelCapacity));
+        setStopsFuel(stops);
       }
     } catch (err) {
       alert("Error getting car information");
@@ -68,7 +69,7 @@ export default function Fuel({ distance, stopsFuel, setStopsFuel }) {
           <p>MPG: {mpg}</p>
           <p>Total miles: {fuelInformation.totalMiles}</p>
           <p>Gallons nedded: {fuelInformation.galonsNeeded}</p>
-          <h4>Number of Stops recommended: {stopsFuel} </h4>
+          <h4>Number of Stops recommended: {fuelInformation.stops} </h4>
         </>
       ) : (
         <p></p>

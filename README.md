@@ -22,11 +22,10 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 
 ## Stretch Features
 
-- [ ] User can know the recommended number of stops depending on fuel consumption
+- [x] User can know the recommended number of stops depending on fuel consumption
 
 ### TODO
 
-- Fix button on fuel component
 - Update bounds on searchbox on planner page
 
 ## Wireframes

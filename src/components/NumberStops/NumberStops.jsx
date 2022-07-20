@@ -70,6 +70,11 @@ export default function NumberStops({
     }
   }
 
+  function fuelInput() {
+    setFuelActivated(true);
+    calculateDistance("distance");
+  }
+
   return (
     <>
       <div className="numberStops">
@@ -140,7 +145,7 @@ export default function NumberStops({
               />{" "}
               Distance
               <div className="infoStops">
-                {distance ? (
+                {distance && !fuelActivated ? (
                   <>
                     <p> Distance: {distance.text}</p>
                     <Distance
@@ -155,11 +160,7 @@ export default function NumberStops({
               </div>
             </div>
             <div className="fuel">
-              <input
-                className="inputRadio"
-                type="radio"
-                onClick={() => setFuelActivated(true)}
-              />{" "}
+              <input className="inputRadio" type="radio" onClick={fuelInput} />{" "}
               Fuel
               <div className="infoStops">
                 {fuelActivated ? (

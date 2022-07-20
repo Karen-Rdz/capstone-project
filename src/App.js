@@ -33,7 +33,7 @@ function App() {
           />
           <Route
             path="/planner"
-            element={ <Planner origin={origin} destination={destination} user={user} stopsTime={stopsTime} stopsDist={stopsDist} stops={stops} setStops={setStops}/> }
+            element={ <Planner origin={origin} destination={destination} user={user} stopsTime={stopsTime} stopsDist={stopsDist} stopsFuel={stopsFuel} stops={stops} setStops={setStops}/> }
           />
           <Route
             path="/summary"
