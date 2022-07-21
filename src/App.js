@@ -45,7 +45,7 @@ function App() {
           />
           <Route
             path="/finish"
-            element={ <Finish /> }
+            element={ <Finish user={user} origin={origin} destination={destination} stops={stops}/> }
           />
         </Routes>
       </main>

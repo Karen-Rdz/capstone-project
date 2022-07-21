@@ -1,5 +1,6 @@
 import * as React from "react";
 import "./Summary.css";
+import { Icon } from "@iconify/react";
 
 export default function Summary({ stops, setStops }) {
   const removeStop = (index, stops) => {
@@ -14,7 +15,8 @@ export default function Summary({ stops, setStops }) {
         {stops.length > 0 ? (
           stops.map((stop, index) => (
             <>
-              <p>
+              <h3>Stops #{index + 1}</h3>
+              <p className="infoStopSummary">
                 <b>Name: </b>
                 {stop.name} <br />
                 <b>Address: </b>
@@ -22,7 +24,11 @@ export default function Summary({ stops, setStops }) {
                 <b>Lat: </b>
                 {stop.lat}, <b> Lng: </b> {stop.lng}
               </p>
-              <button onClick={() => removeStop(index, stops, setStops)}>
+              <button
+                className="removeStopButton"
+                onClick={() => removeStop(index, stops, setStops)}
+              >
+                <Icon className={"removeStopIcon"} icon="akar-icons:minus" />
                 Remove Stop
               </button>
             </>

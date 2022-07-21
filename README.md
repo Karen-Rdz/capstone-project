@@ -23,6 +23,7 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 ## Stretch Features
 
 - [x] User can know the recommended number of stops depending on fuel consumption
+- [x] User can send the trip via email
 
 ### TODO
 

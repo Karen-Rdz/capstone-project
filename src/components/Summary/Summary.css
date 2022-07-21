@@ -1,0 +1,13 @@
+.removeStopButton{
+    height: 25px;
+    background-color: transparent;
+    border-color: red;
+    color: red;
+    margin-top: -10px;
+    margin-bottom: 5px;
+}
+
+.removeStopIcon{
+    margin-bottom: -2px;
+    margin-right: 5px;
+}

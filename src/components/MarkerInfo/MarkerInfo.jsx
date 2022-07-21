@@ -50,12 +50,8 @@ export default function MarkerInfo({ position, stops, setStops }) {
                 icon="ep:circle-close"
                 onClick={handleCloseCall}
               />
-              <button className="addStopButton">
-                <Icon
-                  className="infoBoxAddStop"
-                  icon="ant-design:plus-square-outlined"
-                  onClick={addStop}
-                />{" "}
+              <button className="addStopButton" onClick={addStop}>
+                <Icon className="infoBoxAddStop" icon="akar-icons:plus" />
                 Add Stop
               </button>
             </div>
