@@ -7,6 +7,14 @@
     margin-bottom: 5px;
 }
 
+.removeStopButton:hover {
+    transform: translateY(-2px);
+}
+
+.removeStopButton:active {
+    transform: translateY(1px);
+}
+
 .removeStopIcon{
     margin-bottom: -2px;
     margin-right: 5px;

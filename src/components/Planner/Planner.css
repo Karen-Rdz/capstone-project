@@ -87,10 +87,6 @@
     transform: translateY(1px);
 }
 
-.linkFinish{
-    color: #fff;
-}
-
 .accionButtons{
     display: flex;
     flex-direction: row;

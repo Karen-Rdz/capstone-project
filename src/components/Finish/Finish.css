@@ -5,3 +5,97 @@
     justify-content: center;
     align-items: center;
 }
+
+.allTripsButton{
+    margin-top: 1.5%;
+    margin-bottom: 2%;
+    margin-left: 5px;
+    background-color: #363636;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    justify-content: center;
+    padding-bottom: calc(.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(.5em - 1px);
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.allTripsButton:hover {
+    background-color: #575757;
+}
+
+.allTripsButton:active {
+    background-color: #575757;
+    transform: translateY(1px);
+}
+
+.createTripButton{
+    margin-top: 1.5%;
+    margin-bottom: 2%;
+    margin-left: 5px;
+    background-color: #363636;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    justify-content: center;
+    padding-bottom: calc(.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(.5em - 1px);
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.createTripButton:hover {
+    background-color: #575757;
+}
+
+.createTripButton:active {
+    background-color: #575757;
+    transform: translateY(1px);
+}
+
+.sendEmail{
+    margin-top: 1.5%;
+    margin-bottom: 2%;
+    margin-left: 5px;
+    background-color: #363636;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    justify-content: center;
+    padding-bottom: calc(.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(.5em - 1px);
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.sendEmail:hover {
+    background-color: #575757;
+}
+
+.sendEmail:active {
+    background-color: #575757;
+    transform: translateY(1px);
+}
+
+.emailInput{
+    margin: 2px;
+    padding-bottom: calc(.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(.5em - 1px);
+    border-radius: 5px;
+    width: 250px;
+}

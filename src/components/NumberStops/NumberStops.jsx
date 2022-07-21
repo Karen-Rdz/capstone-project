@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./NumberStops.css";
 import { LoadScript, Autocomplete } from "@react-google-maps/api";
 import Distance from "../Distance/Distance";
@@ -73,6 +73,11 @@ export default function NumberStops({
   function fuelInput() {
     setFuelActivated(true);
     calculateDistance("distance");
+  }
+
+  let navigate = useNavigate();
+  function toPlanner() {
+    navigate(`../planner`);
   }
 
   return (
@@ -176,10 +181,8 @@ export default function NumberStops({
             </div>
           </div>
         </LoadScript>
-        <button className="nextButton">
-          <Link className="linkPlanner" to={`/planner`}>
-            Next
-          </Link>
+        <button className="nextButton" onClick={toPlanner}>
+          Next
         </button>
       </div>
     </>

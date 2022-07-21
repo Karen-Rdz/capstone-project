@@ -1,5 +1,5 @@
 import * as React from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "./Planner.css";
 import Map from "../Map/Map";
 import axios from "axios";
@@ -29,6 +29,11 @@ export default function Planner({
       alert("Error saving trip");
       console.log(err);
     }
+  }
+
+  let navigate = useNavigate();
+  function toFinish() {
+    navigate(`../finish`);
   }
 
   return (
@@ -94,10 +99,8 @@ export default function Planner({
           <button className="saveTripButton" onClick={saveTrip}>
             Save Trip
           </button>
-          <button className="nextFinishButton">
-            <Link className="linkFinish" to={`/finish`}>
-              Next
-            </Link>
+          <button className="nextFinishButton" onClick={toFinish}>
+            Next
           </button>
         </div>
       </div>

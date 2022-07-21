@@ -7,6 +7,14 @@
     color: red;
 }
 
+.infoBoxCloseButton:hover {
+    transform: translateY(-2px);
+}
+
+.infoBoxCloseButton:active {
+    transform: translateY(1px);
+}
+
 .infoBoxAddStop{
     padding: 2px;
     margin-bottom: -10px;
@@ -25,4 +33,12 @@
     color: green;
     margin-top: -10px;
     margin-bottom: 5px;
+}
+
+.addStopButton:hover {
+    transform: translateY(-2px);
+}
+
+.addStopButton:active {
+    transform: translateY(1px);
 }
