@@ -25,6 +25,7 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 - [x] User can know the recommended number of stops depending on fuel consumption
 - [x] User can send the trip via email
 - [x] User can visualize the map with the stops added
+- [x] User can visualize a progress bar
 
 ### TODO
 
