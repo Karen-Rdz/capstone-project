@@ -153,7 +153,12 @@ function Map({ origin, destination, stops, setStops }) {
             />
           </StandaloneSearchBox>
           {locations.map((item) => (
-            <MarkerInfo position={item} stops={stops} setStops={setStops} />
+            <MarkerInfo
+              position={item}
+              stops={stops}
+              setStops={setStops}
+              isAddStopsActivated={true}
+            />
           ))}
         </GoogleMap>
       </LoadScript>

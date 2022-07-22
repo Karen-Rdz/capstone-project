@@ -3,7 +3,12 @@ import { Marker, InfoBox } from "@react-google-maps/api";
 import { Icon } from "@iconify/react";
 import "./MarkerInfo.css";
 
-export default function MarkerInfo({ position, stops, setStops }) {
+export default function MarkerInfo({
+  position,
+  stops,
+  setStops,
+  isAddStopsActivated,
+}) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [animation, setAnimation] = React.useState(2);
 
@@ -18,7 +23,16 @@ export default function MarkerInfo({ position, stops, setStops }) {
   };
 
   const addStop = () => {
-    setStops((stops) => [...stops, position]);
+    let index = stops.findIndex((stop) => {
+      if (stop === position) {
+        return true;
+      }
+    });
+    if (index === -1) {
+      setStops((stops) => [...stops, position]);
+    } else {
+      alert("Stop already added");
+    }
   };
 
   return (
@@ -50,10 +64,14 @@ export default function MarkerInfo({ position, stops, setStops }) {
                 icon="ep:circle-close"
                 onClick={handleCloseCall}
               />
-              <button className="addStopButton" onClick={addStop}>
-                <Icon className="infoBoxAddStop" icon="akar-icons:plus" />
-                Add Stop
-              </button>
+              {isAddStopsActivated ? (
+                <button className="addStopButton" onClick={addStop}>
+                  <Icon className="infoBoxAddStop" icon="akar-icons:plus" />
+                  Add Stop
+                </button>
+              ) : (
+                ""
+              )}
             </div>
           </div>
         </InfoBox>

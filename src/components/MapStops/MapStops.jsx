@@ -49,7 +49,12 @@ function MapStops({ origin, destination, stops, setStops }) {
           />
         )}
         {stops.map((stop) => (
-          <MarkerInfo position={stop} stops={stops} setStops={setStops} />
+          <MarkerInfo
+            position={stop}
+            stops={stops}
+            setStops={setStops}
+            isAddStopsActivated={false}
+          />
         ))}
       </GoogleMap>
     </>
