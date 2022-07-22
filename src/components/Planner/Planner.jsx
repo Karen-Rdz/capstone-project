@@ -16,6 +16,7 @@ export default function Planner({
   setStops,
 }) {
   const [showMapStops, setShowMapStops] = React.useState(false);
+  const [tripSaved, setTripSaved] = React.useState(false);
 
   async function saveTrip() {
     try {
@@ -27,6 +28,7 @@ export default function Planner({
           stops: stops,
         },
       });
+      setTripSaved(true);
       alert("Trip saved successfully");
     } catch (err) {
       alert("Error saving trip");
@@ -43,7 +45,18 @@ export default function Planner({
     <>
       <div className="planner">
         <h1>Create your stops</h1>
-        <progress class="progress" value="66" max="100"></progress>
+        {stops.length > 0 ? (
+          <>
+            {tripSaved ? (
+              <progress class="progress" value="66" max="100"></progress>
+            ) : (
+              <progress class="progress" value="45" max="100"></progress>
+            )}
+          </>
+        ) : (
+          <progress class="progress" value="33" max="100"></progress>
+        )}
+
         <div className="accions">
           <div className="infoOriginDestination">
             <p className="info">

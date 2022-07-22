@@ -79,12 +79,23 @@ export default function NumberStops({
   function toPlanner() {
     navigate(`../planner`);
   }
-
+  console.log(destinationInput);
   return (
     <>
       <div className="numberStops">
         <h1>Create your trip</h1>
-        <progress class="progress" value="33" max="100"></progress>
+        {!destination ? (
+          <progress class="progress" value="0" max="100"></progress>
+        ) : (
+          <>
+            {time || distance || fuelActivated ? (
+              <progress class="progress" value="33" max="100"></progress>
+            ) : (
+              <progress class="progress" value="15" max="100"></progress>
+            )}
+          </>
+        )}
+
         <div className="trip">
           <LoadScript googleMapsApiKey={key} libraries={lib}>
             <div className="origin">
