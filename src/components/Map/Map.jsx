@@ -85,14 +85,14 @@ function Map({ origin, destination, stops, setStops }) {
           ref={(map) => {
             setMap(map);
           }}
-          onIdle={() => {
-            let ne = map.getBounds;
-            console.log(map.LatLngBounds);
-            console.log(ne);
-            // let sw = map.getBounds.getSouthWest();
-            // console.log(ne.lat() + ";" + ne.lng());
-            // console.log(sw.lat() + ";" + sw.lng());
-          }}
+          // onIdle={() => {
+          //   let ne = map.getBounds;
+          //   console.log(map.LatLngBounds);
+          //   console.log(ne);
+          // let sw = map.getBounds.getSouthWest();
+          // console.log(ne.lat() + ";" + ne.lng());
+          // console.log(sw.lat() + ";" + sw.lng());
+          // }}
           // onIdle={() => {
           //   let lat = map.state.map.center.lat;
           //   let lng = map.state.map.center.lng;

@@ -1,4 +1,4 @@
-# capstone-project: Trip Planner
+# capstone-project: Roadtrip Planner
 
 ## Description
 

@@ -2,6 +2,7 @@ import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import "./Planner.css";
 import Map from "../Map/Map";
+import MapStops from "../MapStops/MapStops";
 import axios from "axios";
 
 export default function Planner({
@@ -14,6 +15,8 @@ export default function Planner({
   stops,
   setStops,
 }) {
+  const [showMapStops, setShowMapStops] = React.useState(false);
+
   async function saveTrip() {
     try {
       await axios.post("http://localhost:3001/trip", {
@@ -95,6 +98,22 @@ export default function Planner({
             setStops={setStops}
           />
         </div>
+        <button
+          className="mapStopsButton"
+          onClick={() => setShowMapStops(!showMapStops)}
+        >
+          Show Map with Stops
+        </button>
+        {showMapStops ? (
+          <MapStops
+            origin={origin}
+            destination={destination}
+            stops={stops}
+            setStops={setStops}
+          />
+        ) : (
+          <p></p>
+        )}
         <div className="accionButtons">
           <button className="saveTripButton" onClick={saveTrip}>
             Save Trip
