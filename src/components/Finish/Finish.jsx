@@ -15,7 +15,7 @@ export default function Finish({ user, origin, destination, stops }) {
       Name: ${stop.name} 
       Address: ${stop.address} 
       Lat: ${stop.lat} Lng: ${stop.lng}` +
-      "\n ";
+      "\r ";
   });
   console.log(stopsString);
 
@@ -24,7 +24,7 @@ export default function Finish({ user, origin, destination, stops }) {
     user_name: user.username,
     origin: origin.name,
     destination: destination.name,
-    stops: stopsString,
+    stops: stopsString + "\r ",
   };
 
   const sendEmail = (e) => {
