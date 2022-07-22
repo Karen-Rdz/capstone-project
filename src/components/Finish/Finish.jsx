@@ -50,6 +50,7 @@ export default function Finish({ user, origin, destination, stops }) {
     <>
       <div className="finish">
         <h1>Thank you!</h1>
+        <progress class="progress" value="100" max="100"></progress>
         <p>
           Do you want to receive an email with your travel information?
           <input type="radio" onClick={() => setEmailActivated(true)} /> Yes

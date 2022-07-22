@@ -43,6 +43,7 @@ export default function Planner({
     <>
       <div className="planner">
         <h1>Create your stops</h1>
+        <progress class="progress" value="66" max="100"></progress>
         <div className="accions">
           <div className="infoOriginDestination">
             <p className="info">

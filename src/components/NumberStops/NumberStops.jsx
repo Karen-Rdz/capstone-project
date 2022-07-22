@@ -84,6 +84,7 @@ export default function NumberStops({
     <>
       <div className="numberStops">
         <h1>Create your trip</h1>
+        <progress class="progress" value="33" max="100"></progress>
         <div className="trip">
           <LoadScript googleMapsApiKey={key} libraries={lib}>
             <div className="origin">
