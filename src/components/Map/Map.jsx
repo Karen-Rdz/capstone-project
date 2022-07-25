@@ -16,7 +16,7 @@ function Map({ origin, destination, stops, setStops }) {
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
-  const [boundsMap, setBoundsMap] = React.useState();
+  const [boundsMap, setBoundsMap] = React.useState({});
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -30,11 +30,22 @@ function Map({ origin, destination, stops, setStops }) {
     }
   };
 
-  const onLoad = (ref) => setQuery(ref);
+  const onLoad = (ref) => {
+    setQuery(ref);
+  };
 
   const onPlacesChanged = () => {
     let places = query.getPlaces();
     let color;
+    let lat = map.state.map.center.lat;
+    let lng = map.state.map.center.lng;
+    console.log(lat(), lng());
+    setBoundsMap({
+      north: lat() + 0.1,
+      south: lat() - 0.1,
+      east: lng() + 0.1,
+      west: lng() - 0.1,
+    });
 
     for (let i = 0; i < places.length; i++) {
       let lat = places[i].geometry.location.lat;
@@ -65,9 +76,6 @@ function Map({ origin, destination, stops, setStops }) {
       };
       setLocations((locations) => [...locations, position]);
     }
-
-    // setBoundsMap(new window.google.maps.getBounds());
-    // console.log(boundsMap);
   };
 
   const bounds = {
@@ -77,8 +85,6 @@ function Map({ origin, destination, stops, setStops }) {
     west: destination.geometry.location.lng(),
   };
 
-  // const onLoadMap = React.useCallback((map) => setMap(map), []);
-
   return (
     <>
       <LoadScript googleMapsApiKey={key} libraries={lib}>
@@ -86,23 +92,6 @@ function Map({ origin, destination, stops, setStops }) {
           ref={(map) => {
             setMap(map);
           }}
-          // onIdle={() => {
-          //   let ne = map.getBounds;
-          //   console.log(map.LatLngBounds);
-          //   console.log(ne);
-          // let sw = map.getBounds.getSouthWest();
-          // console.log(ne.lat() + ";" + ne.lng());
-          // console.log(sw.lat() + ";" + sw.lng());
-          // }}
-          // onIdle={() => {
-          //   let lat = map.state.map.center.lat;
-          //   let lng = map.state.map.center.lng;
-          //   console.log(lat(), lng());
-          //   console.log(map.state.map.__gm.pixelBounds.Aa);
-          //   const bounds = new window.google.maps.LatLngBounds();
-          //   console.log(bounds);
-          //   map.fitBounds(bounds);
-          // }}
           id="planner-map"
           mapContainerStyle={{
             height: "450px",
@@ -130,7 +119,7 @@ function Map({ origin, destination, stops, setStops }) {
           <StandaloneSearchBox
             onLoad={onLoad}
             onPlacesChanged={onPlacesChanged}
-            bounds={bounds}
+            bounds={boundsMap}
             zoom={10}
           >
             <input
