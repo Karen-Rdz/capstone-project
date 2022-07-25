@@ -79,7 +79,6 @@ export default function NumberStops({
   function toPlanner() {
     navigate(`../planner`);
   }
-  console.log(destinationInput);
   return (
     <>
       <div className="numberStops">
@@ -130,6 +129,7 @@ export default function NumberStops({
             {destination ? <p>, To: {destination.name}</p> : <p></p>}
           </div>
         </div>
+        <p>Choose a category</p>
         <LoadScript googleMapsApiKey={key} libraries={lib}>
           <div className="category">
             <div className="time">

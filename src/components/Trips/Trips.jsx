@@ -1,11 +1,18 @@
 import * as React from "react";
 import "./Trips.css";
 import axios from "axios";
+import MapStops from "../MapStops/MapStops";
+import { LoadScript } from "@react-google-maps/api";
 
 export default function Trips() {
   const [trips, setTrips] = React.useState([]);
   const [currentUsers, setCurrentUsers] = React.useState([]);
+  const [showMap, setShowMap] = React.useState(false);
+  const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
+  const lib = ["places", "geometry", "drawing"];
   let count = 0;
+
+  function setStops() {}
 
   React.useEffect(() => {
     async function fetchTrips() {
@@ -58,9 +65,27 @@ export default function Trips() {
                       <b>Address: </b>
                       {stop.address} <br />
                       <b>Lat: </b>
-                      {stop.lat}, <b> Lng: </b> {stop.lng}
+                      {stop.lat}, <b> Lng: </b> {stop.lng} <br />
+                      <b>Rating: </b>
+                      {stop.rating}
                     </p>
                   ))}
+                  <button onClick={() => setShowMap(!showMap)}>Show Map</button>
+                  {showMap ? (
+                    (setShowMap(!showMap),
+                    (
+                      <LoadScript googleMapsApiKey={key} libraries={lib}>
+                        <MapStops
+                          origin={trip.trip.origin}
+                          destination={trip.trip.destination}
+                          stops={trip.trip.stops}
+                          setStops={setStops}
+                        />
+                      </LoadScript>
+                    ))
+                  ) : (
+                    <p></p>
+                  )}
                 </>
               ))
             ) : (

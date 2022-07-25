@@ -11,7 +11,6 @@ export default function MarkerInfo({
 }) {
   const [isOpen, setIsOpen] = React.useState(false);
   const [animation, setAnimation] = React.useState(2);
-
   const handleToggleOpen = () => {
     setIsOpen(true);
     setAnimation(1);
@@ -57,7 +56,9 @@ export default function MarkerInfo({
                 <b>Address: </b>
                 {position.address} <br />
                 <b>Lat: </b>
-                {position.lat}, <b> Lng: </b> {position.lng}
+                {position.lat}, <b> Lng: </b> {position.lng} <br />
+                <b>Rating: </b>
+                {position.rating}
               </p>
               <Icon
                 className="infoBoxCloseButton"

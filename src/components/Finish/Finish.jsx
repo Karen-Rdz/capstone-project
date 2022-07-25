@@ -49,10 +49,10 @@ export default function Finish({ user, origin, destination, stops }) {
   return (
     <>
       <div className="finish">
-        <h1>Thank you!</h1>
+        <h1>Your road trip plan is complete!</h1>
         <progress class="progress" value="100" max="100"></progress>
         <p>
-          Do you want to receive an email with your travel information?
+          Do you want to receive an email with your trip information?
           <input type="radio" onClick={() => setEmailActivated(true)} /> Yes
         </p>
         {emailActivated ? (

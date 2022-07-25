@@ -61,6 +61,7 @@ function Map({ origin, destination, stops, setStops }) {
         color: color,
         name: places[i].name,
         address: places[i].formatted_address,
+        rating: places[i].rating,
       };
       setLocations((locations) => [...locations, position]);
     }

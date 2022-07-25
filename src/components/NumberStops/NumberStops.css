@@ -106,6 +106,7 @@ progress[value]::-webkit-progress-bar {
 }
 
 .time{
+    background-color: #ffcc5e;
     text-align: center;
     height: 200px;
     width: 300px;
@@ -119,6 +120,7 @@ progress[value]::-webkit-progress-bar {
 }
 
 .distance{
+    background-color: rgb(254, 142, 86);
     text-align: center;
     height: 200px;
     width: 300px;
@@ -132,9 +134,10 @@ progress[value]::-webkit-progress-bar {
 }
 
 .fuel{
+    background-color: #ffcc5e;
     text-align: center;
     height: 200px;
-    width: 300px;
+    width: 400px;
     display: flex;
     flex-direction: column;
     padding-left: 20px;

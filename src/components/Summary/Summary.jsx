@@ -22,7 +22,9 @@ export default function Summary({ stops, setStops }) {
                 <b>Address: </b>
                 {stop.address} <br />
                 <b>Lat: </b>
-                {stop.lat}, <b> Lng: </b> {stop.lng}
+                {stop.lat}, <b> Lng: </b> {stop.lng} <br />
+                <b>Rating: </b>
+                {stop.rating}
               </p>
               <button
                 className="removeStopButton"
