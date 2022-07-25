@@ -31,7 +31,7 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 
 ### TODO
 
-- Update bounds on searchbox on planner page
+- Fix where to update the boundaries for the search
 
 ## Wireframes
 
