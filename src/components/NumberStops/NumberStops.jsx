@@ -129,7 +129,9 @@ export default function NumberStops({
             {destination ? <p>, To: {destination.name}</p> : <p></p>}
           </div>
         </div>
-        <p>Choose a category</p>
+        <p>
+          Choose a category to calculate the number of stops you should make
+        </p>
         <LoadScript googleMapsApiKey={key} libraries={lib}>
           <div className="category">
             <div className="time">

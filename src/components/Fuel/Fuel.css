@@ -1,0 +1,64 @@
+.inputText{
+    margin: 2px;
+    padding-bottom: calc(.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(.5em - 1px);
+    border-radius: 5px;
+    width: 130px;
+    height: 20px;
+}
+
+.submitFuelButton{
+    margin: 2px;
+    margin-top: -9px;
+    background-color: #363636;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    justify-content: center;
+    padding-bottom: calc(.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(.5em - 1px);
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.submitFuelButton:hover {
+    background-color: #575757;
+}
+
+.submitFuelButton:active {
+    background-color: #575757;
+    transform: translateY(1px);
+}
+
+ .carInformation{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+
+.leftInformation{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.rightInformation{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.calculatedFuelInformation{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-bottom: -20px;
+}

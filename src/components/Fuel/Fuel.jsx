@@ -7,8 +7,6 @@ export default function Fuel({ distance, stopsFuel, setStopsFuel }) {
   const [model, setModel] = React.useState("");
   const [year, setYear] = React.useState("");
   const [mpg, setMpg] = React.useState(0);
-  //   const [totalMiles, setTotalMiles] = React.useState(0);
-  //   const [galonsNeeded, setGalonsNeeded] = React.useState(0);
   const [fuelCapacity, setFuelCapacity] = React.useState(0);
   const [fuelInformation, setFuelInformation] = React.useState({
     totalMiles: 0,
@@ -47,28 +45,47 @@ export default function Fuel({ distance, stopsFuel, setStopsFuel }) {
   }
   return (
     <>
-      <input
-        placeholder="Maker"
-        onChange={(event) => setMaker(event.target.value)}
-      />
-      <input
-        placeholder="Model"
-        onChange={(event) => setModel(event.target.value)}
-      />
-      <input
-        placeholder="Year"
-        onChange={(event) => setYear(event.target.value)}
-      />
-      <input
-        placeholder="Fuel capacity"
-        onChange={(event) => setFuelCapacity(event.target.value)}
-      />
-      <button onClick={getFuel}>Submit</button>
+      Type the information of your car <br />
+      <div className="carInformation">
+        <div className="leftInformation">
+          Maker:
+          <input
+            className="inputText"
+            placeholder="Maker"
+            onChange={(event) => setMaker(event.target.value)}
+          />
+          Model:
+          <input
+            className="inputText"
+            placeholder="Model"
+            onChange={(event) => setModel(event.target.value)}
+          />
+        </div>
+        <div className="rightInformation">
+          Year:
+          <input
+            className="inputText"
+            placeholder="Year"
+            onChange={(event) => setYear(event.target.value)}
+          />
+          Fuel tank capacity:
+          <input
+            className="inputText"
+            placeholder="Gallons"
+            onChange={(event) => setFuelCapacity(event.target.value)}
+          />
+        </div>
+      </div>
+      <button className="submitFuelButton" onClick={getFuel}>
+        Submit
+      </button>
       {mpg > 0 ? (
         <>
-          <p>MPG: {mpg}</p>
-          <p>Total miles: {fuelInformation.totalMiles}</p>
-          <p>Gallons nedded: {fuelInformation.galonsNeeded}</p>
+          <div className="calculatedFuelInformation">
+            <p>MPG: {mpg}, </p>
+            <p> Total miles: {fuelInformation.totalMiles}, </p>
+            <p> Gallons nedded: {fuelInformation.galonsNeeded}</p>
+          </div>
           <h4>Number of Stops recommended: {fuelInformation.stops} </h4>
         </>
       ) : (

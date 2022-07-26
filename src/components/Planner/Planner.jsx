@@ -82,7 +82,7 @@ export default function Planner({
             </p>
           </div>
         </div>
-        <p>Type an establishment</p>
+        <p>Use the search bar to find the places you want to stop</p>
         <div className="services">
           <img
             src="http://maps.google.com/mapfiles/ms/icons/red-dot.png"

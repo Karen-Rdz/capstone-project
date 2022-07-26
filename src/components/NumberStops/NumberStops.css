@@ -75,6 +75,7 @@ progress[value]::-webkit-progress-bar {
     background-color: rgb(249, 140, 44);
     box-shadow: 0 3px 6px rgb(25 32 36 / 16%), 0 -1px 4px rgb(25 32 36 / 4%);
     border-radius: 7px;
+    margin-bottom: 2%;
 }
 
 .origin{
@@ -100,7 +101,7 @@ progress[value]::-webkit-progress-bar {
 }
 
 .category{
-    margin-top: 2%;
+    /* margin-top: 1%; */
     display: flex;
     flex-direction: row;
 }
@@ -136,17 +137,19 @@ progress[value]::-webkit-progress-bar {
 .fuel{
     background-color: #ffcc5e;
     text-align: center;
-    height: 200px;
-    width: 400px;
+    height: 340px;
+    width: 370px;
     display: flex;
     flex-direction: column;
     padding-left: 20px;
+    padding-right: 20px;
     padding-top: 10px;
     box-shadow: 0 3px 6px rgb(25 32 36 / 16%), 0 -1px 4px rgb(25 32 36 / 4%);
 }
 
 .nextButton{
     margin-top: 1.5%;
+    margin-bottom: 1.5%;
     background-color: #363636;
     border-color: transparent;
     color: #fff;
