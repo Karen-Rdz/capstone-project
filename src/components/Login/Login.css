@@ -15,7 +15,12 @@
 .welcome{
     padding: 20%;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+}
+
+.logo-crop{
+    margin-top: 20px;
+    height: 200px;
 }
 
 .user{

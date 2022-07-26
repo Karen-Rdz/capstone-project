@@ -17,6 +17,8 @@ function Map({ origin, destination, stops, setStops }) {
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
   const [boundsMap, setBoundsMap] = React.useState({});
+  const [prevLat, setPrevLat] = React.useState(0);
+  const [prevLng, setPrevLng] = React.useState(0);
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -37,15 +39,15 @@ function Map({ origin, destination, stops, setStops }) {
   const onPlacesChanged = () => {
     let places = query.getPlaces();
     let color;
-    let lat = map.state.map.center.lat;
-    let lng = map.state.map.center.lng;
-    console.log(lat(), lng());
-    setBoundsMap({
-      north: lat() + 0.1,
-      south: lat() - 0.1,
-      east: lng() + 0.1,
-      west: lng() - 0.1,
-    });
+    // let lat = map.state.map.center.lat;
+    // let lng = map.state.map.center.lng;
+    // console.log(lat(), lng());
+    // setBoundsMap({
+    //   north: lat() + 0.1,
+    //   south: lat() - 0.1,
+    //   east: lng() + 0.1,
+    //   west: lng() - 0.1,
+    // });
 
     for (let i = 0; i < places.length; i++) {
       let lat = places[i].geometry.location.lat;
@@ -85,6 +87,7 @@ function Map({ origin, destination, stops, setStops }) {
     west: destination.geometry.location.lng(),
   };
 
+  console.log(boundsMap);
   return (
     <>
       <LoadScript googleMapsApiKey={key} libraries={lib}>
@@ -119,7 +122,12 @@ function Map({ origin, destination, stops, setStops }) {
           <StandaloneSearchBox
             onLoad={onLoad}
             onPlacesChanged={onPlacesChanged}
-            bounds={boundsMap}
+            bounds={{
+              north: map.state.map.center.lat() + 0.1,
+              south: map.state.map.center.lat() - 0.1,
+              east: map.state.map.center.lng() + 0.1,
+              west: map.state.map.center.lng() - 0.1,
+            }}
             zoom={10}
           >
             <input
