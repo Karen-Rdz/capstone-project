@@ -13,14 +13,20 @@
 }
 
 .welcome{
-    padding: 20%;
+    padding: 10%;
     display: flex;
     flex-direction: row;
 }
 
 .logo-crop{
     margin-top: 20px;
+    margin-left: -40px;
     height: 200px;
+}
+
+.road2{
+    margin-top: 20px;
+    height: 178.5px;
 }
 
 .user{

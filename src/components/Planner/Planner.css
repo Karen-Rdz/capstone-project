@@ -14,17 +14,29 @@
     box-shadow: 0 3px 6px rgb(25 32 36 / 16%), 0 -1px 4px rgb(25 32 36 / 4%);
     border-radius: 7px;
     width: 80%;
-    height: 150px;
-    padding-left: 3%;
+    height: 110px;
     margin-bottom: 2%;
+}
+
+.roadTrip{
+    margin-top: 10px;
+    height: 90px;
+    margin-right: 20px;
+}
+
+.infoRoute{
+    margin-top: 20px;
 }
 
 .info{
     margin-top: 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
 .infoOriginDestination{
-    margin-right: 30%;
+    margin-right: 10%;
 }
 
 .mapStopsButton{

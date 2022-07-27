@@ -26,7 +26,7 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 - [x] User can send the trip via email
 - [x] User can visualize the map with the stops added
 - [x] User can visualize a progress bar
-- [ ] User can see and edit saved trip
+- [x] User can see the map and edit saved trip
 - [ ] User can see where to add stops on the map
 
 ### TODO

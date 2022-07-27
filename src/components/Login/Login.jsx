@@ -4,6 +4,7 @@ import axios from "axios";
 import "./Login.css";
 import { Icon } from "@iconify/react";
 import road from "./road.jpg";
+import road2 from "./road2.jpg";
 import logo from "./logo_crop.png";
 
 export default function Login({ setUser }) {
@@ -57,7 +58,7 @@ export default function Login({ setUser }) {
       <div className="login">
         <div className="welcome">
           <img className="logo-crop" src={logo} alt="logo" />
-          {/* <h1>Welcome!</h1> */}
+          <img className="road2" src={road2} alt="road2" />
         </div>
         <div className="user">
           <div className="input-texts">

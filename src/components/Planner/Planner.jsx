@@ -26,6 +26,9 @@ export default function Planner({
           origin: origin,
           destination: destination,
           stops: stops,
+          stopsTime: stopsTime,
+          stopsDist: stopsDist,
+          stopsFuel: stopsFuel,
         },
       });
       setTripSaved(true);
@@ -59,26 +62,21 @@ export default function Planner({
 
         <div className="accions">
           <div className="infoOriginDestination">
-            <p className="info">
+            <p className="infoRoute">
               {" "}
               <b> Origin:</b> {origin.name}{" "}
             </p>
-            <p className="info">
+            <p className="infoRoute">
               {" "}
               <b> Destination: </b> {destination.name}{" "}
             </p>
           </div>
           <div className="infoStopsTimeDistance">
+            <h3>Stops recommended depending on:</h3>
             <p className="info">
-              <b> Stops recommended depending on time: </b> {stopsTime}
-            </p>
-            <p className="info">
-              <b> Stops recommended depending on distance: </b>
-              {stopsDist}
-            </p>
-            <p className="info">
-              <b> Stops recommended depending on fuel: </b>
-              {stopsFuel}
+              <b> Time: </b> {stopsTime} <p></p>
+              <b> Distance: </b> {stopsDist} <p></p>
+              <b> Fuel: </b> {stopsFuel}
             </p>
           </div>
         </div>

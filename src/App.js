@@ -41,7 +41,7 @@ function App() {
           />
           <Route
             path='/trips'
-            element={ <Trips user={user}/> }
+            element={ <Trips setOrigin={setOrigin} setDestination={setDestination} setUser={setUser} setStops={setStops} setStopsDist={setStopsDist} setStopsTime={setStopsTime} setStopsFuel={setStopsFuel}/> }
           />
           <Route
             path="/finish"

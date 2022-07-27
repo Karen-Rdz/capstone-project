@@ -18,6 +18,7 @@ function Map({ origin, destination, stops, setStops }) {
   const [map, setMap] = React.useState();
   const [boundsMap, setBoundsMap] = React.useState({});
   const [dragEnd, setDragEnd] = React.useState();
+  const prevCenter = React.useRef({});
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -70,11 +71,12 @@ function Map({ origin, destination, stops, setStops }) {
     }
   };
 
+  // Change to function each param in order to work correctly
   const bounds = {
-    north: origin.geometry.location.lat(),
-    south: destination.geometry.location.lat(),
-    east: origin.geometry.location.lng(),
-    west: destination.geometry.location.lng(),
+    north: origin.geometry.location.lat,
+    south: destination.geometry.location.lat,
+    east: origin.geometry.location.lng,
+    west: destination.geometry.location.lng,
   };
 
   React.useEffect(() => {
@@ -91,6 +93,11 @@ function Map({ origin, destination, stops, setStops }) {
     }
   }, [locations]);
 
+  React.useEffect(() => {
+    prevCenter.current = boundsMap;
+  }, [boundsMap]);
+
+  // console.log(boundsMap);
   return (
     <>
       <LoadScript googleMapsApiKey={key} libraries={lib}>
@@ -105,8 +112,8 @@ function Map({ origin, destination, stops, setStops }) {
           }}
           zoom={10}
           onDragEnd={() => {
-            // console.log(map.state.map.center.lat());
-            // console.log("on drag end");
+            console.log(map.state.map.center.lat());
+            console.log("on drag end");
             setDragEnd(true);
           }}
         >

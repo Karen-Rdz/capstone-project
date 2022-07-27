@@ -51,26 +51,27 @@ export default function Finish({ user, origin, destination, stops }) {
       <div className="finish">
         <h1>Your road trip plan is complete!</h1>
         <progress class="progress" value="100" max="100"></progress>
-        <p>
-          Do you want to receive an email with your trip information?
-          <input type="radio" onClick={() => setEmailActivated(true)} /> Yes
-        </p>
-        {emailActivated ? (
-          <>
-            <input
-              className="emailInput"
-              type="text"
-              placeholder="Email"
-              onChange={(event) => setEmail(event.target.value)}
-            />
-            <button className="sendEmail" onClick={sendEmail}>
-              Send Email
-            </button>
-          </>
-        ) : (
-          <p></p>
-        )}
-
+        <div className="email">
+          <p>
+            Do you want to receive an email with your trip information?
+            <input type="radio" onClick={() => setEmailActivated(true)} /> Yes
+          </p>
+          {emailActivated ? (
+            <>
+              <input
+                className="emailInput"
+                type="text"
+                placeholder="Email"
+                onChange={(event) => setEmail(event.target.value)}
+              />
+              <button className="sendEmail" onClick={sendEmail}>
+                Send Email
+              </button>
+            </>
+          ) : (
+            <p></p>
+          )}
+        </div>
         <p>
           If you want to check all your saved trips. Click on the button below
         </p>

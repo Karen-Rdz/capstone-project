@@ -1,18 +1,20 @@
 import * as React from "react";
 import "./Trips.css";
 import axios from "axios";
-import MapStops from "../MapStops/MapStops";
-import { LoadScript } from "@react-google-maps/api";
+import EditTrip from "../EditTrip/EditTrip";
 
-export default function Trips() {
+export default function Trips({
+  setOrigin,
+  setDestination,
+  setUser,
+  setStops,
+  setStopsDist,
+  setStopsTime,
+  setStopsFuel,
+}) {
   const [trips, setTrips] = React.useState([]);
   const [currentUsers, setCurrentUsers] = React.useState([]);
-  const [showMap, setShowMap] = React.useState(false);
-  const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
-  const lib = ["places", "geometry", "drawing"];
   let count = 0;
-
-  function setStops() {}
 
   React.useEffect(() => {
     async function fetchTrips() {
@@ -70,22 +72,22 @@ export default function Trips() {
                       {stop.rating}
                     </p>
                   ))}
-                  <button onClick={() => setShowMap(!showMap)}>Show Map</button>
-                  {showMap ? (
-                    (setShowMap(!showMap),
-                    (
-                      <LoadScript googleMapsApiKey={key} libraries={lib}>
-                        <MapStops
-                          origin={trip.trip.origin}
-                          destination={trip.trip.destination}
-                          stops={trip.trip.stops}
-                          setStops={setStops}
-                        />
-                      </LoadScript>
-                    ))
-                  ) : (
-                    <p></p>
-                  )}
+                  <EditTrip
+                    origin={trip.trip.origin}
+                    setOrigin={setOrigin}
+                    destination={trip.trip.destination}
+                    setDestination={setDestination}
+                    user={trip.trip.user}
+                    setUser={setUser}
+                    stops={trip.trip.stops}
+                    setStops={setStops}
+                    stopsTime={trip.trip.stopsTime}
+                    setStopsTime={setStopsTime}
+                    stopsDist={trip.trip.stopsDist}
+                    setStopsDist={setStopsDist}
+                    stopsFuel={trip.trip.stopsFuel}
+                    setStopsFuel={setStopsFuel}
+                  />
                 </>
               ))
             ) : (
