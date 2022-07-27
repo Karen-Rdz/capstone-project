@@ -84,13 +84,13 @@ export default function NumberStops({
       <div className="numberStops">
         <h1>Create your trip</h1>
         {!destination ? (
-          <progress class="progress" value="0" max="100"></progress>
+          <progress className="progress" value="0" max="100"></progress>
         ) : (
           <>
             {time || distance || fuelActivated ? (
-              <progress class="progress" value="33" max="100"></progress>
+              <progress className="progress" value="33" max="100"></progress>
             ) : (
-              <progress class="progress" value="15" max="100"></progress>
+              <progress className="progress" value="15" max="100"></progress>
             )}
           </>
         )}

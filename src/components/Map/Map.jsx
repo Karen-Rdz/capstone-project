@@ -16,6 +16,7 @@ function Map({ origin, destination, stops, setStops }) {
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
+  // const [boundsOriginal, setBoundsOriginal] = React.useState({});
   const [boundsMap, setBoundsMap] = React.useState({});
   const [dragEnd, setDragEnd] = React.useState();
   const prevCenter = React.useRef({});
@@ -71,14 +72,6 @@ function Map({ origin, destination, stops, setStops }) {
     }
   };
 
-  // Change to function each param in order to work correctly
-  const bounds = {
-    north: origin.geometry.location.lat,
-    south: destination.geometry.location.lat,
-    east: origin.geometry.location.lng,
-    west: destination.geometry.location.lng,
-  };
-
   React.useEffect(() => {
     console.log("use effect");
     if (map) {
@@ -89,7 +82,23 @@ function Map({ origin, destination, stops, setStops }) {
         west: map.state.map.center.lng() - 0.1,
       });
     } else {
-      setBoundsMap(bounds);
+      try {
+        let boundsFunction = {
+          north: origin.geometry.location.lat(),
+          south: destination.geometry.location.lat(),
+          east: origin.geometry.location.lng(),
+          west: destination.geometry.location.lng(),
+        };
+        setBoundsMap(boundsFunction);
+      } catch (error) {
+        let boundsOriginal = {
+          north: origin.geometry.location.lat,
+          south: destination.geometry.location.lat,
+          east: origin.geometry.location.lng,
+          west: destination.geometry.location.lng,
+        };
+        setBoundsMap(boundsOriginal);
+      }
     }
   }, [locations]);
 
