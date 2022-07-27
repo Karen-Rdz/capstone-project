@@ -5,21 +5,32 @@ import {
   DirectionsService,
   DirectionsRenderer,
   StandaloneSearchBox,
+  Marker,
+  Circle,
 } from "@react-google-maps/api";
 import MarkerInfo from "../MarkerInfo/MarkerInfo";
 import Summary from "../Summary/Summary";
+import Stops from "../Stops/Stops";
 
-function Map({ origin, destination, stops, setStops }) {
+function Map({
+  origin,
+  destination,
+  stops,
+  setStops,
+  stopsDist,
+  stopsTime,
+  stopsFuel,
+}) {
   const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
   const lib = ["places", "geometry", "drawing"];
   const [response, setResponse] = React.useState();
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
-  // const [boundsOriginal, setBoundsOriginal] = React.useState({});
   const [boundsMap, setBoundsMap] = React.useState({});
   const [dragEnd, setDragEnd] = React.useState();
   const prevCenter = React.useRef({});
+  let locationStops = React.useRef([]);
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -106,6 +117,28 @@ function Map({ origin, destination, stops, setStops }) {
     prevCenter.current = boundsMap;
   }, [boundsMap]);
 
+  function calculateStopsLocation() {
+    console.log("calculateStopsLocation");
+    if (response) {
+      let route = response.routes[0].overview_path;
+      console.log(route.length);
+      if (stopsDist > 0) {
+        let numStops = stopsDist + 1;
+        let fragment = Math.floor(route.length / numStops);
+        let start = 0;
+        let stopsLocation = [];
+        for (let i = 0; i < numStops; i++) {
+          if (route[start + fragment] !== undefined) {
+            stopsLocation.push(route[start + fragment]);
+            start += fragment;
+          }
+        }
+        locationStops.current = stopsLocation;
+        // console.log(locationStops);
+      }
+    }
+  }
+
   // console.log(boundsMap);
   return (
     <>
@@ -138,6 +171,7 @@ function Map({ origin, destination, stops, setStops }) {
           )}
           {response !== null && (
             <DirectionsRenderer
+              onDirectionsChanged={() => calculateStopsLocation()}
               options={{
                 directions: response,
               }}
@@ -176,6 +210,24 @@ function Map({ origin, destination, stops, setStops }) {
               setStops={setStops}
               isAddStopsActivated={true}
             />
+          ))}
+          {locationStops.current.map((item) => (
+            <Circle
+              center={{ lat: item.lat(), lng: item.lng() }}
+              options={{
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#FF0000",
+                fillOpacity: 0.35,
+                clickable: false,
+                draggable: false,
+                editable: false,
+                visible: true,
+                radius: 1000,
+                zIndex: 1,
+              }}
+            ></Circle>
           ))}
         </GoogleMap>
       </LoadScript>

@@ -43,7 +43,6 @@ export default function Planner({
   function toFinish() {
     navigate(`../finish`);
   }
-
   return (
     <>
       <div className="planner">
@@ -109,6 +108,9 @@ export default function Planner({
             destination={destination}
             stops={stops}
             setStops={setStops}
+            stopsDist={stopsDist}
+            stopsTime={stopsTime}
+            stopsFuel={stopsFuel}
           />
         </div>
         <button

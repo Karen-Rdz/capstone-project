@@ -5,7 +5,7 @@ export default function Distance({ distance, stopsDist, setStopsDist }) {
   const [distanceInput, setDistanceInput] = React.useState();
 
   function calculateStops() {
-    setStopsDist(Math.round(distance.value / 1000 / distanceInput));
+    setStopsDist(Math.round(distance.value / 1000 / distanceInput) - 1);
   }
 
   return (

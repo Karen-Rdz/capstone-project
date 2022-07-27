@@ -5,7 +5,7 @@ export default function Time({ time, stopsTime, setStopsTime }) {
   const [timeInput, setTimeInput] = React.useState();
 
   function calculateStops() {
-    setStopsTime(Math.round(time.value / 60 / timeInput));
+    setStopsTime(Math.round(time.value / 60 / timeInput) - 1);
   }
 
   return (
