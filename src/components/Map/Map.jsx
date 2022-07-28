@@ -29,7 +29,6 @@ function Map({
   const locationStopsDist = React.useRef([]);
   const locationStopsTime = React.useRef([]);
   const locationStopsFuel = React.useRef([]);
-  const colorStops = React.useRef("");
   const boundsChanged = React.useRef({});
 
   let count = React.useRef(0);
@@ -49,6 +48,7 @@ function Map({
   };
 
   const onPlacesChanged = () => {
+    console.log("query", query);
     let places = query.getPlaces();
     let color;
 
@@ -83,35 +83,12 @@ function Map({
     }
   };
 
-  // React.useEffect(() => {
-  //   console.log("use effect");
-  //   if (map) {
-  //     setBoundsMap({
-  //       north: map.state.map.center.lat() + 0.1,
-  //       south: map.state.map.center.lat() - 0.1,
-  //       east: map.state.map.center.lng() + 0.1,
-  //       west: map.state.map.center.lng() - 0.1,
-  //     });
-  //   } else {
-  //     try {
-  //       let boundsFunction = {
+  // let boundsFunction = {
   //         north: origin.geometry.location.lat(),
   //         south: destination.geometry.location.lat(),
   //         east: origin.geometry.location.lng(),
   //         west: destination.geometry.location.lng(),
   //       };
-  //       setBoundsMap(boundsFunction);
-  //     } catch (error) {
-  //       let boundsOriginal = {
-  //         north: origin.geometry.location.lat,
-  //         south: destination.geometry.location.lat,
-  //         east: origin.geometry.location.lng,
-  //         west: destination.geometry.location.lng,
-  //       };
-  //       setBoundsMap(boundsOriginal);
-  //     }
-  //   }
-  // }, [onDragEnd.current]);
 
   function calculateStopsLocation() {
     console.log("calculateStopsLocation");
@@ -181,6 +158,7 @@ function Map({
               east: map.state.map.center.lng() + 0.1,
               west: map.state.map.center.lng() - 0.1,
             };
+            console.log(boundsChanged.current);
           }}
         >
           {destination !== "" && origin !== "" && (
@@ -255,33 +233,36 @@ function Map({
               }}
             ></Circle>
           ))}
-          {console.log("antes del search", boundsChanged.current)}
-          <StandaloneSearchBox
-            onLoad={onLoad}
-            onPlacesChanged={onPlacesChanged}
-            bounds={boundsChanged.current}
-            zoom={10}
-          >
-            <input
-              type="text"
-              placeholder="Search"
-              style={{
-                boxSizing: `border-box`,
-                border: `1px solid transparent`,
-                width: `240px`,
-                height: `32px`,
-                padding: `0 12px`,
-                borderRadius: `3px`,
-                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                fontSize: `14px`,
-                outline: `none`,
-                textOverflow: `ellipses`,
-                position: "absolute",
-                left: "50%",
-                marginLeft: "-120px",
-              }}
-            />
-          </StandaloneSearchBox>
+          {console.log("before search", boundsChanged.current)}
+          <div ref={boundsChanged}>
+            <StandaloneSearchBox
+              onLoad={onLoad}
+              onPlacesChanged={onPlacesChanged}
+              bounds={boundsChanged.current}
+              zoom={10}
+            >
+              <input
+                type="text"
+                placeholder="Search"
+                style={{
+                  boxSizing: `border-box`,
+                  border: `1px solid transparent`,
+                  width: `240px`,
+                  height: `32px`,
+                  padding: `0 12px`,
+                  borderRadius: `3px`,
+                  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                  fontSize: `14px`,
+                  outline: `none`,
+                  textOverflow: `ellipses`,
+                  position: "absolute",
+                  left: "50%",
+                  marginLeft: "-120px",
+                }}
+              />
+            </StandaloneSearchBox>
+          </div>
+
           {locations.map((item) => (
             <MarkerInfo
               position={item}
