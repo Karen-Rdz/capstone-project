@@ -5,7 +5,6 @@ import {
   DirectionsService,
   DirectionsRenderer,
   StandaloneSearchBox,
-  Marker,
   Circle,
 } from "@react-google-maps/api";
 import MarkerInfo from "../MarkerInfo/MarkerInfo";
@@ -27,14 +26,12 @@ function Map({
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
-  const [boundsMap, setBoundsMap] = React.useState({});
-  const [dragEnd, setDragEnd] = React.useState();
-  const prevCenter = React.useRef({});
-  let locationStops = React.useRef([]);
+  const locationStops = React.useRef([]);
+  const boundsChanged = React.useRef({});
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
-    if (res !== null && count.current < 1) {
+    if (res !== null && count.current < 3) {
       if (res.status === "OK") {
         count.current += 1;
         setResponse(res);
@@ -83,39 +80,35 @@ function Map({
     }
   };
 
-  React.useEffect(() => {
-    console.log("use effect");
-    if (map) {
-      setBoundsMap({
-        north: map.state.map.center.lat() + 0.1,
-        south: map.state.map.center.lat() - 0.1,
-        east: map.state.map.center.lng() + 0.1,
-        west: map.state.map.center.lng() - 0.1,
-      });
-    } else {
-      try {
-        let boundsFunction = {
-          north: origin.geometry.location.lat(),
-          south: destination.geometry.location.lat(),
-          east: origin.geometry.location.lng(),
-          west: destination.geometry.location.lng(),
-        };
-        setBoundsMap(boundsFunction);
-      } catch (error) {
-        let boundsOriginal = {
-          north: origin.geometry.location.lat,
-          south: destination.geometry.location.lat,
-          east: origin.geometry.location.lng,
-          west: destination.geometry.location.lng,
-        };
-        setBoundsMap(boundsOriginal);
-      }
-    }
-  }, [locations]);
-
-  React.useEffect(() => {
-    prevCenter.current = boundsMap;
-  }, [boundsMap]);
+  // React.useEffect(() => {
+  //   console.log("use effect");
+  //   if (map) {
+  //     setBoundsMap({
+  //       north: map.state.map.center.lat() + 0.1,
+  //       south: map.state.map.center.lat() - 0.1,
+  //       east: map.state.map.center.lng() + 0.1,
+  //       west: map.state.map.center.lng() - 0.1,
+  //     });
+  //   } else {
+  //     try {
+  //       let boundsFunction = {
+  //         north: origin.geometry.location.lat(),
+  //         south: destination.geometry.location.lat(),
+  //         east: origin.geometry.location.lng(),
+  //         west: destination.geometry.location.lng(),
+  //       };
+  //       setBoundsMap(boundsFunction);
+  //     } catch (error) {
+  //       let boundsOriginal = {
+  //         north: origin.geometry.location.lat,
+  //         south: destination.geometry.location.lat,
+  //         east: origin.geometry.location.lng,
+  //         west: destination.geometry.location.lng,
+  //       };
+  //       setBoundsMap(boundsOriginal);
+  //     }
+  //   }
+  // }, [onDragEnd.current]);
 
   function calculateStopsLocation() {
     console.log("calculateStopsLocation");
@@ -153,10 +146,14 @@ function Map({
             width: "1000px",
           }}
           zoom={10}
-          onDragEnd={() => {
-            console.log(map.state.map.center.lat());
-            console.log("on drag end");
-            setDragEnd(true);
+          onIdle={() => {
+            console.log("onIdle");
+            boundsChanged.current = {
+              north: map.state.map.center.lat() + 0.1,
+              south: map.state.map.center.lat() - 0.1,
+              east: map.state.map.center.lng() + 0.1,
+              west: map.state.map.center.lng() - 0.1,
+            };
           }}
         >
           {destination !== "" && origin !== "" && (
@@ -177,10 +174,29 @@ function Map({
               }}
             />
           )}
+          {locationStops.current.map((item) => (
+            <Circle
+              center={{ lat: item.lat(), lng: item.lng() }}
+              options={{
+                strokeColor: "#FF0000",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#FF0000",
+                fillOpacity: 0.35,
+                clickable: false,
+                draggable: false,
+                editable: false,
+                visible: true,
+                radius: 1000,
+                zIndex: 1,
+              }}
+            ></Circle>
+          ))}
+          {console.log("antes del search", boundsChanged.current)}
           <StandaloneSearchBox
             onLoad={onLoad}
             onPlacesChanged={onPlacesChanged}
-            bounds={boundsMap}
+            bounds={boundsChanged.current}
             zoom={10}
           >
             <input
@@ -210,24 +226,6 @@ function Map({
               setStops={setStops}
               isAddStopsActivated={true}
             />
-          ))}
-          {locationStops.current.map((item) => (
-            <Circle
-              center={{ lat: item.lat(), lng: item.lng() }}
-              options={{
-                strokeColor: "#FF0000",
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: "#FF0000",
-                fillOpacity: 0.35,
-                clickable: false,
-                draggable: false,
-                editable: false,
-                visible: true,
-                radius: 1000,
-                zIndex: 1,
-              }}
-            ></Circle>
           ))}
         </GoogleMap>
       </LoadScript>
