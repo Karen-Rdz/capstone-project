@@ -26,7 +26,10 @@ function Map({
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
-  const locationStops = React.useRef([]);
+  const locationStopsDist = React.useRef([]);
+  const locationStopsTime = React.useRef([]);
+  const locationStopsFuel = React.useRef([]);
+  const colorStops = React.useRef("");
   const boundsChanged = React.useRef({});
 
   let count = React.useRef(0);
@@ -114,7 +117,6 @@ function Map({
     console.log("calculateStopsLocation");
     if (response) {
       let route = response.routes[0].overview_path;
-      console.log(route.length);
       if (stopsDist > 0) {
         let numStops = stopsDist + 1;
         let fragment = Math.floor(route.length / numStops);
@@ -126,8 +128,33 @@ function Map({
             start += fragment;
           }
         }
-        locationStops.current = stopsLocation;
-        // console.log(locationStops);
+        locationStopsDist.current = stopsLocation;
+      }
+      if (stopsTime > 0) {
+        let numStops = stopsTime + 1;
+        let fragment = Math.floor(route.length / numStops);
+        let start = 0;
+        let stopsLocation = [];
+        for (let i = 0; i < numStops; i++) {
+          if (route[start + fragment] !== undefined) {
+            stopsLocation.push(route[start + fragment]);
+            start += fragment;
+          }
+        }
+        locationStopsTime.current = stopsLocation;
+      }
+      if (stopsFuel > 0) {
+        let numStops = stopsFuel + 1;
+        let fragment = Math.floor(route.length / numStops);
+        let start = 0;
+        let stopsLocation = [];
+        for (let i = 0; i < numStops; i++) {
+          if (route[start + fragment] !== undefined) {
+            stopsLocation.push(route[start + fragment]);
+            start += fragment;
+          }
+        }
+        locationStopsFuel.current = stopsLocation;
       }
     }
   }
@@ -174,7 +201,7 @@ function Map({
               }}
             />
           )}
-          {locationStops.current.map((item) => (
+          {locationStopsDist.current.map((item) => (
             <Circle
               center={{ lat: item.lat(), lng: item.lng() }}
               options={{
@@ -182,6 +209,42 @@ function Map({
                 strokeOpacity: 0.8,
                 strokeWeight: 2,
                 fillColor: "#FF0000",
+                fillOpacity: 0.35,
+                clickable: false,
+                draggable: false,
+                editable: false,
+                visible: true,
+                radius: 1000,
+                zIndex: 1,
+              }}
+            ></Circle>
+          ))}
+          {locationStopsTime.current.map((item) => (
+            <Circle
+              center={{ lat: item.lat(), lng: item.lng() }}
+              options={{
+                strokeColor: "#0000FF",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#0000FF",
+                fillOpacity: 0.35,
+                clickable: false,
+                draggable: false,
+                editable: false,
+                visible: true,
+                radius: 1000,
+                zIndex: 1,
+              }}
+            ></Circle>
+          ))}
+          {locationStopsFuel.current.map((item) => (
+            <Circle
+              center={{ lat: item.lat(), lng: item.lng() }}
+              options={{
+                strokeColor: "#00FF00",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#00FF00",
                 fillOpacity: 0.35,
                 clickable: false,
                 draggable: false,
