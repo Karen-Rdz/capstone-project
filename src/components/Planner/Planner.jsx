@@ -4,6 +4,7 @@ import "./Planner.css";
 import Map from "../Map/Map";
 import MapStops from "../MapStops/MapStops";
 import axios from "axios";
+import { Icon } from "@iconify/react";
 
 export default function Planner({
   origin,
@@ -50,13 +51,13 @@ export default function Planner({
         {stops.length > 0 ? (
           <>
             {tripSaved ? (
-              <progress class="progress" value="66" max="100"></progress>
+              <progress className="progress" value="66" max="100"></progress>
             ) : (
-              <progress class="progress" value="45" max="100"></progress>
+              <progress className="progress" value="45" max="100"></progress>
             )}
           </>
         ) : (
-          <progress class="progress" value="33" max="100"></progress>
+          <progress className="progress" value="33" max="100"></progress>
         )}
 
         <div className="accions">
@@ -81,6 +82,12 @@ export default function Planner({
         </div>
         <p>Use the search bar to find the places you want to stop</p>
         <div className="services">
+          <Icon icon="akar-icons:circle-fill" className="blueCircle" /> Stops by
+          Time
+          <Icon icon="akar-icons:circle-fill" className="redCircle" /> Stops by
+          Distance
+          <Icon icon="akar-icons:circle-fill" className="greenCircle" /> Stops
+          by Fuel
           <img
             src="http://maps.google.com/mapfiles/ms/icons/red-dot.png"
             alt="red-marker"

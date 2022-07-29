@@ -14,8 +14,11 @@
     box-shadow: 0 3px 6px rgb(25 32 36 / 16%), 0 -1px 4px rgb(25 32 36 / 4%);
     border-radius: 7px;
     width: 80%;
-    height: 80px;
+    height: 55px;
     margin-bottom: 2%;
+    padding: 10px;
+    padding-left: 20px;
+    padding-right: 20px;
 }
 
 .allTripsButton{
@@ -75,9 +78,10 @@
 }
 
 .sendEmail{
-    margin-top: 1.5%;
+    margin-top: 10px;
     margin-bottom: 2%;
-    margin-left: 5px;
+    margin-left: -100px;
+    margin-right: 50px;
     background-color: #363636;
     border-color: transparent;
     color: #fff;
@@ -103,7 +107,7 @@
 }
 
 .emailInput{
-    margin: 2px;
+    margin-top: 10px;
     padding-bottom: calc(.5em - 1px);
     padding-left: 1em;
     padding-right: 1em;
@@ -111,4 +115,50 @@
     border-radius: 5px;
     width: 250px;
     height: 20px;
+}
+
+.finishAccions{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 83%;
+}
+
+.allTrips{
+    background-color: #ffcc5e;
+    text-align: center;
+    height: 130px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    box-shadow: 0 3px 6px rgb(25 32 36 / 16%), 0 -1px 4px rgb(25 32 36 / 4%);
+}
+
+.createTrip{
+    background-color: rgb(254, 142, 86);
+    text-align: center;
+    height: 130px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    box-shadow: 0 3px 6px rgb(25 32 36 / 16%), 0 -1px 4px rgb(25 32 36 / 4%);
+}
+
+.homePage{
+    background-color: #ffcc5e;
+    text-align: center;
+    height: 130px;
+    width: 300px;
+    display: flex;
+    flex-direction: column;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    box-shadow: 0 3px 6px rgb(25 32 36 / 16%), 0 -1px 4px rgb(25 32 36 / 4%);
 }

@@ -39,6 +39,20 @@
     margin-right: 10%;
 }
 
+.blueCircle{
+    color: blue;
+}
+
+.redCircle{
+    color: red;
+    margin-left: 10px;
+}
+
+.greenCircle{
+    color: rgb(3, 196, 3);
+    margin-left: 10px;
+}
+
 .mapStopsButton{
     margin-top: 1.5%;
     margin-bottom: 2%;

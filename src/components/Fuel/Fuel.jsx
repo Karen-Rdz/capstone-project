@@ -54,19 +54,19 @@ export default function Fuel({ distance, stopsFuel, setStopsFuel }) {
             placeholder="Maker"
             onChange={(event) => setMaker(event.target.value)}
           />
-          Model:
-          <input
-            className="inputText"
-            placeholder="Model"
-            onChange={(event) => setModel(event.target.value)}
-          />
-        </div>
-        <div className="rightInformation">
           Year:
           <input
             className="inputText"
             placeholder="Year"
             onChange={(event) => setYear(event.target.value)}
+          />
+        </div>
+        <div className="rightInformation">
+          Model:
+          <input
+            className="inputText"
+            placeholder="Model"
+            onChange={(event) => setModel(event.target.value)}
           />
           Fuel tank capacity:
           <input

@@ -50,7 +50,7 @@ export default function Finish({ user, origin, destination, stops }) {
     <>
       <div className="finish">
         <h1>Your road trip plan is complete!</h1>
-        <progress class="progress" value="100" max="100"></progress>
+        <progress className="progress" value="100" max="100"></progress>
         <div className="email">
           <p>
             Do you want to receive an email with your trip information?
@@ -72,20 +72,30 @@ export default function Finish({ user, origin, destination, stops }) {
             <p></p>
           )}
         </div>
-        <p>
-          If you want to check all your saved trips. Click on the button below
-        </p>
-        <button className="allTripsButton" onClick={() => toPages("trips")}>
-          All Trips
-        </button>
-        <p>If you want to create another trip. Click on the button below</p>
-        <button className="createTripButton" onClick={() => toPages("route")}>
-          Create Trip
-        </button>
-        <p>If you want to return to home. Click on the button below</p>
-        <button className="createTripButton" onClick={() => toPages("")}>
-          Home Page
-        </button>
+        <div className="finishAccions">
+          <div className="allTrips">
+            <p>See all saved trips</p>
+            <button className="allTripsButton" onClick={() => toPages("trips")}>
+              All Trips
+            </button>
+          </div>
+          <div className="createTrip">
+            <p>Create another trip</p>
+            <button
+              className="createTripButton"
+              onClick={() => toPages("route")}
+            >
+              Create Trip
+            </button>
+          </div>
+          <div className="homePage">
+            {" "}
+            <p>Return to home page</p>
+            <button className="createTripButton" onClick={() => toPages("")}>
+              Home Page
+            </button>
+          </div>
+        </div>
       </div>
     </>
   );

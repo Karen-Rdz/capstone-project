@@ -115,11 +115,13 @@ export default function Login({ setUser }) {
         <p className="about">
           This page will help you plan the necessary stops on your road trip.
           When creating a trip, we recommend the number of stops needed
-          depending on the distance or time you decide to be driving. With this
-          in mind, an interactive map will appear where you can visualize your
-          route and add different establishments such as gas stations or
+          depending on the distance, time you decide to be driving or fuel
+          consumption depending on your car. With this in mind, an interactive
+          map will appear where you can visualize your route, where you need to
+          stop, and add different establishments such as gas stations or
           restaurants, which will help you add stops at the places you choose.
-          At the end, you can save your route for future reference.
+          At the end, you can save your route for future reference and send it
+          via email.
         </p>
         <img className="road-img" src={road} alt="road" />
       </div>

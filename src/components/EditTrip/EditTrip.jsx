@@ -47,7 +47,9 @@ export default function EditTrip({
         </button>
         {showInformation ? (
           <>
-            <button onClick={() => setShowMap(!showMap)}>Show Map</button>
+            <button className="showMap" onClick={() => setShowMap(!showMap)}>
+              Show Map
+            </button>
             {showMap ? (
               <LoadScript googleMapsApiKey={key} libraries={lib}>
                 <MapStops
@@ -60,7 +62,9 @@ export default function EditTrip({
             ) : (
               ""
             )}
-            <button onClick={() => setValues()}>Edit Trip</button>
+            <button className="editTripButton" onClick={() => setValues()}>
+              Edit Trip
+            </button>
           </>
         ) : (
           ""
