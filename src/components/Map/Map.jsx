@@ -214,7 +214,7 @@ function Map({
             bounds={boundsChanged.current}
             locations={locations}
           />
-          <Rectangle bounds={bounds}></Rectangle>
+          {/* <Rectangle bounds={bounds}></Rectangle> */}
           {locations.map((item) => (
             <MarkerInfo
               position={item}
