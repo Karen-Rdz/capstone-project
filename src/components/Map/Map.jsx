@@ -5,7 +5,7 @@ import {
   DirectionsService,
   DirectionsRenderer,
   StandaloneSearchBox,
-  Circle,
+  Rectangle,
 } from "@react-google-maps/api";
 import MarkerInfo from "../MarkerInfo/MarkerInfo";
 import Summary from "../Summary/Summary";
@@ -26,6 +26,14 @@ function Map({
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
+  const [bounds, setBounds] = React.useState({
+    north: origin.geometry.location.lat(),
+    south: destination.geometry.location.lat(),
+    east: origin.geometry.location.lng(),
+    west: destination.geometry.location.lng(),
+  });
+  const [zoomChanged, setZoomChanged] = React.useState(10);
+  const [centerChanged, setCenterChanged] = React.useState();
   const locationStopsDist = React.useRef([]);
   const locationStopsTime = React.useRef([]);
   const locationStopsFuel = React.useRef([]);
@@ -45,14 +53,14 @@ function Map({
 
   const onLoad = (ref) => {
     setQuery(ref);
+    console.log("onLoad");
   };
 
   const onPlacesChanged = () => {
-    console.log("query", query);
     let places = query.getPlaces();
     let color;
 
-    for (let i = 0; i < places.length; i++) {
+    for (let i = 1; i < places.length; i++) {
       let lat = places[i].geometry.location.lat;
       let lng = places[i].geometry.location.lng;
       let type = places[i].types[0];
@@ -79,27 +87,20 @@ function Map({
         address: places[i].formatted_address,
         rating: places[i].rating,
       };
+
       setLocations((locations) => [...locations, position]);
     }
   };
-
-  // let boundsFunction = {
-  //         north: origin.geometry.location.lat(),
-  //         south: destination.geometry.location.lat(),
-  //         east: origin.geometry.location.lng(),
-  //         west: destination.geometry.location.lng(),
-  //       };
 
   function calculateStopsLocation() {
     console.log("calculateStopsLocation");
     if (response) {
       let route = response.routes[0].overview_path;
       if (stopsDist > 0) {
-        let numStops = stopsDist + 1;
-        let fragment = Math.floor(route.length / numStops);
+        let fragment = Math.floor(route.length / (stopsDist + 1));
         let start = 0;
         let stopsLocation = [];
-        for (let i = 0; i < numStops; i++) {
+        for (let i = 0; i < stopsDist; i++) {
           if (route[start + fragment] !== undefined) {
             stopsLocation.push(route[start + fragment]);
             start += fragment;
@@ -108,11 +109,10 @@ function Map({
         locationStopsDist.current = stopsLocation;
       }
       if (stopsTime > 0) {
-        let numStops = stopsTime + 1;
-        let fragment = Math.floor(route.length / numStops);
+        let fragment = Math.floor(route.length / (stopsTime + 1));
         let start = 0;
         let stopsLocation = [];
-        for (let i = 0; i < numStops; i++) {
+        for (let i = 0; i < stopsTime; i++) {
           if (route[start + fragment] !== undefined) {
             stopsLocation.push(route[start + fragment]);
             start += fragment;
@@ -121,11 +121,10 @@ function Map({
         locationStopsTime.current = stopsLocation;
       }
       if (stopsFuel > 0) {
-        let numStops = stopsFuel + 1;
-        let fragment = Math.floor(route.length / numStops);
+        let fragment = Math.floor(route.length / (stopsFuel + 1));
         let start = 0;
         let stopsLocation = [];
-        for (let i = 0; i < numStops; i++) {
+        for (let i = 0; i < stopsFuel; i++) {
           if (route[start + fragment] !== undefined) {
             stopsLocation.push(route[start + fragment]);
             start += fragment;
@@ -136,7 +135,6 @@ function Map({
     }
   }
 
-  // console.log(boundsMap);
   return (
     <>
       <LoadScript googleMapsApiKey={key} libraries={lib}>
@@ -149,16 +147,20 @@ function Map({
             height: "450px",
             width: "1000px",
           }}
-          zoom={10}
-          onIdle={() => {
-            console.log("onIdle");
-            boundsChanged.current = {
+          // zoom={zoomChanged}
+          // center={centerChanged}
+          onDblClick={() => {
+            setBounds({
               north: map.state.map.center.lat() + 0.1,
               south: map.state.map.center.lat() - 0.1,
               east: map.state.map.center.lng() + 0.1,
               west: map.state.map.center.lng() - 0.1,
-            };
-            console.log(boundsChanged.current);
+            });
+            // setCenterChanged({
+            //   lat: map.state.map.center.lat(),
+            //   lng: map.state.map.center.lng(),
+            // });
+            // setZoomChanged(map.state.map.zoom);
           }}
         >
           {destination !== "" && origin !== "" && (
@@ -179,90 +181,40 @@ function Map({
               }}
             />
           )}
-          {locationStopsDist.current.map((item) => (
-            <Circle
-              center={{ lat: item.lat(), lng: item.lng() }}
-              options={{
-                strokeColor: "#FF0000",
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: "#FF0000",
-                fillOpacity: 0.35,
-                clickable: false,
-                draggable: false,
-                editable: false,
-                visible: true,
-                radius: 1000,
-                zIndex: 1,
+          <StandaloneSearchBox
+            onLoad={onLoad}
+            bounds={bounds}
+            onPlacesChanged={onPlacesChanged}
+            // zoom={zoomChanged}
+          >
+            <input
+              type="text"
+              placeholder="Search"
+              style={{
+                boxSizing: `border-box`,
+                border: `1px solid transparent`,
+                width: `240px`,
+                height: `32px`,
+                padding: `0 12px`,
+                borderRadius: `3px`,
+                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                fontSize: `14px`,
+                outline: `none`,
+                textOverflow: `ellipses`,
+                position: "absolute",
+                left: "50%",
+                marginLeft: "-120px",
               }}
-            ></Circle>
-          ))}
-          {locationStopsTime.current.map((item) => (
-            <Circle
-              center={{ lat: item.lat(), lng: item.lng() }}
-              options={{
-                strokeColor: "#0000FF",
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: "#0000FF",
-                fillOpacity: 0.35,
-                clickable: false,
-                draggable: false,
-                editable: false,
-                visible: true,
-                radius: 1000,
-                zIndex: 1,
-              }}
-            ></Circle>
-          ))}
-          {locationStopsFuel.current.map((item) => (
-            <Circle
-              center={{ lat: item.lat(), lng: item.lng() }}
-              options={{
-                strokeColor: "#00FF00",
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: "#00FF00",
-                fillOpacity: 0.35,
-                clickable: false,
-                draggable: false,
-                editable: false,
-                visible: true,
-                radius: 1000,
-                zIndex: 1,
-              }}
-            ></Circle>
-          ))}
-          {console.log("before search", boundsChanged.current)}
-          <div ref={boundsChanged}>
-            <StandaloneSearchBox
-              onLoad={onLoad}
-              onPlacesChanged={onPlacesChanged}
-              bounds={boundsChanged.current}
-              zoom={10}
-            >
-              <input
-                type="text"
-                placeholder="Search"
-                style={{
-                  boxSizing: `border-box`,
-                  border: `1px solid transparent`,
-                  width: `240px`,
-                  height: `32px`,
-                  padding: `0 12px`,
-                  borderRadius: `3px`,
-                  boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                  fontSize: `14px`,
-                  outline: `none`,
-                  textOverflow: `ellipses`,
-                  position: "absolute",
-                  left: "50%",
-                  marginLeft: "-120px",
-                }}
-              />
-            </StandaloneSearchBox>
-          </div>
-
+            />
+          </StandaloneSearchBox>
+          <Stops
+            locationStopsDist={locationStopsDist}
+            locationStopsTime={locationStopsTime}
+            locationStopsFuel={locationStopsFuel}
+            bounds={boundsChanged.current}
+            locations={locations}
+          />
+          <Rectangle bounds={bounds}></Rectangle>
           {locations.map((item) => (
             <MarkerInfo
               position={item}

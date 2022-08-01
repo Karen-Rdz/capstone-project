@@ -59,7 +59,6 @@ export default function Planner({
         ) : (
           <progress className="progress" value="33" max="100"></progress>
         )}
-
         <div className="accions">
           <div className="infoOriginDestination">
             <p className="infoRoute">
@@ -80,7 +79,14 @@ export default function Planner({
             </p>
           </div>
         </div>
-        <p>Use the search bar to find the places you want to stop</p>
+        <div className="mapInstruccions">
+          <p>
+            1. Zoom in and/or drag the map to the locatin you want to search.{" "}
+          </p>
+          <p>2. Double click to determine the center of the search.</p>
+          <p>3. Use the search bar to find the places you want to stop</p>
+          <p>4. Repeat the process as many times needded</p>
+        </div>
         <div className="services">
           <Icon icon="akar-icons:circle-fill" className="blueCircle" /> Stops by
           Time

@@ -29,10 +29,6 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 - [x] User can see the map and edit saved trip
 - [x] User can see where to add stops on the map
 
-### TODO
-
-- Fix where to update the boundaries for the search
-
 ## Wireframes
 
 ![Wireframe 1](/Wireframes/WF1.PNG)

@@ -1,48 +1,113 @@
 import * as React from "react";
-import { Circle, InfoBox } from "@react-google-maps/api";
+import { Circle } from "@react-google-maps/api";
 
-export default function Stops({ position, color }) {
-  const [isOpen, setIsOpen] = React.useState(false);
-  const handleToggleOpen = () => {
-    console.log("handle toggle open");
-    setIsOpen(true);
-  };
+export default function Stops({
+  locationStopsDist,
+  locationStopsTime,
+  locationStopsFuel,
+  locations,
+}) {
+  // React.useEffect(() => {
+  //   console.log("use effect en Stops");
+  //   let service = new window.google.maps.DistanceMatrixService();
+  //   if (locations[0] !== undefined) {
+  //     console.log(locations[0]);
+  //     service.getDistanceMatrix(
+  //       {
+  //         origins: [
+  //           {
+  //             lat: locationStopsDist[0].lat(),
+  //             lng: locationStopsDist[0].lng(),
+  //           },
+  //         ],
+  //         destinations: [{ lat: locations[0].lat, lng: locations[0].lng }],
+  //         travelMode: "DRIVING",
+  //       },
+  //       callback
+  //     );
+  //     function callback(response, status) {
+  //       console.log(response.rows[0].elements[0]);
+  //     }
+  //   }
+  // }, [locations]);
+
+  function closestStop(item) {
+    let service = new window.google.maps.DistanceMatrixService();
+    if (locations[0] !== undefined) {
+      console.log(locations[0]);
+      service.getDistanceMatrix(
+        {
+          origins: [{ lat: item.center.lat(), lng: item.center.lng() }],
+          destinations: [{ lat: locations[0].lat(), lng: locations[0].lng() }],
+          travelMode: "DRIVING",
+        },
+        callback
+      );
+      function callback(response, status) {
+        console.log(response.rows[0].elements[0]);
+      }
+    }
+  }
+
   return (
-    console.log(isOpen),
-    (
-      <>
-        <div className="stopsLocation">
+    <div className="stopsLocations">
+      {locationStopsDist.current.map((item) => (
+        <>
           <Circle
-            center={{ lat: position.lat(), lng: position.lng() }}
+            onLoad={(item) => closestStop(item)}
+            center={{ lat: item.lat(), lng: item.lng() }}
             options={{
-              strokeColor: color,
+              strokeColor: "#FF0000",
               strokeOpacity: 0.8,
               strokeWeight: 2,
-              fillColor: color,
+              fillColor: "#FF0000",
               fillOpacity: 0.35,
               clickable: false,
               draggable: false,
               editable: false,
               visible: true,
-              radius: 1000,
+              radius: 2000,
               zIndex: 1,
             }}
-            onMouseOver={handleToggleOpen}
           ></Circle>
-          {isOpen ? (
-            <InfoBox
-              options={{ closeBoxURL: "", enableEventPropagation: true }}
-              position={{ lat: position.lat(), lng: position.lng() }}
-            >
-              <p>
-                Lat: {position.lat()}, Lng: {position.lng()}
-              </p>
-            </InfoBox>
-          ) : (
-            ""
-          )}
-        </div>
-      </>
-    )
+        </>
+      ))}
+      {locationStopsTime.current.map((item) => (
+        <Circle
+          center={{ lat: item.lat(), lng: item.lng() }}
+          options={{
+            strokeColor: "#0000FF",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#0000FF",
+            fillOpacity: 0.35,
+            clickable: false,
+            draggable: false,
+            editable: false,
+            visible: true,
+            radius: 2000,
+            zIndex: 1,
+          }}
+        ></Circle>
+      ))}
+      {locationStopsFuel.current.map((item) => (
+        <Circle
+          center={{ lat: item.lat(), lng: item.lng() }}
+          options={{
+            strokeColor: "#00FF00",
+            strokeOpacity: 0.8,
+            strokeWeight: 2,
+            fillColor: "#00FF00",
+            fillOpacity: 0.35,
+            clickable: false,
+            draggable: false,
+            editable: false,
+            visible: true,
+            radius: 2000,
+            zIndex: 1,
+          }}
+        ></Circle>
+      ))}
+    </div>
   );
 }
