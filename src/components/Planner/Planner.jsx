@@ -81,11 +81,11 @@ export default function Planner({
         </div>
         <div className="mapInstruccions">
           <p>
-            1. Zoom in and/or drag the map to the locatin you want to search.{" "}
+            1. Zoom in and/or drag the map to the location you want to search.{" "}
           </p>
           <p>2. Double click to determine the center of the search.</p>
           <p>3. Use the search bar to find the places you want to stop</p>
-          <p>4. Repeat the process as many times needded</p>
+          <p>4. Repeat the process as many times as necessary</p>
         </div>
         <div className="services">
           <Icon icon="akar-icons:circle-fill" className="blueCircle" /> Stops by

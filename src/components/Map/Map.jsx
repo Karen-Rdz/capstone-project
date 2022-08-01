@@ -53,7 +53,6 @@ function Map({
 
   const onLoad = (ref) => {
     setQuery(ref);
-    console.log("onLoad");
   };
 
   const onPlacesChanged = () => {
@@ -93,7 +92,6 @@ function Map({
   };
 
   function calculateStopsLocation() {
-    console.log("calculateStopsLocation");
     if (response) {
       let route = response.routes[0].overview_path;
       if (stopsDist > 0) {

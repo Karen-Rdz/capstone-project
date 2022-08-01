@@ -7,29 +7,44 @@ export default function Stops({
   locationStopsFuel,
   locations,
 }) {
-  // React.useEffect(() => {
-  //   console.log("use effect en Stops");
-  //   let service = new window.google.maps.DistanceMatrixService();
-  //   if (locations[0] !== undefined) {
-  //     console.log(locations[0]);
-  //     service.getDistanceMatrix(
-  //       {
-  //         origins: [
-  //           {
-  //             lat: locationStopsDist[0].lat(),
-  //             lng: locationStopsDist[0].lng(),
-  //           },
-  //         ],
-  //         destinations: [{ lat: locations[0].lat, lng: locations[0].lng }],
-  //         travelMode: "DRIVING",
-  //       },
-  //       callback
-  //     );
-  //     function callback(response, status) {
-  //       console.log(response.rows[0].elements[0]);
-  //     }
-  //   }
-  // }, [locations]);
+  const locationsArray = React.useRef([]);
+  const locationsStopsDistArray = React.useRef([]);
+  const [button, setButton] = React.useState(false);
+
+  React.useEffect(() => {
+    console.log("use effect en Stops");
+    let service = new window.google.maps.DistanceMatrixService();
+    if (locations[0] !== undefined) {
+      console.log(locations);
+      let handleLocations = [];
+      let handleLocationsStopsDist = [];
+      locations.forEach((location) => {
+        handleLocations.push({ lat: location.lat, lng: location.lng });
+      });
+      locationsArray.current = handleLocations;
+      locationStopsDist.current.forEach((location) => {
+        handleLocationsStopsDist.push({
+          lat: location.lat(),
+          lng: location.lng(),
+        });
+      });
+      locationsStopsDistArray.current = handleLocationsStopsDist;
+      console.log(locationsStopsDistArray.current);
+      console.log(locationsArray.current);
+      service.getDistanceMatrix(
+        {
+          origins: locationsStopsDistArray.current,
+          destinations: locationsArray.current,
+          travelMode: "DRIVING",
+        },
+        callback
+      );
+      function callback(response, status) {
+        console.log(status);
+        console.log(response);
+      }
+    }
+  }, [locations]);
 
   function closestStop(item) {
     let service = new window.google.maps.DistanceMatrixService();
@@ -108,6 +123,7 @@ export default function Stops({
           }}
         ></Circle>
       ))}
+      <button onClick={() => setButton(true)}> Click me</button>
     </div>
   );
 }
