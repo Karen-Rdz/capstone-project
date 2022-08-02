@@ -11,6 +11,8 @@ export default function Stops({
   const locationsStopsDistArray = React.useRef([]);
   const responseArray = React.useRef([]);
   const size = React.useRef(0);
+  const minDistStop = React.useRef({});
+  const locationMinDist = React.useRef([]);
 
   React.useEffect(() => {
     console.log("use effect en Stops");
@@ -45,26 +47,29 @@ export default function Stops({
       function callback(response, status) {
         responseArray.current.push(response);
         console.log(responseArray.current);
+        closestStop();
       }
     }
   }, [locations]);
 
-  function closestStop(item) {
-    let service = new window.google.maps.DistanceMatrixService();
-    if (locations[0] !== undefined) {
-      console.log(locations[0]);
-      service.getDistanceMatrix(
-        {
-          origins: [{ lat: item.center.lat(), lng: item.center.lng() }],
-          destinations: [{ lat: locations[0].lat(), lng: locations[0].lng() }],
-          travelMode: "DRIVING",
-        },
-        callback
-      );
-      function callback(response, status) {
-        console.log(response.rows[0].elements[0]);
-      }
-    }
+  function closestStop() {
+    responseArray.current.forEach((response, indexResponse) => {
+      response.rows.forEach((row, indexRow) => {
+        let minDistanceStop =
+          responseArray.current[indexResponse].rows[indexRow].elements[0]
+            .distance.value;
+        row.elements.forEach((destination, indexDestinaion) => {
+          if (destination.distance.value < minDistanceStop) {
+            minDistStop.current[indexRow] =
+              locations[indexDestinaion + indexResponse * 19];
+            minDistanceStop = destination.distance.value;
+          }
+        });
+      });
+    });
+    console.log(minDistStop.current);
+    locationMinDist.current.push(minDistStop.current);
+    console.log(locationMinDist.current);
   }
 
   return (
@@ -72,7 +77,6 @@ export default function Stops({
       {locationStopsDist.current.map((item) => (
         <>
           <Circle
-            onLoad={(item) => closestStop(item)}
             center={{ lat: item.lat(), lng: item.lng() }}
             options={{
               strokeColor: "#FF0000",
