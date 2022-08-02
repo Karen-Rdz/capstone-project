@@ -11,6 +11,7 @@ export default function Stops({
   const locationsStopsDistArray = React.useRef([]);
   const responseArray = React.useRef([]);
   const size = React.useRef(0);
+  const minDistStop = React.useRef();
 
   React.useEffect(() => {
     console.log("use effect en Stops");
@@ -45,26 +46,23 @@ export default function Stops({
       function callback(response, status) {
         responseArray.current.push(response);
         console.log(responseArray.current);
+        closestStop();
       }
     }
   }, [locations]);
 
-  function closestStop(item) {
-    let service = new window.google.maps.DistanceMatrixService();
-    if (locations[0] !== undefined) {
-      console.log(locations[0]);
-      service.getDistanceMatrix(
-        {
-          origins: [{ lat: item.center.lat(), lng: item.center.lng() }],
-          destinations: [{ lat: locations[0].lat(), lng: locations[0].lng() }],
-          travelMode: "DRIVING",
-        },
-        callback
-      );
-      function callback(response, status) {
-        console.log(response.rows[0].elements[0]);
-      }
-    }
+  function closestStop() {
+    let minDistanceStop =
+      responseArray.current[0].rows[0].elements[0].distance.value;
+    responseArray.current.forEach((search) => {
+      search.rows[0].elements.forEach((destination) => {
+        if (destination.distance.value < minDistanceStop) {
+          minDistStop.current = destination.distance.value;
+          minDistanceStop = destination.distance.value;
+        }
+      });
+    });
+    console.log(minDistStop.current);
   }
 
   return (
@@ -72,7 +70,6 @@ export default function Stops({
       {locationStopsDist.current.map((item) => (
         <>
           <Circle
-            onLoad={(item) => closestStop(item)}
             center={{ lat: item.lat(), lng: item.lng() }}
             options={{
               strokeColor: "#FF0000",
