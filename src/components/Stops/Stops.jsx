@@ -9,18 +9,23 @@ export default function Stops({
 }) {
   const locationsArray = React.useRef([]);
   const locationsStopsDistArray = React.useRef([]);
-  const [button, setButton] = React.useState(false);
+  const responseArray = React.useRef([]);
+  const size = React.useRef(0);
 
   React.useEffect(() => {
     console.log("use effect en Stops");
+    let diff = locations.length - size.current;
     let service = new window.google.maps.DistanceMatrixService();
     if (locations[0] !== undefined) {
-      console.log(locations);
       let handleLocations = [];
       let handleLocationsStopsDist = [];
-      locations.forEach((location) => {
-        handleLocations.push({ lat: location.lat, lng: location.lng });
-      });
+      for (let i = 0; i < diff; i++) {
+        handleLocations.push({
+          lat: locations[i + size.current].lat,
+          lng: locations[i + size.current].lng,
+        });
+      }
+      size.current = locations.length;
       locationsArray.current = handleLocations;
       locationStopsDist.current.forEach((location) => {
         handleLocationsStopsDist.push({
@@ -29,8 +34,6 @@ export default function Stops({
         });
       });
       locationsStopsDistArray.current = handleLocationsStopsDist;
-      console.log(locationsStopsDistArray.current);
-      console.log(locationsArray.current);
       service.getDistanceMatrix(
         {
           origins: locationsStopsDistArray.current,
@@ -40,8 +43,8 @@ export default function Stops({
         callback
       );
       function callback(response, status) {
-        console.log(status);
-        console.log(response);
+        responseArray.current.push(response);
+        console.log(responseArray.current);
       }
     }
   }, [locations]);
@@ -123,7 +126,6 @@ export default function Stops({
           }}
         ></Circle>
       ))}
-      <button onClick={() => setButton(true)}> Click me</button>
     </div>
   );
 }

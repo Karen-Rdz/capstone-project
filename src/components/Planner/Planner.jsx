@@ -81,7 +81,8 @@ export default function Planner({
         </div>
         <div className="mapInstruccions">
           <p>
-            1. Zoom in and/or drag the map to the location you want to search.{" "}
+            1. Zoom and/or drag the map until the location you want to search
+            for is in the center.{" "}
           </p>
           <p>2. Double click to determine the center of the search.</p>
           <p>3. Use the search bar to find the places you want to stop</p>
