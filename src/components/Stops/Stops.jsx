@@ -11,7 +11,8 @@ export default function Stops({
   const locationsStopsDistArray = React.useRef([]);
   const responseArray = React.useRef([]);
   const size = React.useRef(0);
-  const minDistStop = React.useRef();
+  const minDistStop = React.useRef({});
+  const locationMinDist = React.useRef([]);
 
   React.useEffect(() => {
     console.log("use effect en Stops");
@@ -52,17 +53,23 @@ export default function Stops({
   }, [locations]);
 
   function closestStop() {
-    let minDistanceStop =
-      responseArray.current[0].rows[0].elements[0].distance.value;
-    responseArray.current.forEach((search) => {
-      search.rows[0].elements.forEach((destination) => {
-        if (destination.distance.value < minDistanceStop) {
-          minDistStop.current = destination.distance.value;
-          minDistanceStop = destination.distance.value;
-        }
+    responseArray.current.forEach((response, indexResponse) => {
+      response.rows.forEach((row, indexRow) => {
+        let minDistanceStop =
+          responseArray.current[indexResponse].rows[indexRow].elements[0]
+            .distance.value;
+        row.elements.forEach((destination, indexDestinaion) => {
+          if (destination.distance.value < minDistanceStop) {
+            minDistStop.current[indexRow] =
+              locations[indexDestinaion + indexResponse * 19];
+            minDistanceStop = destination.distance.value;
+          }
+        });
       });
     });
     console.log(minDistStop.current);
+    locationMinDist.current.push(minDistStop.current);
+    console.log(locationMinDist.current);
   }
 
   return (
