@@ -5,7 +5,7 @@ import {
   DirectionsService,
   DirectionsRenderer,
   StandaloneSearchBox,
-  Rectangle,
+  Circle,
 } from "@react-google-maps/api";
 import MarkerInfo from "../MarkerInfo/MarkerInfo";
 import Summary from "../Summary/Summary";
@@ -32,12 +32,10 @@ function Map({
     east: origin.geometry.location.lng(),
     west: destination.geometry.location.lng(),
   });
-  const [zoomChanged, setZoomChanged] = React.useState(10);
-  const [centerChanged, setCenterChanged] = React.useState();
+  const locationMinDist = React.useState([]);
   const locationStopsDist = React.useRef([]);
   const locationStopsTime = React.useRef([]);
   const locationStopsFuel = React.useRef([]);
-  const boundsChanged = React.useRef({});
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -145,8 +143,6 @@ function Map({
             height: "450px",
             width: "1000px",
           }}
-          // zoom={zoomChanged}
-          // center={centerChanged}
           onDblClick={() => {
             setBounds({
               north: map.state.map.center.lat() + 0.1,
@@ -154,11 +150,6 @@ function Map({
               east: map.state.map.center.lng() + 0.1,
               west: map.state.map.center.lng() - 0.1,
             });
-            // setCenterChanged({
-            //   lat: map.state.map.center.lat(),
-            //   lng: map.state.map.center.lng(),
-            // });
-            // setZoomChanged(map.state.map.zoom);
           }}
         >
           {destination !== "" && origin !== "" && (
@@ -183,7 +174,6 @@ function Map({
             onLoad={onLoad}
             bounds={bounds}
             onPlacesChanged={onPlacesChanged}
-            // zoom={zoomChanged}
           >
             <input
               type="text"
@@ -205,14 +195,62 @@ function Map({
               }}
             />
           </StandaloneSearchBox>
-          <Stops
-            locationStopsDist={locationStopsDist}
-            locationStopsTime={locationStopsTime}
-            locationStopsFuel={locationStopsFuel}
-            bounds={boundsChanged.current}
-            locations={locations}
-          />
-          {/* <Rectangle bounds={bounds}></Rectangle> */}
+          {locationStopsDist.current.map((item) => (
+            <>
+              <Circle
+                center={{ lat: item.lat(), lng: item.lng() }}
+                options={{
+                  strokeColor: "#FF0000",
+                  strokeOpacity: 0.8,
+                  strokeWeight: 2,
+                  fillColor: "#FF0000",
+                  fillOpacity: 0.35,
+                  clickable: false,
+                  draggable: false,
+                  editable: false,
+                  visible: true,
+                  radius: 2000,
+                  zIndex: 1,
+                }}
+              ></Circle>
+            </>
+          ))}
+          {locationStopsTime.current.map((item) => (
+            <Circle
+              center={{ lat: item.lat(), lng: item.lng() }}
+              options={{
+                strokeColor: "#0000FF",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#0000FF",
+                fillOpacity: 0.35,
+                clickable: false,
+                draggable: false,
+                editable: false,
+                visible: true,
+                radius: 2000,
+                zIndex: 1,
+              }}
+            ></Circle>
+          ))}
+          {locationStopsFuel.current.map((item) => (
+            <Circle
+              center={{ lat: item.lat(), lng: item.lng() }}
+              options={{
+                strokeColor: "#00FF00",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#00FF00",
+                fillOpacity: 0.35,
+                clickable: false,
+                draggable: false,
+                editable: false,
+                visible: true,
+                radius: 2000,
+                zIndex: 1,
+              }}
+            ></Circle>
+          ))}
           {locations.map((item) => (
             <MarkerInfo
               position={item}
@@ -224,6 +262,13 @@ function Map({
         </GoogleMap>
       </LoadScript>
       <div>
+        <Stops
+          locationStopsDist={locationStopsDist}
+          locationStopsTime={locationStopsTime}
+          locationStopsFuel={locationStopsFuel}
+          locations={locations}
+          locationMinDist={locationMinDist}
+        />
         <Summary stops={stops} setStops={setStops} />
       </div>
     </>

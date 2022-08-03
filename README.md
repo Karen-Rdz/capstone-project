@@ -30,10 +30,6 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 - [x] User can see where to stop on the map
 - [ ] User can know which establishment is recommended to take deppending on distance to the route
 
-### TODO
-
-- Finish get nearest location for each stop. Missing append information each search
-
 ## Wireframes
 
 ![Wireframe 1](/Wireframes/WF1.PNG)
