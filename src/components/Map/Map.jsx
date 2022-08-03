@@ -5,7 +5,6 @@ import {
   DirectionsService,
   DirectionsRenderer,
   StandaloneSearchBox,
-  Rectangle,
 } from "@react-google-maps/api";
 import MarkerInfo from "../MarkerInfo/MarkerInfo";
 import Summary from "../Summary/Summary";
@@ -32,8 +31,6 @@ function Map({
     east: origin.geometry.location.lng(),
     west: destination.geometry.location.lng(),
   });
-  const [zoomChanged, setZoomChanged] = React.useState(10);
-  const [centerChanged, setCenterChanged] = React.useState();
   const locationStopsDist = React.useRef([]);
   const locationStopsTime = React.useRef([]);
   const locationStopsFuel = React.useRef([]);
@@ -145,8 +142,6 @@ function Map({
             height: "450px",
             width: "1000px",
           }}
-          // zoom={zoomChanged}
-          // center={centerChanged}
           onDblClick={() => {
             setBounds({
               north: map.state.map.center.lat() + 0.1,
@@ -154,11 +149,6 @@ function Map({
               east: map.state.map.center.lng() + 0.1,
               west: map.state.map.center.lng() - 0.1,
             });
-            // setCenterChanged({
-            //   lat: map.state.map.center.lat(),
-            //   lng: map.state.map.center.lng(),
-            // });
-            // setZoomChanged(map.state.map.zoom);
           }}
         >
           {destination !== "" && origin !== "" && (
@@ -183,7 +173,6 @@ function Map({
             onLoad={onLoad}
             bounds={bounds}
             onPlacesChanged={onPlacesChanged}
-            // zoom={zoomChanged}
           >
             <input
               type="text"
@@ -212,7 +201,6 @@ function Map({
             bounds={boundsChanged.current}
             locations={locations}
           />
-          {/* <Rectangle bounds={bounds}></Rectangle> */}
           {locations.map((item) => (
             <MarkerInfo
               position={item}

@@ -11,8 +11,9 @@ export default function Stops({
   const locationsStopsDistArray = React.useRef([]);
   const responseArray = React.useRef([]);
   const size = React.useRef(0);
-  const minDistStop = React.useRef({});
   const locationMinDist = React.useRef([]);
+  const searchCount = React.useRef(-1);
+  const minDistStop = {};
 
   React.useEffect(() => {
     console.log("use effect en Stops");
@@ -46,30 +47,27 @@ export default function Stops({
       );
       function callback(response, status) {
         responseArray.current.push(response);
-        console.log(responseArray.current);
+        searchCount.current = searchCount.current + 1;
         closestStop();
+        locationMinDist.current.push(minDistStop);
+        console.log(locationMinDist.current);
       }
     }
   }, [locations]);
 
   function closestStop() {
-    responseArray.current.forEach((response, indexResponse) => {
-      response.rows.forEach((row, indexRow) => {
-        let minDistanceStop =
-          responseArray.current[indexResponse].rows[indexRow].elements[0]
-            .distance.value;
-        row.elements.forEach((destination, indexDestinaion) => {
-          if (destination.distance.value < minDistanceStop) {
-            minDistStop.current[indexRow] =
-              locations[indexDestinaion + indexResponse * 19];
-            minDistanceStop = destination.distance.value;
-          }
-        });
+    responseArray.current[searchCount.current].rows.forEach((row, indexRow) => {
+      let minDistanceStop =
+        responseArray.current[searchCount.current].rows[indexRow].elements[0]
+          .distance.value;
+      row.elements.forEach((destination, indexDestination) => {
+        if (destination.distance.value <= minDistanceStop) {
+          minDistStop[indexRow] =
+            locations[indexDestination + searchCount.current * 19];
+          minDistanceStop = destination.distance.value;
+        }
       });
     });
-    console.log(minDistStop.current);
-    locationMinDist.current.push(minDistStop.current);
-    console.log(locationMinDist.current);
   }
 
   return (
