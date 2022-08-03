@@ -5,6 +5,7 @@ import {
   DirectionsService,
   DirectionsRenderer,
   StandaloneSearchBox,
+  Circle,
 } from "@react-google-maps/api";
 import MarkerInfo from "../MarkerInfo/MarkerInfo";
 import Summary from "../Summary/Summary";
@@ -31,10 +32,10 @@ function Map({
     east: origin.geometry.location.lng(),
     west: destination.geometry.location.lng(),
   });
+  const locationMinDist = React.useState([]);
   const locationStopsDist = React.useRef([]);
   const locationStopsTime = React.useRef([]);
   const locationStopsFuel = React.useRef([]);
-  const boundsChanged = React.useRef({});
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -194,13 +195,62 @@ function Map({
               }}
             />
           </StandaloneSearchBox>
-          <Stops
-            locationStopsDist={locationStopsDist}
-            locationStopsTime={locationStopsTime}
-            locationStopsFuel={locationStopsFuel}
-            bounds={boundsChanged.current}
-            locations={locations}
-          />
+          {locationStopsDist.current.map((item) => (
+            <>
+              <Circle
+                center={{ lat: item.lat(), lng: item.lng() }}
+                options={{
+                  strokeColor: "#FF0000",
+                  strokeOpacity: 0.8,
+                  strokeWeight: 2,
+                  fillColor: "#FF0000",
+                  fillOpacity: 0.35,
+                  clickable: false,
+                  draggable: false,
+                  editable: false,
+                  visible: true,
+                  radius: 2000,
+                  zIndex: 1,
+                }}
+              ></Circle>
+            </>
+          ))}
+          {locationStopsTime.current.map((item) => (
+            <Circle
+              center={{ lat: item.lat(), lng: item.lng() }}
+              options={{
+                strokeColor: "#0000FF",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#0000FF",
+                fillOpacity: 0.35,
+                clickable: false,
+                draggable: false,
+                editable: false,
+                visible: true,
+                radius: 2000,
+                zIndex: 1,
+              }}
+            ></Circle>
+          ))}
+          {locationStopsFuel.current.map((item) => (
+            <Circle
+              center={{ lat: item.lat(), lng: item.lng() }}
+              options={{
+                strokeColor: "#00FF00",
+                strokeOpacity: 0.8,
+                strokeWeight: 2,
+                fillColor: "#00FF00",
+                fillOpacity: 0.35,
+                clickable: false,
+                draggable: false,
+                editable: false,
+                visible: true,
+                radius: 2000,
+                zIndex: 1,
+              }}
+            ></Circle>
+          ))}
           {locations.map((item) => (
             <MarkerInfo
               position={item}
@@ -212,6 +262,13 @@ function Map({
         </GoogleMap>
       </LoadScript>
       <div>
+        <Stops
+          locationStopsDist={locationStopsDist}
+          locationStopsTime={locationStopsTime}
+          locationStopsFuel={locationStopsFuel}
+          locations={locations}
+          locationMinDist={locationMinDist}
+        />
         <Summary stops={stops} setStops={setStops} />
       </div>
     </>
