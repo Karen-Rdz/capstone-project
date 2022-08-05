@@ -6,7 +6,29 @@ export default function ButtonsStops({
   locationStopsTime,
   locationStopsFuel,
   setBounds,
+  clickedButton,
 }) {
+  function onClick(stop, key, param) {
+    switch (param) {
+      case "distance":
+        clickedButton.current = { distance: key };
+        break;
+      case "time":
+        clickedButton.current = { time: key };
+        break;
+      case "fuel":
+        clickedButton.current = { fuel: key };
+        break;
+    }
+    setBounds({
+      north: stop.lat() + 0.1,
+      south: stop.lat() - 0.1,
+      east: stop.lng() + 0.1,
+      west: stop.lng() - 0.1,
+    });
+    console.log(clickedButton.current);
+  }
+
   return (
     <>
       <div className="buttonStops">
@@ -16,16 +38,7 @@ export default function ButtonsStops({
           ""
         )}
         {locationStopsDist.current.map((stopDist, key) => (
-          <button
-            onClick={() =>
-              setBounds({
-                north: stopDist.lat() + 0.1,
-                south: stopDist.lat() - 0.1,
-                east: stopDist.lng() + 0.1,
-                west: stopDist.lng() - 0.1,
-              })
-            }
-          >
+          <button onClick={() => onClick(stopDist, key, "distance")}>
             {" "}
             Search on Stop #{key + 1}
           </button>
@@ -36,16 +49,7 @@ export default function ButtonsStops({
           ""
         )}
         {locationStopsTime.current.map((stopTime, key) => (
-          <button
-            onClick={() =>
-              setBounds({
-                north: stopTime.lat() + 0.1,
-                south: stopTime.lat() - 0.1,
-                east: stopTime.lng() + 0.1,
-                west: stopTime.lng() - 0.1,
-              })
-            }
-          >
+          <button onClick={() => onClick(stopTime, key, "time")}>
             {" "}
             Search on Stop #{key + 1}
           </button>
@@ -56,16 +60,7 @@ export default function ButtonsStops({
           ""
         )}
         {locationStopsFuel.current.map((stopFuel, key) => (
-          <button
-            onClick={() =>
-              setBounds({
-                north: stopFuel.lat() + 0.1,
-                south: stopFuel.lat() - 0.1,
-                east: stopFuel.lng() + 0.1,
-                west: stopFuel.lng() - 0.1,
-              })
-            }
-          >
+          <button onClick={() => onClick(stopFuel, key, "fuel")}>
             {" "}
             Search on Stop #{key + 1}
           </button>

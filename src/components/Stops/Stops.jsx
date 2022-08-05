@@ -77,7 +77,7 @@ export default function Stops({
     <div className="stopsLocations">
       <h1>Recommended Places</h1>
       {locationMinDist.map((search, key) => (
-        <p>{JSON.stringify(search)}</p>
+        <p key={key}>{JSON.stringify(search)}</p>
       ))}
     </div>
   );

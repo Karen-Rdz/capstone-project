@@ -37,6 +37,7 @@ function Map({
   const locationStopsDist = React.useRef([]);
   const locationStopsTime = React.useRef([]);
   const locationStopsFuel = React.useRef([]);
+  const clickedButton = React.useRef();
 
   let count = React.useRef(0);
   const directionsCallback = (res) => {
@@ -121,9 +122,7 @@ function Map({
         }
       }
       return stopsLocation;
-    } else {
-      return [];
-    }
+    } else return [];
   }
 
   return (
@@ -133,6 +132,7 @@ function Map({
         locationStopsTime={locationStopsTime}
         locationStopsFuel={locationStopsFuel}
         setBounds={setBounds}
+        clickedButton={clickedButton}
       />
       <LoadScript googleMapsApiKey={key} libraries={lib}>
         <GoogleMap
@@ -220,6 +220,7 @@ function Map({
           locations={locations}
           locationMinDist={locationMinDist}
           setLocationMinDist={setLocationMinDist}
+          clickedButton={clickedButton}
         />
         <Summary stops={stops} setStops={setStops} />
       </div>
