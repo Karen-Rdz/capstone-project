@@ -134,84 +134,83 @@ function Map({
         setBounds={setBounds}
         clickedButton={clickedButton}
       />
-      <LoadScript googleMapsApiKey={key} libraries={lib}>
-        <GoogleMap
-          ref={(map) => {
-            setMap(map);
-          }}
-          id="planner-map"
-          mapContainerStyle={{
-            height: "450px",
-            width: "1000px",
-          }}
-          onDblClick={() => {
-            setBounds({
-              north: map.state.map.center.lat() + 0.1,
-              south: map.state.map.center.lat() - 0.1,
-              east: map.state.map.center.lng() + 0.1,
-              west: map.state.map.center.lng() - 0.1,
-            });
-          }}
+      <GoogleMap
+        ref={(map) => {
+          setMap(map);
+        }}
+        id="planner-map"
+        mapContainerStyle={{
+          height: "450px",
+          width: "1000px",
+        }}
+        onDblClick={() => {
+          clickedButton.current = { other: 0 };
+          setBounds({
+            north: map.state.map.center.lat() + 0.1,
+            south: map.state.map.center.lat() - 0.1,
+            east: map.state.map.center.lng() + 0.1,
+            west: map.state.map.center.lng() - 0.1,
+          });
+        }}
+      >
+        {destination !== "" && origin !== "" && (
+          <DirectionsService
+            options={{
+              destination: destination.name,
+              origin: origin.name,
+              travelMode: "DRIVING",
+            }}
+            callback={(e) => directionsCallback(e)}
+          />
+        )}
+        {response !== null && (
+          <DirectionsRenderer
+            onDirectionsChanged={() => calculateStopsLocation()}
+            options={{
+              directions: response,
+            }}
+          />
+        )}
+        <StandaloneSearchBox
+          onLoad={onLoad}
+          bounds={bounds}
+          onPlacesChanged={onPlacesChanged}
         >
-          {destination !== "" && origin !== "" && (
-            <DirectionsService
-              options={{
-                destination: destination.name,
-                origin: origin.name,
-                travelMode: "DRIVING",
-              }}
-              callback={(e) => directionsCallback(e)}
-            />
-          )}
-          {response !== null && (
-            <DirectionsRenderer
-              onDirectionsChanged={() => calculateStopsLocation()}
-              options={{
-                directions: response,
-              }}
-            />
-          )}
-          <StandaloneSearchBox
-            onLoad={onLoad}
-            bounds={bounds}
-            onPlacesChanged={onPlacesChanged}
-          >
-            <input
-              className="inputPlaces"
-              type="text"
-              placeholder="Search"
-              style={{
-                boxSizing: `border-box`,
-                border: `1px solid transparent`,
-                width: `240px`,
-                height: `32px`,
-                padding: `0 12px`,
-                borderRadius: `3px`,
-                boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
-                fontSize: `14px`,
-                outline: `none`,
-                textOverflow: `ellipses`,
-                position: "absolute",
-                left: "50%",
-                marginLeft: "-120px",
-              }}
-            />
-          </StandaloneSearchBox>
-          <Circles
-            locationsDist={locationStopsDist.current}
-            locationsTime={locationStopsTime.current}
-            locationsFuel={locationStopsFuel.current}
-          ></Circles>
-          {locations.map((item) => (
-            <MarkerInfo
-              position={item}
-              stops={stops}
-              setStops={setStops}
-              isAddStopsActivated={true}
-            />
-          ))}
-        </GoogleMap>
-      </LoadScript>
+          <input
+            className="inputPlaces"
+            type="text"
+            placeholder="Search"
+            style={{
+              boxSizing: `border-box`,
+              border: `1px solid transparent`,
+              width: `240px`,
+              height: `32px`,
+              padding: `0 12px`,
+              borderRadius: `3px`,
+              boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+              fontSize: `14px`,
+              outline: `none`,
+              textOverflow: `ellipses`,
+              position: "absolute",
+              left: "50%",
+              marginLeft: "-120px",
+            }}
+          />
+        </StandaloneSearchBox>
+        <Circles
+          locationsDist={locationStopsDist.current}
+          locationsTime={locationStopsTime.current}
+          locationsFuel={locationStopsFuel.current}
+        ></Circles>
+        {locations.map((item) => (
+          <MarkerInfo
+            position={item}
+            stops={stops}
+            setStops={setStops}
+            isAddStopsActivated={true}
+          />
+        ))}
+      </GoogleMap>
       <div>
         <Stops
           locationStopsDist={locationStopsDist}
@@ -221,6 +220,8 @@ function Map({
           locationMinDist={locationMinDist}
           setLocationMinDist={setLocationMinDist}
           clickedButton={clickedButton}
+          stops={stops}
+          setStops={setStops}
         />
         <Summary stops={stops} setStops={setStops} />
       </div>

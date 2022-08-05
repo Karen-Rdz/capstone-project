@@ -19,6 +19,9 @@ export default function ButtonsStops({
       case "fuel":
         clickedButton.current = { fuel: key };
         break;
+      default:
+        clickedButton.current = { other: 0 };
+        break;
     }
     setBounds({
       north: stop.lat() + 0.1,
@@ -26,7 +29,6 @@ export default function ButtonsStops({
       east: stop.lng() + 0.1,
       west: stop.lng() - 0.1,
     });
-    console.log(clickedButton.current);
   }
 
   return (
@@ -38,7 +40,10 @@ export default function ButtonsStops({
           ""
         )}
         {locationStopsDist.current.map((stopDist, key) => (
-          <button onClick={() => onClick(stopDist, key, "distance")}>
+          <button
+            className="buttonStop"
+            onClick={() => onClick(stopDist, key, "distance")}
+          >
             {" "}
             Search on Stop #{key + 1}
           </button>
@@ -49,7 +54,10 @@ export default function ButtonsStops({
           ""
         )}
         {locationStopsTime.current.map((stopTime, key) => (
-          <button onClick={() => onClick(stopTime, key, "time")}>
+          <button
+            className="buttonStop"
+            onClick={() => onClick(stopTime, key, "time")}
+          >
             {" "}
             Search on Stop #{key + 1}
           </button>
@@ -60,7 +68,10 @@ export default function ButtonsStops({
           ""
         )}
         {locationStopsFuel.current.map((stopFuel, key) => (
-          <button onClick={() => onClick(stopFuel, key, "fuel")}>
+          <button
+            className="buttonStop"
+            onClick={() => onClick(stopFuel, key, "fuel")}
+          >
             {" "}
             Search on Stop #{key + 1}
           </button>

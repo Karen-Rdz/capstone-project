@@ -28,7 +28,7 @@ Web app that help you plan your trip and all the neccesary stops. You can visual
 - [x] User can visualize a progress bar
 - [x] User can see the map and edit saved trip
 - [x] User can see where to stop on the map
-- [ ] User can know which establishment is recommended to take deppending on distance to the route
+- [x] User can know which establishment is recommended to take deppending on distance to the route for each stop
 
 ## Wireframes
 

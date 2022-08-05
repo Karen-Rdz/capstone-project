@@ -1,5 +1,6 @@
 import * as React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { LoadScript } from "@react-google-maps/api";
 import Finish from "./components/Finish/Finish";
 import Header from "./components/Header/Header";
 import Login from './components/Login/Login';
@@ -16,6 +17,8 @@ function App() {
   const [stopsDist, setStopsDist] = React.useState(0);
   const [stopsTime, setStopsTime] = React.useState(0);
   const [stopsFuel, setStopsFuel] = React.useState(0);
+  const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
+  const lib = ["places", "geometry", "drawing"];
   return (
     <div className='app'>
       <BrowserRouter>
@@ -28,11 +31,19 @@ function App() {
           />
           <Route
             path="/route"
-            element={ <NumberStops origin={origin} setOrigin={setOrigin} destination={destination} setDestination={setDestination} stopsTime={stopsTime} setStopsTime={setStopsTime} stopsDist={stopsDist} setStopsDist={setStopsDist} stopsFuel={stopsFuel} setStopsFuel={setStopsFuel}/>}
+            element={ 
+              <LoadScript googleMapsApiKey={key} libraries={lib}>
+              <NumberStops origin={origin} setOrigin={setOrigin} destination={destination} setDestination={setDestination} stopsTime={stopsTime} setStopsTime={setStopsTime} stopsDist={stopsDist} setStopsDist={setStopsDist} stopsFuel={stopsFuel} setStopsFuel={setStopsFuel}/>
+              </LoadScript>
+            }
           />
           <Route
             path="/planner"
-            element={ <Planner origin={origin} destination={destination} user={user} stopsTime={stopsTime} stopsDist={stopsDist} stopsFuel={stopsFuel} stops={stops} setStops={setStops}/> }
+            element={ 
+              <LoadScript googleMapsApiKey={key} libraries={lib}>
+            <Planner origin={origin} destination={destination} user={user} stopsTime={stopsTime} stopsDist={stopsDist} stopsFuel={stopsFuel} stops={stops} setStops={setStops}/> 
+            </LoadScript>
+            }
           />
           <Route
             path="/summary"

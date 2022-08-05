@@ -1,0 +1,26 @@
+.buttonStop{
+    margin-bottom: 2%;
+    margin-left: 5px;
+    background-color: #363636;
+    border-color: transparent;
+    color: #fff;
+    cursor: pointer;
+    justify-content: center;
+    padding-bottom: calc(.5em - 1px);
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: calc(.5em - 1px);
+    text-align: center;
+    white-space: nowrap;
+    border-radius: 5px;
+    height: 35px;
+}
+
+.buttonStop:hover {
+    background-color: #575757;
+}
+
+.buttonStop:active {
+    background-color: #575757;
+    transform: translateY(1px);
+}
