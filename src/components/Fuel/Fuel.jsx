@@ -40,7 +40,6 @@ export default function Fuel({ distance, stopsFuel, setStopsFuel }) {
       }
     } catch (err) {
       alert("Error getting car information");
-      console.log(err);
     }
   }
   return (

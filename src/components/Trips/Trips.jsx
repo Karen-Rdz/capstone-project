@@ -24,7 +24,7 @@ export default function Trips({
         const res = await axios.get("http://localhost:3001/trips");
         setTrips(res.data.trips);
       } catch (err) {
-        console.log(err);
+        alert("Can not get information for trips");
       }
     }
     fetchTrips();
@@ -39,7 +39,7 @@ export default function Trips({
           res.data.sessions[0].user,
         ]);
       } catch (err) {
-        console.log(err);
+        alert("Can not get information of users");
       }
     }
     fetchCurrentUser();

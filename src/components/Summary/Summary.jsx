@@ -15,7 +15,7 @@ export default function Summary({ stops, setStops }) {
         {stops.length > 0 ? (
           stops.map((stop, index) => (
             <>
-              <h3>Stops #{index + 1}</h3>
+              <h3>Stop #{index + 1}</h3>
               <p className="infoStopSummary">
                 <b>Name: </b>
                 {stop.name} <br />

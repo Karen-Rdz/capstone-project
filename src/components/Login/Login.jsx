@@ -50,7 +50,6 @@ export default function Login({ setUser }) {
       navigate(`../route`);
     } catch (err) {
       alert("User not in the system. Please create an account");
-      console.log(err);
     }
   }
   return (

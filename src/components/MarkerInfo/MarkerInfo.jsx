@@ -48,32 +48,30 @@ export default function MarkerInfo({
           options={{ closeBoxURL: "", enableEventPropagation: true }}
           position={{ lat: position.lat, lng: position.lng }}
         >
-          <div style={{ backgroundColor: "white", opacity: 0.8, padding: 5 }}>
-            <div style={{ fontSize: 12, fontColor: `#08233B` }}>
-              <p>
-                <b>Name: </b>
-                {position.name} <br />
-                <b>Address: </b>
-                {position.address} <br />
-                <b>Lat: </b>
-                {position.lat}, <b> Lng: </b> {position.lng} <br />
-                <b>Rating: </b>
-                {position.rating}
-              </p>
-              <Icon
-                className="infoBoxCloseButton"
-                icon="ep:circle-close"
-                onClick={handleCloseCall}
-              />
-              {isAddStopsActivated ? (
-                <button className="addStopButton" onClick={addStop}>
-                  <Icon className="infoBoxAddStop" icon="akar-icons:plus" />
-                  Add Stop
-                </button>
-              ) : (
-                ""
-              )}
-            </div>
+          <div className="infoBox">
+            <p>
+              <b>Name: </b>
+              {position.name} <br />
+              <b>Address: </b>
+              {position.address} <br />
+              <b>Lat: </b>
+              {position.lat}, <b> Lng: </b> {position.lng} <br />
+              <b>Rating: </b>
+              {position.rating}
+            </p>
+            <Icon
+              className="infoBoxCloseButton"
+              icon="ep:circle-close"
+              onClick={handleCloseCall}
+            />
+            {isAddStopsActivated ? (
+              <button className="addStopButton" onClick={addStop}>
+                <Icon className="infoBoxAddStop" icon="akar-icons:plus" />
+                Add Stop
+              </button>
+            ) : (
+              ""
+            )}
           </div>
         </InfoBox>
       )}
