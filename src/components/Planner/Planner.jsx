@@ -36,7 +36,6 @@ export default function Planner({
       alert("Trip saved successfully");
     } catch (err) {
       alert("Error saving trip");
-      console.log(err);
     }
   }
 

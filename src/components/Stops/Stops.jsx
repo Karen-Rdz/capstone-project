@@ -6,13 +6,13 @@ export default function Stops({
   locationStopsFuel,
   locations,
   locationMinDist,
+  setLocationMinDist,
 }) {
   const locationsArray = React.useRef([]);
   const locationsStopsDistArray = React.useRef([]);
   const responseArray = React.useRef([]);
   const size = React.useRef(0);
   const searchCount = React.useRef(-1);
-  const [placesMinDist, setPlacesMinDist] = React.useState();
   const minDistStop = {};
 
   React.useEffect(() => {
@@ -48,9 +48,10 @@ export default function Stops({
         responseArray.current.push(response);
         searchCount.current = searchCount.current + 1;
         closestStop();
-        locationMinDist[0].push(minDistStop);
-        setPlacesMinDist(locationMinDist[0]);
-        console.log(placesMinDist);
+        setLocationMinDist((locationMinDist) => [
+          ...locationMinDist,
+          minDistStop,
+        ]);
       }
     }
   }, [locations]);
@@ -75,21 +76,9 @@ export default function Stops({
   return (
     <div className="stopsLocations">
       <h1>Recommended Places</h1>
-      <p>{JSON.stringify(placesMinDist)}</p>
-      {/* {placesMinDist.map((search) =>
-        search.map((stop) => (
-          <p className="infoStopSummary">
-            <b>Name: </b>
-            {stop.name} <br />
-            <b>Address: </b>
-            {stop.address} <br />
-            <b>Lat: </b>
-            {stop.lat}, <b> Lng: </b> {stop.lng} <br />
-            <b>Rating: </b>
-            {stop.rating}
-          </p>
-        ))
-      )} */}
+      {locationMinDist.map((search, key) => (
+        <p>{JSON.stringify(search)}</p>
+      ))}
     </div>
   );
 }

@@ -17,7 +17,6 @@ export default function Finish({ user, origin, destination, stops }) {
       Lat: ${stop.lat} Lng: ${stop.lng}` +
       "\r ";
   });
-  console.log(stopsString);
 
   const params = {
     user_email: email,
@@ -38,7 +37,6 @@ export default function Finish({ user, origin, destination, stops }) {
         },
         (error) => {
           alert("Error sending email");
-          console.log(error.text);
         }
       );
   };

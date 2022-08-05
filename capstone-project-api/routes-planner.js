@@ -80,23 +80,4 @@ router.get('/sessions', async (req, res) => {
   }
 })
 
-// router.get('/car', async (req, res) => {
-//   try {
-//     var model = 'camry'
-//     request.get({
-//       url: 'https://api.api-ninjas.com/v1/cars?model=' + model,
-//       headers: {
-//         'X-Api-Key': 'XkKmtJT6fLu6sOwk0sYbiw==eR2WclEvgj8OZfvx'
-//       },
-//     }, function(error, response, body) {
-//       if(error) return console.error('Request failed:', error);
-//       else if(response.statusCode != 200) return console.error('Error:', response.statusCode, body.toString('utf8'));
-//       else console.log(body)
-//     });    
-//   } catch (error) {
-//     res.status(400)
-//     res.send({"error" : "Sessions query failed: " + error })
-//   }
-// })
-
 module.exports = router

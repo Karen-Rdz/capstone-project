@@ -5,11 +5,12 @@ import {
   DirectionsService,
   DirectionsRenderer,
   StandaloneSearchBox,
-  Circle,
 } from "@react-google-maps/api";
 import MarkerInfo from "../MarkerInfo/MarkerInfo";
 import Summary from "../Summary/Summary";
 import Stops from "../Stops/Stops";
+import Circles from "../Circles/Circles";
+import ButtonsStops from "../ButtonsStops/ButtonsStops";
 
 function Map({
   origin,
@@ -32,7 +33,7 @@ function Map({
     east: origin.geometry.location.lng(),
     west: destination.geometry.location.lng(),
   });
-  const locationMinDist = React.useState([]);
+  const [locationMinDist, setLocationMinDist] = React.useState([]);
   const locationStopsDist = React.useRef([]);
   const locationStopsTime = React.useRef([]);
   const locationStopsFuel = React.useRef([]);
@@ -61,19 +62,29 @@ function Map({
       let lat = places[i].geometry.location.lat;
       let lng = places[i].geometry.location.lng;
       let type = places[i].types[0];
-      if (type === "gas_station") {
-        color = "red";
-      } else if (type === "lodging") {
-        color = "blue";
-      } else if (
-        type === "restaurant" ||
-        type === "bar" ||
-        type === "cafe" ||
-        type === "meal_delivery"
-      ) {
-        color = "green";
-      } else {
-        color = "yellow";
+
+      switch (type) {
+        case "gas_station":
+          color = "red";
+          break;
+        case "lodging":
+          color = "blue";
+          break;
+        case "restaurant":
+          color = "green";
+          break;
+        case "bar":
+          color = "green";
+          break;
+        case "cafe":
+          color = "green";
+          break;
+        case "meal_delivery":
+          color = "green";
+          break;
+        default:
+          color = "yellow";
+          break;
       }
 
       let position = {
@@ -92,47 +103,37 @@ function Map({
   function calculateStopsLocation() {
     if (response) {
       let route = response.routes[0].overview_path;
-      if (stopsDist > 0) {
-        let fragment = Math.floor(route.length / (stopsDist + 1));
-        let start = 0;
-        let stopsLocation = [];
-        for (let i = 0; i < stopsDist; i++) {
-          if (route[start + fragment] !== undefined) {
-            stopsLocation.push(route[start + fragment]);
-            start += fragment;
-          }
+      locationStopsDist.current = calculateStops(stopsDist, route);
+      locationStopsTime.current = calculateStops(stopsTime, route);
+      locationStopsFuel.current = calculateStops(stopsFuel, route);
+    }
+  }
+
+  function calculateStops(stopsArray, route) {
+    if (stopsArray > 0) {
+      let fragment = Math.floor(route.length / (stopsArray + 1));
+      let start = 0;
+      let stopsLocation = [];
+      for (let i = 0; i < stopsArray; i++) {
+        if (route[start + fragment] !== undefined) {
+          stopsLocation.push(route[start + fragment]);
+          start += fragment;
         }
-        locationStopsDist.current = stopsLocation;
       }
-      if (stopsTime > 0) {
-        let fragment = Math.floor(route.length / (stopsTime + 1));
-        let start = 0;
-        let stopsLocation = [];
-        for (let i = 0; i < stopsTime; i++) {
-          if (route[start + fragment] !== undefined) {
-            stopsLocation.push(route[start + fragment]);
-            start += fragment;
-          }
-        }
-        locationStopsTime.current = stopsLocation;
-      }
-      if (stopsFuel > 0) {
-        let fragment = Math.floor(route.length / (stopsFuel + 1));
-        let start = 0;
-        let stopsLocation = [];
-        for (let i = 0; i < stopsFuel; i++) {
-          if (route[start + fragment] !== undefined) {
-            stopsLocation.push(route[start + fragment]);
-            start += fragment;
-          }
-        }
-        locationStopsFuel.current = stopsLocation;
-      }
+      return stopsLocation;
+    } else {
+      return [];
     }
   }
 
   return (
     <>
+      <ButtonsStops
+        locationStopsDist={locationStopsDist}
+        locationStopsTime={locationStopsTime}
+        locationStopsFuel={locationStopsFuel}
+        setBounds={setBounds}
+      />
       <LoadScript googleMapsApiKey={key} libraries={lib}>
         <GoogleMap
           ref={(map) => {
@@ -176,6 +177,7 @@ function Map({
             onPlacesChanged={onPlacesChanged}
           >
             <input
+              className="inputPlaces"
               type="text"
               placeholder="Search"
               style={{
@@ -195,62 +197,11 @@ function Map({
               }}
             />
           </StandaloneSearchBox>
-          {locationStopsDist.current.map((item) => (
-            <>
-              <Circle
-                center={{ lat: item.lat(), lng: item.lng() }}
-                options={{
-                  strokeColor: "#FF0000",
-                  strokeOpacity: 0.8,
-                  strokeWeight: 2,
-                  fillColor: "#FF0000",
-                  fillOpacity: 0.35,
-                  clickable: false,
-                  draggable: false,
-                  editable: false,
-                  visible: true,
-                  radius: 2000,
-                  zIndex: 1,
-                }}
-              ></Circle>
-            </>
-          ))}
-          {locationStopsTime.current.map((item) => (
-            <Circle
-              center={{ lat: item.lat(), lng: item.lng() }}
-              options={{
-                strokeColor: "#0000FF",
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: "#0000FF",
-                fillOpacity: 0.35,
-                clickable: false,
-                draggable: false,
-                editable: false,
-                visible: true,
-                radius: 2000,
-                zIndex: 1,
-              }}
-            ></Circle>
-          ))}
-          {locationStopsFuel.current.map((item) => (
-            <Circle
-              center={{ lat: item.lat(), lng: item.lng() }}
-              options={{
-                strokeColor: "#00FF00",
-                strokeOpacity: 0.8,
-                strokeWeight: 2,
-                fillColor: "#00FF00",
-                fillOpacity: 0.35,
-                clickable: false,
-                draggable: false,
-                editable: false,
-                visible: true,
-                radius: 2000,
-                zIndex: 1,
-              }}
-            ></Circle>
-          ))}
+          <Circles
+            locationsDist={locationStopsDist.current}
+            locationsTime={locationStopsTime.current}
+            locationsFuel={locationStopsFuel.current}
+          ></Circles>
           {locations.map((item) => (
             <MarkerInfo
               position={item}
@@ -268,6 +219,7 @@ function Map({
           locationStopsFuel={locationStopsFuel}
           locations={locations}
           locationMinDist={locationMinDist}
+          setLocationMinDist={setLocationMinDist}
         />
         <Summary stops={stops} setStops={setStops} />
       </div>
