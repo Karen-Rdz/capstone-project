@@ -1,7 +1,6 @@
 import React from "react";
 import {
   GoogleMap,
-  LoadScript,
   DirectionsService,
   DirectionsRenderer,
   StandaloneSearchBox,
@@ -11,6 +10,7 @@ import Summary from "../Summary/Summary";
 import Stops from "../Stops/Stops";
 import Circles from "../Circles/Circles";
 import ButtonsStops from "../ButtonsStops/ButtonsStops";
+import { Icon } from "@iconify/react";
 
 function Map({
   origin,
@@ -21,18 +21,11 @@ function Map({
   stopsTime,
   stopsFuel,
 }) {
-  const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
-  const lib = ["places", "geometry", "drawing"];
   const [response, setResponse] = React.useState();
   const [query, setQuery] = React.useState();
   const [locations, setLocations] = React.useState([]);
   const [map, setMap] = React.useState();
-  const [bounds, setBounds] = React.useState({
-    north: origin.geometry.location.lat(),
-    south: destination.geometry.location.lat(),
-    east: origin.geometry.location.lng(),
-    west: destination.geometry.location.lng(),
-  });
+  const [bounds, setBounds] = React.useState();
   const [locationMinDist, setLocationMinDist] = React.useState([]);
   const locationStopsDist = React.useRef([]);
   const locationStopsTime = React.useRef([]);
@@ -125,6 +118,24 @@ function Map({
     } else return [];
   }
 
+  if (bounds === undefined) {
+    try {
+      setBounds({
+        north: origin.geometry.location.lat(),
+        south: destination.geometry.location.lat(),
+        east: origin.geometry.location.lng(),
+        west: destination.geometry.location.lng(),
+      });
+    } catch (error) {
+      setBounds({
+        north: origin.geometry.location.lat,
+        south: destination.geometry.location.lat,
+        east: origin.geometry.location.lng,
+        west: destination.geometry.location.lng,
+      });
+    }
+  }
+
   return (
     <>
       <ButtonsStops
@@ -134,6 +145,34 @@ function Map({
         setBounds={setBounds}
         clickedButton={clickedButton}
       />
+      <div className="services">
+        <Icon icon="akar-icons:circle-fill" className="blueCircle" /> Stops by
+        Time
+        <Icon icon="akar-icons:circle-fill" className="redCircle" /> Stops by
+        Distance
+        <Icon icon="akar-icons:circle-fill" className="greenCircle" /> Stops by
+        Fuel
+        <img
+          src="http://maps.google.com/mapfiles/ms/icons/red-dot.png"
+          alt="red-marker"
+        />{" "}
+        Gas Stations
+        <img
+          src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
+          alt="blue-marker"
+        />{" "}
+        Hotels
+        <img
+          src="http://maps.google.com/mapfiles/ms/icons/green-dot.png"
+          alt="greem-marker"
+        />{" "}
+        Restaurants
+        <img
+          src="http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
+          alt="yellow-marker"
+        />{" "}
+        Other
+      </div>
       <GoogleMap
         ref={(map) => {
           setMap(map);
@@ -153,7 +192,7 @@ function Map({
           });
         }}
       >
-        {destination !== "" && origin !== "" && (
+        {destination !== "" && origin !== "" ? (
           <DirectionsService
             options={{
               destination: destination.name,
@@ -162,14 +201,18 @@ function Map({
             }}
             callback={(e) => directionsCallback(e)}
           />
+        ) : (
+          ""
         )}
-        {response !== null && (
+        {response !== null ? (
           <DirectionsRenderer
             onDirectionsChanged={() => calculateStopsLocation()}
             options={{
               directions: response,
             }}
           />
+        ) : (
+          ""
         )}
         <StandaloneSearchBox
           onLoad={onLoad}
@@ -202,8 +245,9 @@ function Map({
           locationsTime={locationStopsTime.current}
           locationsFuel={locationStopsFuel.current}
         ></Circles>
-        {locations.map((item) => (
+        {locations.map((item, key) => (
           <MarkerInfo
+            key={key}
             position={item}
             stops={stops}
             setStops={setStops}

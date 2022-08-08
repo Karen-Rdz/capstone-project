@@ -69,6 +69,7 @@ export default function Stops({
           break;
         case "other":
           calculateDistance.current = false;
+          break;
         default:
           calculateDistance.current = false;
           break;
@@ -131,7 +132,7 @@ export default function Stops({
     <div className="stopsLocations">
       <h1>Recommended Places</h1>
       {locationMinDist.map((stop, key) => (
-        <>
+        <div key={key}>
           <h3>
             Stop of {stop.stopType} #{stop.stopIndex + 1}
           </h3>
@@ -149,7 +150,7 @@ export default function Stops({
             <Icon className="infoBoxAddStop" icon="akar-icons:plus" />
             Add Stop
           </button>
-        </>
+        </div>
       ))}
     </div>
   );

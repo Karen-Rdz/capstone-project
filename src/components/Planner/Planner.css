@@ -39,6 +39,11 @@
     margin-right: 10%;
 }
 
+.mapInstruccions{
+    /* padding-left: 10px; */
+    width: 60%;
+}
+
 .blueCircle{
     color: blue;
 }
@@ -110,7 +115,7 @@
 }
 
 .services{
-    margin-top: 2%;
+    margin-left: 10%;
     margin-bottom: 2%;
 }
 
