@@ -1,5 +1,6 @@
 import * as React from "react";
 import { Icon } from "@iconify/react";
+import "./Stops.css";
 
 export default function Stops({
   locationStopsDist,
@@ -131,6 +132,11 @@ export default function Stops({
   return (
     <div className="stopsLocations">
       <h1>Recommended Places</h1>
+      {locationMinDist.length === 0 ? (
+        <p className="noPlaces">No recommended places</p>
+      ) : (
+        ""
+      )}
       {locationMinDist.map((stop, key) => (
         <div key={key}>
           <h3>

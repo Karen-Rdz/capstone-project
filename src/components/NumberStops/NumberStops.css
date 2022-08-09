@@ -94,14 +94,14 @@ progress[value]::-webkit-progress-bar {
 }
 
 .originDestination{
+    font-size: large;
     display: flex;
     flex-direction: row;
-    margin-top: 11px;   
+    margin-top: 9px;   
     margin-left: 30px;
 }
 
 .category{
-    /* margin-top: 1%; */
     display: flex;
     flex-direction: row;
 }

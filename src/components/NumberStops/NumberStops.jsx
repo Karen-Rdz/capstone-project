@@ -5,6 +5,7 @@ import { Autocomplete } from "@react-google-maps/api";
 import Distance from "../Distance/Distance";
 import Time from "../Time/Time";
 import Fuel from "../Fuel/Fuel";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 export default function NumberStops({
   origin,
@@ -23,6 +24,8 @@ export default function NumberStops({
   const [distance, setDistance] = React.useState();
   const [time, setTime] = React.useState();
   const [fuelActivated, setFuelActivated] = React.useState(false);
+  const [toggleTime, setToggleTime] = React.useState(false);
+  const [toggleDist, setToggleDist] = React.useState(false);
 
   function onLoadOrigin(autocompleteOrigin) {
     setOriginInput(autocompleteOrigin);
@@ -129,16 +132,16 @@ export default function NumberStops({
         </p>
         <div className="category">
           <div className="time">
-            <input
-              className="inputRadio"
-              type="radio"
-              onClick={() => calculateDistance("time")}
-            />{" "}
-            Time
+            <ToggleSwitch
+              label="Time"
+              toggleVar={toggleTime}
+              setToggleVar={setToggleTime}
+            />
+            {toggleTime ? calculateDistance("time") : ""}
             <div className="infoStops">
-              {time ? (
+              {toggleTime ? (
                 <>
-                  <p> Time: {time.text}</p>
+                  <p> Total time: {time.text}</p>
                   <Time
                     time={time}
                     stopsTime={stopsTime}
@@ -151,14 +154,14 @@ export default function NumberStops({
             </div>
           </div>
           <div className="distance">
-            <input
-              className="inputRadio"
-              type="radio"
-              onClick={() => calculateDistance("distance")}
-            />{" "}
-            Distance
+            <ToggleSwitch
+              label="Distance"
+              toggleVar={toggleDist}
+              setToggleVar={setToggleDist}
+            />
+            {toggleDist ? calculateDistance("distance") : ""}
             <div className="infoStops">
-              {distance && !fuelActivated ? (
+              {distance && toggleDist ? (
                 <>
                   <p> Distance: {distance.text}</p>
                   <Distance
@@ -173,8 +176,12 @@ export default function NumberStops({
             </div>
           </div>
           <div className="fuel">
-            <input className="inputRadio" type="radio" onClick={fuelInput} />{" "}
-            Fuel
+            <ToggleSwitch
+              label="Fuel"
+              toggleVar={fuelActivated}
+              setToggleVar={setFuelActivated}
+            />
+            {fuelActivated && !distance ? calculateDistance("distance") : ""}
             <div className="infoStops">
               {fuelActivated ? (
                 <Fuel

@@ -86,7 +86,7 @@ export default function Login({ setUser }) {
         </div>
       </div>
       <div className="titleInstruccions">
-        <h2> Instruccions</h2>
+        <h2> How it works?</h2>
       </div>
       <div className="instruccions">
         <div className="step1">
@@ -108,19 +108,19 @@ export default function Login({ setUser }) {
         </div>
       </div>
       <div className="titleInformation">
-        <h2>Information</h2>
+        <h2>What is Road Trip Planner?</h2>
       </div>
       <div className="information">
         <p className="about">
-          This page will help you plan the necessary stops on your road trip.
-          When creating a trip, we recommend the number of stops needed
-          depending on the distance, time you decide to be driving or fuel
-          consumption depending on your car. With this in mind, an interactive
-          map will appear where you can visualize your route, where you need to
-          stop, and add different establishments such as gas stations or
-          restaurants, which will help you add stops at the places you choose.
-          At the end, you can save your route for future reference and send it
-          via email.
+          It is a web app that will help you plan the necessary stops on your
+          road trip. When creating a trip, we recommend the number of stops
+          needed depending on the distance, time you decide to be driving or
+          fuel consumption depending on your car. With this in mind, an
+          interactive map will appear where you can visualize your route, where
+          you need to stop, and add different establishments such as gas
+          stations or restaurants, which will help you add stops at the places
+          you choose. At the end, you can save your route for future reference
+          and send it via email.
         </p>
         <img className="road-img" src={road} alt="road" />
       </div>

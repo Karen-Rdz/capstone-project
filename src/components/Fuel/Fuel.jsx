@@ -44,52 +44,54 @@ export default function Fuel({ distance, stopsFuel, setStopsFuel }) {
   }
   return (
     <>
-      Type the information of your car <br />
-      <div className="carInformation">
-        <div className="leftInformation">
-          Maker:
-          <input
-            className="inputText"
-            placeholder="Maker"
-            onChange={(event) => setMaker(event.target.value)}
-          />
-          Year:
-          <input
-            className="inputText"
-            placeholder="Year"
-            onChange={(event) => setYear(event.target.value)}
-          />
-        </div>
-        <div className="rightInformation">
-          Model:
-          <input
-            className="inputText"
-            placeholder="Model"
-            onChange={(event) => setModel(event.target.value)}
-          />
-          Fuel tank capacity:
-          <input
-            className="inputText"
-            placeholder="Gallons"
-            onChange={(event) => setFuelCapacity(event.target.value)}
-          />
-        </div>
-      </div>
-      <button className="submitFuelButton" onClick={getFuel}>
-        Submit
-      </button>
-      {mpg > 0 ? (
-        <>
-          <div className="calculatedFuelInformation">
-            <p>MPG: {mpg}, </p>
-            <p> Total miles: {fuelInformation.totalMiles}, </p>
-            <p> Gallons nedded: {fuelInformation.galonsNeeded}</p>
+      <div className="fuelInformation">
+        Type the information of your car <br />
+        <div className="carInformation">
+          <div className="leftInformation">
+            Maker:
+            <input
+              className="inputText"
+              placeholder="Maker"
+              onChange={(event) => setMaker(event.target.value)}
+            />
+            Year:
+            <input
+              className="inputText"
+              placeholder="Year"
+              onChange={(event) => setYear(event.target.value)}
+            />
           </div>
-          <h4>Number of Stops recommended: {fuelInformation.stops} </h4>
-        </>
-      ) : (
-        <p></p>
-      )}
+          <div className="rightInformation">
+            Model:
+            <input
+              className="inputText"
+              placeholder="Model"
+              onChange={(event) => setModel(event.target.value)}
+            />
+            Fuel tank capacity:
+            <input
+              className="inputText"
+              placeholder="Gallons"
+              onChange={(event) => setFuelCapacity(event.target.value)}
+            />
+          </div>
+        </div>
+        <button className="submitFuelButton" onClick={getFuel}>
+          Submit
+        </button>
+        {mpg > 0 ? (
+          <>
+            <div className="calculatedFuelInformation">
+              <p>MPG: {mpg}, </p>
+              <p> Total miles: {fuelInformation.totalMiles}, </p>
+              <p> Gallons nedded: {fuelInformation.galonsNeeded}</p>
+            </div>
+            <h4>Number of Stops recommended: {fuelInformation.stops} </h4>
+          </>
+        ) : (
+          <p></p>
+        )}
+      </div>
     </>
   );
 }
