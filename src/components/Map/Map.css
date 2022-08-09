@@ -1,0 +1,41 @@
+.blueCircle{
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    border-style: solid;
+    background-color: rgb(140, 140, 247);
+    border-color: blue;
+    margin-right: 5px;
+}
+
+.blueCircle:active {
+    transform: translateY(1px);
+}
+
+.redCircle{
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    border-style: solid;
+    background-color: rgb(252, 131, 131);
+    border-color: red;
+    margin-right: 5px;
+}
+
+.redCircle:active {
+    transform: translateY(1px);
+}
+
+.greenCircle{
+    height: 20px;
+    width: 20px;
+    border-radius: 100%;
+    border-style: solid;
+    background-color: rgb(145, 211, 145);
+    border-color: green;
+    margin-right: 5px;
+}
+
+.greenCircle:active {
+    transform: translateY(1px);
+}

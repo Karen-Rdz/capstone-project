@@ -139,7 +139,7 @@ export default function NumberStops({
             />
             {toggleTime ? calculateDistance("time") : ""}
             <div className="infoStops">
-              {toggleTime ? (
+              {toggleTime && time ? (
                 <>
                   <p> Total time: {time.text}</p>
                   <Time

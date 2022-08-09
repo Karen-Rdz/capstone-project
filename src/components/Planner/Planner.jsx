@@ -78,7 +78,11 @@ export default function Planner({
           </div>
         </div>
         <div className="mapInstruccions">
-          <p>1. Set where to search</p>
+          <p>
+            1. Click on the blue, red or green circles to display the
+            recommended location to stop
+          </p>
+          <p>2. Set where to search</p>
           <ul className="listInstruccions">
             <li> Click on a button to search on a specific stop location</li>
             <li>
@@ -88,8 +92,8 @@ export default function Planner({
               the search.
             </li>
           </ul>
-          <p>2. Use the search bar to find the places you want to stop</p>
-          <p>3. Repeat the process as many times as necessary</p>
+          <p>3. Use the search bar to find the places you want to stop</p>
+          <p>4. Repeat the process as many times as necessary</p>
         </div>
         <div className="map">
           <Map
