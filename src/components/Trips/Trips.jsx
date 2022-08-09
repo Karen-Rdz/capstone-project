@@ -64,7 +64,7 @@ export default function Trips({
                         <b>Origin: </b> {trip.trip.origin.name}{" "}
                         <b>Destination: </b> {trip.trip.destination.name}
                       </p>
-                      {trip.trip.stops.map((stop) => (
+                      {trip.trip.stops.map((stop, key) => (
                         <p>
                           <b>Name: </b>
                           {stop.name} <br />

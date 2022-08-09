@@ -1,3 +1,7 @@
+.fuelInformation{
+    margin-top: 15px;
+}
+
 .inputText{
     margin: 2px;
     padding-bottom: calc(.5em - 1px);

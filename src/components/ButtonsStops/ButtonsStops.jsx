@@ -41,6 +41,7 @@ export default function ButtonsStops({
         )}
         {locationStopsDist.current.map((stopDist, key) => (
           <button
+            key={key}
             className="buttonStop"
             onClick={() => onClick(stopDist, key, "distance")}
           >

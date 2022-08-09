@@ -8,10 +8,10 @@ export default function Circles({
 }) {
   return (
     <>
-      {locationsDist.map((item, key) => (
+      {locationsDist.map((item, key1) => (
         <>
           <Circle
-            key={key}
+            key={key1}
             center={{ lat: item.lat(), lng: item.lng() }}
             options={{
               strokeColor: "#FF0000",
@@ -29,9 +29,9 @@ export default function Circles({
           ></Circle>
         </>
       ))}
-      {locationsTime.map((item, key) => (
+      {locationsTime.map((item, key2) => (
         <Circle
-          key={key}
+          key={key2}
           center={{ lat: item.lat(), lng: item.lng() }}
           options={{
             strokeColor: "#0000FF",
@@ -48,9 +48,9 @@ export default function Circles({
           }}
         ></Circle>
       ))}
-      {locationsFuel.map((item, key) => (
+      {locationsFuel.map((item, key3) => (
         <Circle
-          key={key}
+          key={key3}
           center={{ lat: item.lat(), lng: item.lng() }}
           options={{
             strokeColor: "#00FF00",
