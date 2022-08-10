@@ -27,9 +27,9 @@ function Map({
   const [map, setMap] = React.useState();
   const [bounds, setBounds] = React.useState();
   const [locationMinDist, setLocationMinDist] = React.useState([]);
-  const [showCirclesTime, setShowCirclesTime] = React.useState(false);
-  const [showCirclesDist, setShowCirclesDist] = React.useState(false);
-  const [showCirclesFuel, setShowCirclesFuel] = React.useState(false);
+  const [showCirclesTime, setShowCirclesTime] = React.useState(true);
+  const [showCirclesDist, setShowCirclesDist] = React.useState(true);
+  const [showCirclesFuel, setShowCirclesFuel] = React.useState(true);
   const locationStopsDist = React.useRef([]);
   const locationStopsTime = React.useRef([]);
   const locationStopsFuel = React.useRef([]);

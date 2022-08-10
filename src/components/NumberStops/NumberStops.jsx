@@ -70,11 +70,6 @@ export default function NumberStops({
     }
   }
 
-  function fuelInput() {
-    setFuelActivated(true);
-    calculateDistance("distance");
-  }
-
   let navigate = useNavigate();
   function toPlanner() {
     navigate(`../planner`);

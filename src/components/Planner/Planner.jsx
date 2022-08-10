@@ -25,6 +25,8 @@ export default function Planner({
           user: user,
           origin: origin,
           destination: destination,
+          origin_image: origin.photos[0].getUrl(),
+          destination_image: destination.photos[0].getUrl(),
           stops: stops,
           stopsTime: stopsTime,
           stopsDist: stopsDist,
@@ -79,8 +81,8 @@ export default function Planner({
         </div>
         <div className="mapInstruccions">
           <p>
-            1. Click on the blue, red or green circles to display the
-            recommended location to stop
+            1. Click on the blue, red or green circles located above the map to
+            remove or display the recommended stopping locations on the map.
           </p>
           <p>2. Set where to search</p>
           <ul className="listInstruccions">

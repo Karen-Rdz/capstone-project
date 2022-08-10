@@ -8,6 +8,10 @@
     margin-right: 5px;
 }
 
+.blueCircle:hover {
+    background-color: blue;
+}
+
 .blueCircle:active {
     transform: translateY(1px);
 }
@@ -22,6 +26,10 @@
     margin-right: 5px;
 }
 
+.redCircle:hover {
+    background-color: red;
+}
+
 .redCircle:active {
     transform: translateY(1px);
 }
@@ -34,6 +42,10 @@
     background-color: rgb(145, 211, 145);
     border-color: green;
     margin-right: 5px;
+}
+
+.greenCircle:hover {
+    background-color: green;
 }
 
 .greenCircle:active {
