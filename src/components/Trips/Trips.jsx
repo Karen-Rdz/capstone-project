@@ -58,24 +58,46 @@ export default function Trips({
                 (
                   <>
                     <div className="tripCard">
-                      <h3>Trip #{count}</h3>
-                      <p>
-                        {" "}
-                        <b>Origin: </b> {trip.trip.origin.name}{" "}
-                        <b>Destination: </b> {trip.trip.destination.name}
-                      </p>
-                      {trip.trip.stops.map((stop, key) => (
-                        <p>
-                          <b>Name: </b>
-                          {stop.name} <br />
-                          <b>Address: </b>
-                          {stop.address} <br />
-                          <b>Lat: </b>
-                          {stop.lat}, <b> Lng: </b> {stop.lng} <br />
-                          <b>Rating: </b>
-                          {stop.rating}
-                        </p>
-                      ))}
+                      <div className="tripInformation">
+                        <div className="tripSummary">
+                          <h3>Trip #{count}</h3>
+                          <p>
+                            {" "}
+                            <b>Origin: </b> {trip.trip.origin.name}{" "}
+                            <b>Destination: </b> {trip.trip.destination.name}
+                          </p>
+                          {trip.trip.stops.map((stop, key) => (
+                            <p>
+                              <b>Name: </b>
+                              {stop.name} <br />
+                              <b>Address: </b>
+                              {stop.address} <br />
+                              <b>Lat: </b>
+                              {stop.lat}, <b> Lng: </b> {stop.lng} <br />
+                              <b>Rating: </b>
+                              {stop.rating}
+                            </p>
+                          ))}
+                        </div>
+                        <div className="images">
+                          <img
+                            className="tripImage"
+                            src={trip.trip.origin_image}
+                            alt={trip.trip.origin.name}
+                            style={{
+                              backgroundImage: `url(${trip.trip.origin_image})`,
+                            }}
+                          />
+                          <img
+                            className="tripImage"
+                            src={trip.trip.destination_image}
+                            alt={trip.trip.destination.name}
+                            style={{
+                              backgroundImage: `url(${trip.trip.destination_image})`,
+                            }}
+                          />
+                        </div>
+                      </div>
                       <EditTrip
                         origin={trip.trip.origin}
                         setOrigin={setOrigin}

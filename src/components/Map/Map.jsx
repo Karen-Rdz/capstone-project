@@ -10,7 +10,7 @@ import Summary from "../Summary/Summary";
 import Stops from "../Stops/Stops";
 import Circles from "../Circles/Circles";
 import ButtonsStops from "../ButtonsStops/ButtonsStops";
-import { Icon } from "@iconify/react";
+import "./Map.css";
 
 function Map({
   origin,
@@ -27,6 +27,9 @@ function Map({
   const [map, setMap] = React.useState();
   const [bounds, setBounds] = React.useState();
   const [locationMinDist, setLocationMinDist] = React.useState([]);
+  const [showCirclesTime, setShowCirclesTime] = React.useState(true);
+  const [showCirclesDist, setShowCirclesDist] = React.useState(true);
+  const [showCirclesFuel, setShowCirclesFuel] = React.useState(true);
   const locationStopsDist = React.useRef([]);
   const locationStopsTime = React.useRef([]);
   const locationStopsFuel = React.useRef([]);
@@ -146,12 +149,21 @@ function Map({
         clickedButton={clickedButton}
       />
       <div className="services">
-        <Icon icon="akar-icons:circle-fill" className="blueCircle" /> Stops by
-        Time
-        <Icon icon="akar-icons:circle-fill" className="redCircle" /> Stops by
-        Distance
-        <Icon icon="akar-icons:circle-fill" className="greenCircle" /> Stops by
-        Fuel
+        <button
+          className="blueCircle"
+          onClick={() => setShowCirclesTime(!showCirclesTime)}
+        ></button>
+        Stops by Time
+        <button
+          className="redCircle"
+          onClick={() => setShowCirclesDist(!showCirclesDist)}
+        ></button>{" "}
+        Stops by Distance
+        <button
+          className="greenCircle"
+          onClick={() => setShowCirclesFuel(!showCirclesFuel)}
+        ></button>{" "}
+        Stops by Fuel
         <img
           src="http://maps.google.com/mapfiles/ms/icons/red-dot.png"
           alt="red-marker"
@@ -244,6 +256,9 @@ function Map({
           locationsDist={locationStopsDist.current}
           locationsTime={locationStopsTime.current}
           locationsFuel={locationStopsFuel.current}
+          showCirclesTime={showCirclesTime}
+          showCirclesDist={showCirclesDist}
+          showCirclesFuel={showCirclesFuel}
         ></Circles>
         {locations.map((item, key) => (
           <MarkerInfo

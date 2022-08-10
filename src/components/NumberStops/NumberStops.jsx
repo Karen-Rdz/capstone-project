@@ -70,11 +70,6 @@ export default function NumberStops({
     }
   }
 
-  function fuelInput() {
-    setFuelActivated(true);
-    calculateDistance("distance");
-  }
-
   let navigate = useNavigate();
   function toPlanner() {
     navigate(`../planner`);
@@ -139,7 +134,7 @@ export default function NumberStops({
             />
             {toggleTime ? calculateDistance("time") : ""}
             <div className="infoStops">
-              {toggleTime ? (
+              {toggleTime && time ? (
                 <>
                   <p> Total time: {time.text}</p>
                   <Time

@@ -4,8 +4,8 @@
 }
 .toggle-switch {
     position: relative;
-    width: 100px;
-    height: 30px;
+    width: 85px;
+    height: 27px;
     display: inline-block;
     text-align: left;
     top: 10px;
@@ -19,7 +19,7 @@
     cursor: pointer;
     border: 0 solid #bbb;
     border-radius: 20px;
-    font-size: medium;
+    font-size:small;
 }
 .inner {
     display: block;
@@ -31,9 +31,9 @@
     .inner:after {
     float: left;
     width: 50%;
-    height: 36px;
+    height: 30px;
     padding: 0;
-    line-height: 36px;
+    line-height: 30px;
     color: #fff;
     font-weight: bold;
     box-sizing: border-box;
@@ -53,13 +53,13 @@
 }
 .switch {
     display: block;
-    width: 28px;
+    width: 25px;
     margin: 1px;
     background: #fff;
     position: absolute;
-    top: 4px;
+    top: 2px;
     bottom: 0;
-    right: 65px;
+    right: 55px;
     border: 0 solid #bbb;
     border-radius: 20px;
     transition: all 0.3s ease-in 0s;
