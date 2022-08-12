@@ -1,10 +1,11 @@
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import "./NumberStops.css";
-import { LoadScript, Autocomplete } from "@react-google-maps/api";
+import { Autocomplete } from "@react-google-maps/api";
 import Distance from "../Distance/Distance";
 import Time from "../Time/Time";
 import Fuel from "../Fuel/Fuel";
+import ToggleSwitch from "../ToggleSwitch/ToggleSwitch";
 
 export default function NumberStops({
   origin,
@@ -23,9 +24,8 @@ export default function NumberStops({
   const [distance, setDistance] = React.useState();
   const [time, setTime] = React.useState();
   const [fuelActivated, setFuelActivated] = React.useState(false);
-
-  const key = "AIzaSyBRor9dsPY8WcfhoMvQM7bHbEXo-NsiUGc";
-  const lib = ["places", "geometry", "drawing"];
+  const [toggleTime, setToggleTime] = React.useState(false);
+  const [toggleDist, setToggleDist] = React.useState(false);
 
   function onLoadOrigin(autocompleteOrigin) {
     setOriginInput(autocompleteOrigin);
@@ -70,11 +70,6 @@ export default function NumberStops({
     }
   }
 
-  function fuelInput() {
-    setFuelActivated(true);
-    calculateDistance("distance");
-  }
-
   let navigate = useNavigate();
   function toPlanner() {
     navigate(`../planner`);
@@ -96,34 +91,32 @@ export default function NumberStops({
         )}
 
         <div className="trip">
-          <LoadScript googleMapsApiKey={key} libraries={lib}>
-            <div className="origin">
-              <b>Origin:</b>
-              <Autocomplete
-                onLoad={onLoadOrigin}
-                onPlaceChanged={() => onOriginChange()}
-              >
-                <input
-                  className="inputLocation"
-                  type="text"
-                  placeholder="Origin"
-                />
-              </Autocomplete>
-            </div>
-            <div className="destination">
-              <b>Destination:</b>
-              <Autocomplete
-                onLoad={onLoadDestination}
-                onPlaceChanged={() => onDestinationChange("destination")}
-              >
-                <input
-                  className="inputLocation"
-                  type="text"
-                  placeholder="Destination"
-                />
-              </Autocomplete>
-            </div>
-          </LoadScript>
+          <div className="origin">
+            <b>Origin:</b>
+            <Autocomplete
+              onLoad={onLoadOrigin}
+              onPlaceChanged={() => onOriginChange()}
+            >
+              <input
+                className="inputLocation"
+                type="text"
+                placeholder="Origin"
+              />
+            </Autocomplete>
+          </div>
+          <div className="destination">
+            <b>Destination:</b>
+            <Autocomplete
+              onLoad={onLoadDestination}
+              onPlaceChanged={() => onDestinationChange("destination")}
+            >
+              <input
+                className="inputLocation"
+                type="text"
+                placeholder="Destination"
+              />
+            </Autocomplete>
+          </div>
           <div className="originDestination">
             {origin ? <p>From: {origin.name}</p> : <p></p>}
             {destination ? <p>, To: {destination.name}</p> : <p></p>}
@@ -132,69 +125,71 @@ export default function NumberStops({
         <p>
           Choose a category to calculate the number of stops you should make
         </p>
-        <LoadScript googleMapsApiKey={key} libraries={lib}>
-          <div className="category">
-            <div className="time">
-              <input
-                className="inputRadio"
-                type="radio"
-                onClick={() => calculateDistance("time")}
-              />{" "}
-              Time
-              <div className="infoStops">
-                {time ? (
-                  <>
-                    <p> Time: {time.text}</p>
-                    <Time
-                      time={time}
-                      stopsTime={stopsTime}
-                      setStopsTime={setStopsTime}
-                    />
-                  </>
-                ) : (
-                  <p></p>
-                )}
-              </div>
-            </div>
-            <div className="distance">
-              <input
-                className="inputRadio"
-                type="radio"
-                onClick={() => calculateDistance("distance")}
-              />{" "}
-              Distance
-              <div className="infoStops">
-                {distance && !fuelActivated ? (
-                  <>
-                    <p> Distance: {distance.text}</p>
-                    <Distance
-                      distance={distance}
-                      stopsDist={stopsDist}
-                      setStopsDist={setStopsDist}
-                    />
-                  </>
-                ) : (
-                  <p></p>
-                )}
-              </div>
-            </div>
-            <div className="fuel">
-              <input className="inputRadio" type="radio" onClick={fuelInput} />{" "}
-              Fuel
-              <div className="infoStops">
-                {fuelActivated ? (
-                  <Fuel
-                    distance={distance}
-                    stopsFuel={stopsFuel}
-                    setStopsFuel={setStopsFuel}
+        <div className="category">
+          <div className="time">
+            <ToggleSwitch
+              label="Time"
+              toggleVar={toggleTime}
+              setToggleVar={setToggleTime}
+            />
+            {toggleTime ? calculateDistance("time") : ""}
+            <div className="infoStops">
+              {toggleTime && time ? (
+                <>
+                  <p> Total time: {time.text}</p>
+                  <Time
+                    time={time}
+                    stopsTime={stopsTime}
+                    setStopsTime={setStopsTime}
                   />
-                ) : (
-                  <p></p>
-                )}
-              </div>
+                </>
+              ) : (
+                <p></p>
+              )}
             </div>
           </div>
-        </LoadScript>
+          <div className="distance">
+            <ToggleSwitch
+              label="Distance"
+              toggleVar={toggleDist}
+              setToggleVar={setToggleDist}
+            />
+            {toggleDist ? calculateDistance("distance") : ""}
+            <div className="infoStops">
+              {distance && toggleDist ? (
+                <>
+                  <p> Distance: {distance.text}</p>
+                  <Distance
+                    distance={distance}
+                    stopsDist={stopsDist}
+                    setStopsDist={setStopsDist}
+                  />
+                </>
+              ) : (
+                <p></p>
+              )}
+            </div>
+          </div>
+          <div className="fuel">
+            <ToggleSwitch
+              label="Fuel"
+              toggleVar={fuelActivated}
+              setToggleVar={setFuelActivated}
+            />
+            {fuelActivated && !distance ? calculateDistance("distance") : ""}
+            <div className="infoStops">
+              {fuelActivated ? (
+                <Fuel
+                  distance={distance}
+                  stopsFuel={stopsFuel}
+                  setStopsFuel={setStopsFuel}
+                />
+              ) : (
+                <p></p>
+              )}
+            </div>
+          </div>
+        </div>
         <button className="nextButton" onClick={toPlanner}>
           Next
         </button>

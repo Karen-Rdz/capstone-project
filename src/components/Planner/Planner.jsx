@@ -4,7 +4,6 @@ import "./Planner.css";
 import Map from "../Map/Map";
 import MapStops from "../MapStops/MapStops";
 import axios from "axios";
-import { Icon } from "@iconify/react";
 
 export default function Planner({
   origin,
@@ -26,6 +25,8 @@ export default function Planner({
           user: user,
           origin: origin,
           destination: destination,
+          origin_image: origin.photos[0].getUrl(),
+          destination_image: destination.photos[0].getUrl(),
           stops: stops,
           stopsTime: stopsTime,
           stopsDist: stopsDist,
@@ -36,7 +37,6 @@ export default function Planner({
       alert("Trip saved successfully");
     } catch (err) {
       alert("Error saving trip");
-      console.log(err);
     }
   }
 
@@ -73,48 +73,29 @@ export default function Planner({
           <div className="infoStopsTimeDistance">
             <h3>Stops recommended depending on:</h3>
             <p className="info">
-              <b> Time: </b> {stopsTime} <p></p>
-              <b> Distance: </b> {stopsDist} <p></p>
+              <b> Time: </b> {stopsTime}
+              <b> Distance: </b> {stopsDist}
               <b> Fuel: </b> {stopsFuel}
             </p>
           </div>
         </div>
         <div className="mapInstruccions">
           <p>
-            1. Zoom and/or drag the map until the location you want to search
-            for is in the center.{" "}
+            1. Click on the blue, red or green circles located above the map to
+            remove or display the recommended stopping locations on the map.
           </p>
-          <p>2. Double click to determine the center of the search.</p>
+          <p>2. Set where to search</p>
+          <ul className="listInstruccions">
+            <li> Click on a button to search on a specific stop location</li>
+            <li>
+              {" "}
+              Zoom and/or drag the map until the location you want to search for
+              is in the center. Then, double click to determine the center of
+              the search.
+            </li>
+          </ul>
           <p>3. Use the search bar to find the places you want to stop</p>
           <p>4. Repeat the process as many times as necessary</p>
-        </div>
-        <div className="services">
-          <Icon icon="akar-icons:circle-fill" className="blueCircle" /> Stops by
-          Time
-          <Icon icon="akar-icons:circle-fill" className="redCircle" /> Stops by
-          Distance
-          <Icon icon="akar-icons:circle-fill" className="greenCircle" /> Stops
-          by Fuel
-          <img
-            src="http://maps.google.com/mapfiles/ms/icons/red-dot.png"
-            alt="red-marker"
-          />{" "}
-          Gas Stations
-          <img
-            src="http://maps.google.com/mapfiles/ms/icons/blue-dot.png"
-            alt="blue-marker"
-          />{" "}
-          Hotels
-          <img
-            src="http://maps.google.com/mapfiles/ms/icons/green-dot.png"
-            alt="greem-marker"
-          />{" "}
-          Restaurants
-          <img
-            src="http://maps.google.com/mapfiles/ms/icons/yellow-dot.png"
-            alt="yellow-marker"
-          />{" "}
-          Other
         </div>
         <div className="map">
           <Map
